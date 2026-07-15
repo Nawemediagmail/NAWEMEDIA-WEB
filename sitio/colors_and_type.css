@@ -1,0 +1,265 @@
+/* ============================================================
+   NAWEMEDIA DESIGN SYSTEM — Colors & Typography
+   Importado desde el proyecto Claude Design "NAWEMEDIA Design System"
+   ============================================================ */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;900&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,900;1,700&display=swap');
+
+:root {
+
+  /* ── BASE COLORS ─────────────────────────────────────── */
+
+  /* Backgrounds */
+  --color-bg-base:       #0A0A0A;   /* Negro Mate — primary dark base */
+  --color-bg-card:       #111118;   /* Card background */
+  --color-bg-card-glass: rgba(15, 15, 25, 0.60); /* Glass card */
+  --color-bg-elevated:   #1A1A26;   /* Elevated surface */
+  --color-bg-overlay:    rgba(5, 5, 16, 0.90);   /* Full overlay */
+
+  /* Brand — Energy */
+  --color-red-inferno:   #C00000;   /* Rojo Inferno — dramatic energy */
+  --color-red-hot:       #FF1A1A;   /* Hot red — neon variant */
+  --color-gold-electric: #D4AF37;   /* Oro Eléctrico — premium marker */
+  --color-gold-bright:   #F59E0B;   /* Amber bright — UI CTA (amber-500) */
+  --color-gold-hover:    #D97706;   /* Amber hover (amber-600) */
+
+  /* Brand — Neon Palette (event/promo) */
+  --color-neon-pink:     #FF00AA;   /* Hot magenta */
+  --color-neon-cyan:     #00FFFF;   /* Electric cyan */
+  --color-neon-purple:   #8B00FF;   /* Electric purple */
+  --color-neon-blue:     #0066FF;   /* Electric blue */
+  --color-neon-yellow:   #FFD700;   /* Electric yellow */
+
+  /* Logo gradient stops */
+  --color-logo-grad-start: #0066FF;
+  --color-logo-grad-mid1:  #8B00FF;
+  --color-logo-grad-mid2:  #FF00AA;
+  --color-logo-grad-end:   #FFD700;
+
+  /* Text */
+  --color-text-primary:  #F1F5F9;   /* slate-100 */
+  --color-text-secondary:#CBD5E1;   /* slate-300 */
+  --color-text-muted:    #94A3B8;   /* slate-400 */
+  --color-text-faint:    #475569;   /* slate-600 */
+  --color-text-disabled: #334155;   /* slate-700 */
+
+  /* Borders */
+  --color-border-default: rgba(51, 65, 85, 1);   /* slate-700 */
+  --color-border-subtle:  rgba(30, 41, 59, 1);   /* slate-800 */
+  --color-border-active:  var(--color-gold-bright);
+  --color-border-glow:    rgba(245, 158, 11, 0.30); /* amber glow */
+
+  /* ── SEMANTIC COLORS ──────────────────────────────────── */
+
+  --color-primary:        var(--color-gold-bright);
+  --color-primary-hover:  var(--color-gold-hover);
+  --color-primary-text:   #0A0A0A;
+
+  --color-surface:        var(--color-bg-card);
+  --color-surface-glass:  var(--color-bg-card-glass);
+  --color-surface-raised: var(--color-bg-elevated);
+
+  --color-accent-event:   var(--color-red-inferno);
+  --color-accent-premium: var(--color-gold-electric);
+  --color-accent-neon:    var(--color-neon-pink);
+
+  --color-success:        #22C55E;
+  --color-error:          #EF4444;
+  --color-warning:        var(--color-gold-bright);
+
+  /* ── TYPOGRAPHY ──────────────────────────────────────── */
+
+  /* Font families */
+  --font-display:   'Bebas Neue', 'Anton', Impact, sans-serif;
+  --font-impact:    'Anton', 'Bebas Neue', Impact, sans-serif;
+  --font-heading:   'Oswald', 'Montserrat', sans-serif;
+  --font-ui:        'Inter', 'Montserrat', system-ui, sans-serif;
+  --font-body:      'Montserrat', 'Inter', system-ui, sans-serif;
+
+  /* Font sizes */
+  --text-2xs:   0.625rem;   /*  10px */
+  --text-xs:    0.75rem;    /*  12px */
+  --text-sm:    0.875rem;   /*  14px */
+  --text-base:  1rem;       /*  16px */
+  --text-lg:    1.125rem;   /*  18px */
+  --text-xl:    1.25rem;    /*  20px */
+  --text-2xl:   1.5rem;     /*  24px */
+  --text-3xl:   1.875rem;   /*  30px */
+  --text-4xl:   2.25rem;    /*  36px */
+  --text-5xl:   3rem;       /*  48px */
+  --text-6xl:   3.75rem;    /*  60px */
+  --text-7xl:   4.5rem;     /*  72px */
+  --text-8xl:   6rem;       /*  96px */
+  --text-9xl:   8rem;       /* 128px */
+
+  /* Letter spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight:   -0.025em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.05em;
+  --tracking-wider:   0.1em;
+  --tracking-widest:  0.2em;
+  --tracking-ultra:   0.4em;
+
+  /* Line heights */
+  --leading-none:   1;
+  --leading-tight:  1.1;
+  --leading-snug:   1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed:1.65;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+  --weight-black:   900;
+
+  /* ── SPACING ─────────────────────────────────────────── */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+
+  /* ── BORDER RADIUS ───────────────────────────────────── */
+  --radius-sm:   8px;    /* images, tags */
+  --radius-md:   12px;   /* inputs */
+  --radius-lg:   16px;   /* small buttons, chips */
+  --radius-xl:   20px;   /* large buttons */
+  --radius-2xl:  24px;   /* panels */
+  --radius-card: 40px;   /* signature card shape */
+  --radius-full: 9999px; /* pills, avatars */
+
+  /* ── SHADOWS ─────────────────────────────────────────── */
+  --shadow-sm:      0 2px 8px rgba(0,0,0,0.5);
+  --shadow-md:      0 8px 24px rgba(0,0,0,0.6);
+  --shadow-lg:      0 20px 60px rgba(0,0,0,0.7);
+  --shadow-xl:      0 35px 80px rgba(0,0,0,0.9);
+  --shadow-glow-gold: 0 0 40px rgba(245,158,11,0.15), 0 0 80px rgba(245,158,11,0.07);
+  --shadow-glow-red:  0 0 40px rgba(192,0,0,0.25),   0 0 80px rgba(192,0,0,0.10);
+  --shadow-glow-pink: 0 0 40px rgba(255,0,170,0.25), 0 0 80px rgba(255,0,170,0.10);
+  --shadow-glow-cyan: 0 0 40px rgba(0,255,255,0.20), 0 0 80px rgba(0,255,255,0.08);
+
+  /* ── TRANSITIONS ─────────────────────────────────────── */
+  --transition-fast:   all 0.15s ease;
+  --transition-base:   all 0.3s ease;
+  --transition-slow:   all 0.5s ease;
+  --transition-spring: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ── SEMANTIC TYPE STYLES ─────────────────────────────────── */
+
+.nw-h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-7xl);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tighter);
+  line-height: var(--leading-none);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.nw-h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.nw-h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-tight);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.nw-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-ultra);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.nw-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.nw-price {
+  font-family: var(--font-ui);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tighter);
+  color: var(--color-text-primary);
+}
+
+.nw-tag {
+  font-family: var(--font-ui);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold-bright);
+}
+
+/* ── BRAND GRADIENT ──────────────────────────────────────── */
+.nw-gradient-text {
+  background: linear-gradient(90deg,
+    var(--color-logo-grad-start),
+    var(--color-logo-grad-mid1),
+    var(--color-logo-grad-mid2),
+    var(--color-logo-grad-end)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nw-gradient-border {
+  border-image: linear-gradient(90deg,
+    var(--color-logo-grad-start),
+    var(--color-logo-grad-mid1),
+    var(--color-logo-grad-mid2),
+    var(--color-logo-grad-end)
+  ) 1;
+}
+
+/* ── GLASS CARD ──────────────────────────────────────────── */
+.nw-card {
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  backdrop-filter: blur(12px);
+  transition: var(--transition-slow);
+}
+
+.nw-card:hover {
+  border-color: rgba(245,158,11,0.40);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow-gold);
+}
+
+.nw-card.selected {
+  border-color: var(--color-gold-bright);
+  box-shadow: var(--shadow-glow-gold);
+  transform: translateY(-8px);
+}

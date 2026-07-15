@@ -165,20 +165,23 @@
         <h2 class="nw-h2">Armá tu proyecto y mirá la inversión en vivo</h2>
         <p>Nuestro cotizador interactivo calcula la propuesta según lo que necesites.</p>
       </div>
-      <div class="nw-card presupuesto-box">
-        <div>
-          <h3 class="nw-h3" style="margin:0 0 6px;">¿Cómo funciona?</h3>
-          <ul class="steps">
-            <li><b>1.</b> Elegís el tipo de servicio (EPK, catálogo, sistema a medida, etc).</li>
-            <li><b>2.</b> Ajustás alcance, cantidad de piezas y extras.</li>
-            <li><b>3.</b> Ves la inversión actualizarse en pantalla, sin registrarte.</li>
-            <li><b>4.</b> Confirmás y lo recibimos directo por WhatsApp o email.</li>
-          </ul>
-        </div>
-        <div class="presupuesto-visual">
-          <strong style="color:var(--color-text-primary);font-family:var(--font-heading);text-transform:uppercase;letter-spacing:var(--tracking-wide);">Cotizador Interactivo</strong>
-          <span>Acá va embebido el motor de presupuestos (nawemedia-presupuesto-v6)</span>
-        </div>
+      <div class="nw-card" style="padding:32px 40px;margin-bottom:28px;">
+        <h3 class="nw-h3" style="margin:0 0 16px;">¿Cómo funciona?</h3>
+        <ul class="steps" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));display:grid;margin:0;">
+          <li><b>1.</b> Elegís el tipo de servicio (EPK, catálogo, sistema a medida, etc).</li>
+          <li><b>2.</b> Ajustás alcance, cantidad de piezas y extras.</li>
+          <li><b>3.</b> Ves la inversión actualizarse en pantalla, sin registrarte.</li>
+          <li><b>4.</b> Confirmás y lo recibimos directo por WhatsApp o email.</li>
+        </ul>
+      </div>
+
+      <div class="presupuesto-embed">
+        <iframe
+          src="presupuesto/index.html"
+          title="NAWEMEDIA — Cotizador interactivo"
+          loading="lazy"
+          allow="clipboard-write"
+        ></iframe>
       </div>
 
       <div class="cart-bar">

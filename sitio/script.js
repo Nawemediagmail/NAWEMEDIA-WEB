@@ -64,14 +64,14 @@ window.addEventListener("scroll", () => {
 
 // Revelado progresivo al scrollear
 const revealTargets = document.querySelectorAll(
-  ".section-head, .service-card, .demo-card, .cart-bar, .contact-box, #presupuesto .nw-card, .clients-label, .marquee"
+  ".section-head, .service-card, .demo-card, .bento-item, .cart-bar, .contact-box, #presupuesto .nw-card, .clients-label, .marquee"
 );
 
 if (!reducedMotion && "IntersectionObserver" in window) {
   revealTargets.forEach((el) => el.classList.add("reveal"));
 
   // Stagger: retardo incremental entre hermanos dentro del mismo contenedor
-  document.querySelectorAll(".grid-services, .grid-demos").forEach((grid) => {
+  document.querySelectorAll(".grid-services, .grid-demos, .bento-grid").forEach((grid) => {
     Array.from(grid.children).forEach((card, i) => {
       card.style.transitionDelay = `${Math.min(i * 90, 540)}ms`;
     });
@@ -222,3 +222,38 @@ if (finePointer && !reducedMotion) {
     });
   });
 }
+
+// Lightbox de imagen — piezas gráficas (zoom simple, sin embed)
+const bentoItems = document.querySelectorAll(".bento-item");
+const imgLightbox = document.getElementById("imgLightbox");
+const imgLightboxPic = document.getElementById("imgLightboxPic");
+const imgClose = document.getElementById("imgClose");
+
+function openImg(src, alt) {
+  imgLightboxPic.src = src;
+  imgLightboxPic.alt = alt || "";
+  imgLightbox.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeImg() {
+  imgLightbox.classList.remove("open");
+  imgLightboxPic.src = "";
+  document.body.style.overflow = "";
+}
+
+bentoItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const img = item.querySelector("img");
+    openImg(item.dataset.zoom, img ? img.alt : "");
+  });
+});
+if (imgClose) imgClose.addEventListener("click", closeImg);
+if (imgLightbox) {
+  imgLightbox.addEventListener("click", (e) => {
+    if (e.target === imgLightbox) closeImg();
+  });
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && imgLightbox && imgLightbox.classList.contains("open")) closeImg();
+});

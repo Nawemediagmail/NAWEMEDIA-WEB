@@ -5,9 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NAWEMEDIA — Creative Intelligence para clubes, DJs y artistas</title>
 <meta name="description" content="NAWEMEDIA: branding, motion graphics, LED visuals, EPKs y presupuestos interactivos para DJs, artistas, clubes y marcas urbanas.">
+<link rel="canonical" href="https://www.nawemedia.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NAWEMEDIA">
+<meta property="og:url" content="https://www.nawemedia.com/">
+<meta property="og:title" content="NAWEMEDIA — Creative Intelligence para clubes, DJs y artistas">
+<meta property="og:description" content="Branding, motion graphics, LED visuals, EPKs y presupuestos interactivos para DJs, artistas, clubes y marcas urbanas.">
+<meta property="og:image" content="https://www.nawemedia.com/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_AR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NAWEMEDIA — Creative Intelligence para clubes, DJs y artistas">
+<meta name="twitter:description" content="Branding, motion graphics, LED visuals, EPKs y presupuestos interactivos para DJs, artistas, clubes y marcas urbanas.">
+<meta name="twitter:image" content="https://www.nawemedia.com/assets/og-cover.png">
+
 <link rel="icon" type="image/png" href="assets/logo-cuadrado.png">
 <link rel="stylesheet" href="colors_and_type.css">
 <link rel="stylesheet" href="styles.css">
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -17,12 +35,13 @@
       <img src="assets/logo-titulo.png" alt="NAWEMEDIA" class="logo-word-img">
     </a>
     <div class="nav-links">
-      <a href="#servicios">Servicios</a>
-      <a href="#demos">Demos</a>
-      <a href="#presupuesto">Presupuesto</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a>
+      <a href="#demos" data-es="Demos" data-en="Demos">Demos</a>
+      <a href="#presupuesto" data-es="Presupuesto" data-en="Quote">Presupuesto</a>
+      <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
     </div>
-    <a href="#presupuesto" class="btn btn-primary">Generar Propuesta</a>
+    <a href="#presupuesto" class="btn btn-primary" data-es="Generar Propuesta" data-en="Get a Quote">Generar Propuesta</a>
+    <button class="lang-toggle" id="langToggle" aria-label="Switch language" type="button">EN</button>
     <button class="menu-toggle" aria-label="Abrir menú">☰</button>
   </nav>
 </header>
@@ -30,17 +49,31 @@
 <main id="top">
 
   <section class="hero" style="border-top:none;">
-    <video class="hero-video" autoplay loop muted playsinline disablePictureInPicture preload="auto">
+    <video class="hero-video" id="heroVideo" autoplay loop muted playsinline disablePictureInPicture preload="auto" poster="assets/hero-poster.jpg">
       <source src="assets/nawemedia-wallpaper.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     <div class="wrap">
-      <span class="nw-label" style="display:inline-block;margin-bottom:28px;">Creative Intelligence · Música &amp; Entretenimiento</span>
-      <h1 class="nw-h1">Diseño de alto impacto para <span class="accent">clubes, djs</span> y artistas</h1>
-      <p class="lead">Branding, motion graphics, LED visuals y automatización creativa. Piezas que impresionan en cualquier evento — con presupuesto interactivo en vivo.</p>
+      <span class="nw-label" style="display:inline-block;margin-bottom:28px;" data-es="Creative Intelligence · Música &amp; Entretenimiento" data-en="Creative Intelligence · Music &amp; Entertainment">Creative Intelligence · Música &amp; Entretenimiento</span>
+      <h1 class="nw-h1" data-es="Diseño de alto impacto para &lt;span class=&quot;accent&quot;&gt;clubes, djs&lt;/span&gt; y artistas" data-en="High-impact design for &lt;span class=&quot;accent&quot;&gt;clubs, DJs&lt;/span&gt; and artists">Diseño de alto impacto para <span class="accent">clubes, djs</span> y artistas</h1>
+      <p class="lead" data-es="Branding, motion graphics, LED visuals y automatización creativa. Piezas que impresionan en cualquier evento — con presupuesto interactivo en vivo." data-en="Branding, motion graphics, LED visuals and creative automation. Pieces that impress at any event — with a live interactive quote.">Branding, motion graphics, LED visuals y automatización creativa. Piezas que impresionan en cualquier evento — con presupuesto interactivo en vivo.</p>
       <div class="hero-actions">
-        <a href="#demos" class="btn btn-primary">Ver Demos</a>
-        <a href="#presupuesto" class="btn btn-secondary">✨ Armar Mi Propuesta</a>
+        <a href="#demos" class="btn btn-primary" data-es="Ver Demos" data-en="See Demos">Ver Demos</a>
+        <a href="#presupuesto" class="btn btn-secondary" data-es="✨ Armar Mi Propuesta" data-en="✨ Build My Quote">✨ Armar Mi Propuesta</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="clientes">
+    <div class="wrap">
+      <span class="nw-label clients-label" data-es="Confían en nosotros" data-en="Trusted by">Confían en nosotros</span>
+      <div class="clients-strip">
+        <span>DJ BINI</span>
+        <span>DJ FAY</span>
+        <span>ÁMBAR LOMBARDI</span>
+        <span>YEMIX</span>
+        <span>SAVORI</span>
+        <span>MICULKA LOGÍSTICA</span>
       </div>
     </div>
   </section>
@@ -48,38 +81,38 @@
   <section id="servicios">
     <div class="wrap">
       <div class="section-head">
-        <span class="nw-label">Servicios</span>
-        <h2 class="nw-h2">Lo que hacemos</h2>
-        <p>Cuatro líneas de producto, todas con casos reales corriendo hoy.</p>
+        <span class="nw-label" data-es="Servicios" data-en="Services">Servicios</span>
+        <h2 class="nw-h2" data-es="Lo que hacemos" data-en="What we do">Lo que hacemos</h2>
+        <p data-es="Cuatro líneas de producto, todas con casos reales corriendo hoy." data-en="Four product lines, all with real cases running today.">Cuatro líneas de producto, todas con casos reales corriendo hoy.</p>
       </div>
       <div class="grid-services">
 
         <div class="nw-card service-card">
           <div class="icon">🎧</div>
-          <h3>Electronic Press Kits</h3>
-          <p>Sitio press kit para DJs y artistas: bio, música, shows, galería y redes, con panel de administración propio.</p>
-          <span class="nw-tag">6+ artistas activos</span>
+          <h3 data-es="Electronic Press Kits" data-en="Electronic Press Kits">Electronic Press Kits</h3>
+          <p data-es="Sitio press kit para DJs y artistas: bio, música, shows, galería y redes, con panel de administración propio." data-en="Press kit site for DJs and artists: bio, music, shows, gallery and socials, with its own admin panel.">Sitio press kit para DJs y artistas: bio, música, shows, galería y redes, con panel de administración propio.</p>
+          <span class="nw-tag" data-es="6+ artistas activos" data-en="6+ active artists">6+ artistas activos</span>
         </div>
 
         <div class="nw-card service-card">
           <div class="icon">🧮</div>
-          <h3>Presupuestos Interactivos</h3>
-          <p>Cotizador en vivo: el cliente arma su proyecto y ve la inversión actualizarse en pantalla, sin ida y vuelta por mail.</p>
-          <span class="nw-tag">Motor Propio v6</span>
+          <h3 data-es="Presupuestos Interactivos" data-en="Interactive Quotes">Presupuestos Interactivos</h3>
+          <p data-es="Cotizador en vivo: el cliente arma su proyecto y ve la inversión actualizarse en pantalla, sin ida y vuelta por mail." data-en="Live quoting tool: the client builds their project and watches the investment update on screen, no email back-and-forth.">Cotizador en vivo: el cliente arma su proyecto y ve la inversión actualizarse en pantalla, sin ida y vuelta por mail.</p>
+          <span class="nw-tag" data-es="Motor Propio v6" data-en="In-house Engine v6">Motor Propio v6</span>
         </div>
 
         <div class="nw-card service-card">
           <div class="icon">🗂️</div>
-          <h3>Catálogos Automáticos</h3>
-          <p>Generación automática de catálogos de servicios, listos para exportar y compartir.</p>
-          <span class="nw-tag">Export a Imagen/PDF</span>
+          <h3 data-es="Catálogos Automáticos" data-en="Automated Catalogs">Catálogos Automáticos</h3>
+          <p data-es="Generación automática de catálogos de servicios, listos para exportar y compartir." data-en="Automatic generation of service catalogs, ready to export and share.">Generación automática de catálogos de servicios, listos para exportar y compartir.</p>
+          <span class="nw-tag" data-es="Export a Imagen/PDF" data-en="Export to Image/PDF">Export a Imagen/PDF</span>
         </div>
 
         <div class="nw-card service-card">
           <div class="icon">🪩</div>
-          <h3>ClubOS — Sistemas Para Clubes</h3>
-          <p>Automatización del flujo de compra de entradas y consumiciones para clubes y eventos.</p>
-          <span class="nw-tag">A Medida</span>
+          <h3 data-es="ClubOS — Sistemas Para Clubes" data-en="ClubOS — Systems for Clubs">ClubOS — Sistemas Para Clubes</h3>
+          <p data-es="Automatización del flujo de compra de entradas y consumiciones para clubes y eventos." data-en="Automation of the ticket and consumption purchase flow for clubs and events.">Automatización del flujo de compra de entradas y consumiciones para clubes y eventos.</p>
+          <span class="nw-tag" data-es="A Medida" data-en="Custom-built">A Medida</span>
         </div>
 
       </div>
@@ -89,9 +122,9 @@
   <section id="demos">
     <div class="wrap">
       <div class="section-head">
-        <span class="nw-label">Portfolio</span>
-        <h2 class="nw-h2">Demos en vivo</h2>
-        <p>Nada de mockups: esto está corriendo en producción ahora mismo.</p>
+        <span class="nw-label" data-es="Portfolio" data-en="Portfolio">Portfolio</span>
+        <h2 class="nw-h2" data-es="Demos en vivo" data-en="Live demos">Demos en vivo</h2>
+        <p data-es="Nada de mockups: esto está corriendo en producción ahora mismo." data-en="No mockups: this is running in production right now.">Nada de mockups: esto está corriendo en producción ahora mismo.</p>
       </div>
       <div class="grid-demos">
 
@@ -100,7 +133,7 @@
             <img src="https://image.thum.io/get/width/800/https://djbini.com" alt="Preview de djbini.com" loading="lazy" onerror="this.remove()">
           </div>
           <div class="demo-body">
-            <span class="kicker">Electronic Press Kit</span>
+            <span class="kicker" data-es="Electronic Press Kit" data-en="Electronic Press Kit">Electronic Press Kit</span>
             <h4>DJ BINI</h4>
             <span class="link">djbini.com →</span>
           </div>
@@ -111,7 +144,7 @@
             <img src="https://image.thum.io/get/width/800/https://faydj.com" alt="Preview de faydj.com" loading="lazy" onerror="this.remove()">
           </div>
           <div class="demo-body">
-            <span class="kicker">Electronic Press Kit</span>
+            <span class="kicker" data-es="Electronic Press Kit" data-en="Electronic Press Kit">Electronic Press Kit</span>
             <h4>DJ Fay</h4>
             <span class="link">faydj.com →</span>
           </div>
@@ -122,7 +155,7 @@
             <img src="https://image.thum.io/get/width/800/https://ambarlombardi.com" alt="Preview de ambarlombardi.com" loading="lazy" onerror="this.remove()">
           </div>
           <div class="demo-body">
-            <span class="kicker">Electronic Press Kit</span>
+            <span class="kicker" data-es="Electronic Press Kit" data-en="Electronic Press Kit">Electronic Press Kit</span>
             <h4>Ambar Lombardi</h4>
             <span class="link">ambarlombardi.com →</span>
           </div>
@@ -133,7 +166,7 @@
             <img src="https://image.thum.io/get/width/800/https://yemixdj.com" alt="Preview de yemixdj.com" loading="lazy" onerror="this.remove()">
           </div>
           <div class="demo-body">
-            <span class="kicker">Electronic Press Kit</span>
+            <span class="kicker" data-es="Electronic Press Kit" data-en="Electronic Press Kit">Electronic Press Kit</span>
             <h4>YEMIX</h4>
             <span class="link">yemixdj.com →</span>
           </div>
@@ -144,9 +177,9 @@
             <img src="https://image.thum.io/get/width/800/http://electronic-press-kit-demo.netlify.app" alt="Preview de la demo de EPK genérico" loading="lazy" onerror="this.remove()">
           </div>
           <div class="demo-body">
-            <span class="kicker">Demo de plantilla</span>
+            <span class="kicker" data-es="Demo de plantilla" data-en="Template demo">Demo de plantilla</span>
             <h4>Electronic Press Kit Demo</h4>
-            <span class="link">Ver demo →</span>
+            <span class="link" data-es="Ver demo →" data-en="View demo →">Ver demo →</span>
           </div>
         </a>
 
@@ -155,9 +188,9 @@
             <img src="https://image.thum.io/get/width/800/https://nawemedia.com/demos/savori-pedidos-hub.html" alt="Preview de Savori Pedidos Hub" loading="lazy" onerror="this.remove()">
           </div>
           <div class="demo-body">
-            <span class="kicker">Sistema a medida</span>
+            <span class="kicker" data-es="Sistema a medida" data-en="Custom system">Sistema a medida</span>
             <h4>Savori Pedidos Hub</h4>
-            <span class="link">Ver demo →</span>
+            <span class="link" data-es="Ver demo →" data-en="View demo →">Ver demo →</span>
           </div>
         </a>
 
@@ -166,7 +199,7 @@
             <img src="https://image.thum.io/get/width/800/https://miculkalogisticasrl.com" alt="Preview de miculkalogisticasrl.com" loading="lazy" onerror="this.remove()">
           </div>
           <div class="demo-body">
-            <span class="kicker">Sistema a medida</span>
+            <span class="kicker" data-es="Sistema a medida" data-en="Custom system">Sistema a medida</span>
             <h4>Miculka Logística</h4>
             <span class="link">miculkalogisticasrl.com →</span>
           </div>
@@ -179,17 +212,17 @@
   <section id="presupuesto">
     <div class="wrap">
       <div class="section-head">
-        <span class="nw-label">Presupuesto</span>
-        <h2 class="nw-h2">Armá tu proyecto y mirá la inversión en vivo</h2>
-        <p>Nuestro cotizador interactivo calcula la propuesta según lo que necesites.</p>
+        <span class="nw-label" data-es="Presupuesto" data-en="Quote">Presupuesto</span>
+        <h2 class="nw-h2" data-es="Armá tu proyecto y mirá la inversión en vivo" data-en="Build your project and watch the investment live">Armá tu proyecto y mirá la inversión en vivo</h2>
+        <p data-es="Nuestro cotizador interactivo calcula la propuesta según lo que necesites." data-en="Our interactive quoting tool calculates the proposal based on what you need.">Nuestro cotizador interactivo calcula la propuesta según lo que necesites.</p>
       </div>
       <div class="nw-card" style="padding:32px 40px;margin-bottom:28px;">
-        <h3 class="nw-h3" style="margin:0 0 16px;">¿Cómo funciona?</h3>
+        <h3 class="nw-h3" style="margin:0 0 16px;" data-es="¿Cómo funciona?" data-en="How does it work?">¿Cómo funciona?</h3>
         <ul class="steps" style="grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));display:grid;margin:0;">
-          <li><b>1.</b> Elegís el tipo de servicio (EPK, catálogo, sistema a medida, etc).</li>
-          <li><b>2.</b> Ajustás alcance, cantidad de piezas y extras.</li>
-          <li><b>3.</b> Ves la inversión actualizarse en pantalla, sin registrarte.</li>
-          <li><b>4.</b> Confirmás y lo recibimos directo por WhatsApp o email.</li>
+          <li data-es="&lt;b&gt;1.&lt;/b&gt; Elegís el tipo de servicio (EPK, catálogo, sistema a medida, etc)." data-en="&lt;b&gt;1.&lt;/b&gt; Choose the type of service (EPK, catalog, custom system, etc)."><b>1.</b> Elegís el tipo de servicio (EPK, catálogo, sistema a medida, etc).</li>
+          <li data-es="&lt;b&gt;2.&lt;/b&gt; Ajustás alcance, cantidad de piezas y extras." data-en="&lt;b&gt;2.&lt;/b&gt; Adjust the scope, number of pieces and extras."><b>2.</b> Ajustás alcance, cantidad de piezas y extras.</li>
+          <li data-es="&lt;b&gt;3.&lt;/b&gt; Ves la inversión actualizarse en pantalla, sin registrarte." data-en="&lt;b&gt;3.&lt;/b&gt; Watch the investment update on screen, no sign-up needed."><b>3.</b> Ves la inversión actualizarse en pantalla, sin registrarte.</li>
+          <li data-es="&lt;b&gt;4.&lt;/b&gt; Confirmás y lo recibimos directo por WhatsApp o email." data-en="&lt;b&gt;4.&lt;/b&gt; Confirm and we get it straight via WhatsApp or email."><b>4.</b> Confirmás y lo recibimos directo por WhatsApp o email.</li>
         </ul>
       </div>
 
@@ -206,11 +239,11 @@
         <div class="left">
           <div class="icon">🛒</div>
           <div>
-            <div class="price-label">Presupuesto Estimado</div>
+            <div class="price-label" data-es="Presupuesto Estimado" data-en="Estimated Quote">Presupuesto Estimado</div>
             <div class="price">$0 <span style="font-size:16px;color:var(--color-gold-bright);">USD</span></div>
           </div>
         </div>
-        <a href="https://wa.me/541158280301" target="_blank" rel="noopener" class="btn btn-primary">📄 Pedirlo Por WhatsApp</a>
+        <a href="https://wa.me/541158280301" target="_blank" rel="noopener" class="btn btn-primary" data-es="📄 Pedirlo Por WhatsApp" data-en="📄 Request via WhatsApp">📄 Pedirlo Por WhatsApp</a>
       </div>
     </div>
   </section>
@@ -218,12 +251,12 @@
   <section id="contacto">
     <div class="wrap">
       <div class="nw-card contact-box">
-        <span class="nw-label" style="display:inline-block;margin-bottom:18px;">Contacto</span>
-        <h2 class="nw-h2">¿Tenés un proyecto en mente?</h2>
-        <p>Contanos qué necesitás y armamos la propuesta.</p>
+        <span class="nw-label" style="display:inline-block;margin-bottom:18px;" data-es="Contacto" data-en="Contact">Contacto</span>
+        <h2 class="nw-h2" data-es="¿Tenés un proyecto en mente?" data-en="Got a project in mind?">¿Tenés un proyecto en mente?</h2>
+        <p data-es="Contanos qué necesitás y armamos la propuesta." data-en="Tell us what you need and we'll build the proposal.">Contanos qué necesitás y armamos la propuesta.</p>
         <div class="contact-actions">
           <a class="btn btn-primary" href="https://wa.me/541158280301" target="_blank" rel="noopener">WhatsApp</a>
-          <a class="btn btn-secondary" href="mailto:hola@nawemedia.com">Escribir un email</a>
+          <a class="btn btn-secondary" href="mailto:hola@nawemedia.com" data-es="Escribir un email" data-en="Send an email">Escribir un email</a>
         </div>
         <p class="nw-body" style="margin-top:22px;">
           <a href="mailto:hola@nawemedia.com" style="color:var(--color-text-muted);text-decoration:none;">hola@nawemedia.com</a>

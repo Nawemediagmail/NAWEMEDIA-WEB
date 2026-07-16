@@ -1,6 +1,23 @@
 // Función serverless privada: crea y envía una factura real de PayPal (Invoicing API v2).
 // Requiere variables de entorno en Vercel: ADMIN_PASSWORD, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_ENV ("sandbox" o "live")
 
+// Rate limit best-effort en memoria (se resetea si la función se "enfría" en Vercel,
+// pero igual frena intentos automatizados seguidos dentro de una misma instancia tibia).
+const attempts = new Map();
+const MAX_ATTEMPTS = 5;
+const WINDOW_MS = 10 * 60 * 1000;
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const record = attempts.get(ip);
+  if (!record || now - record.start > WINDOW_MS) {
+    attempts.set(ip, { count: 1, start: now });
+    return false;
+  }
+  record.count += 1;
+  return record.count > MAX_ATTEMPTS;
+}
+
 function paypalBase() {
   return process.env.PAYPAL_ENV === 'live'
     ? 'https://api-m.paypal.com'
@@ -29,11 +46,19 @@ module.exports = async (req, res) => {
     return;
   }
 
+  const ip = (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0].trim();
+  if (isRateLimited(ip)) {
+    res.status(429).json({ error: 'Demasiados intentos. Esperá unos minutos y volvé a intentar.' });
+    return;
+  }
+
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     const { password, clientName, clientEmail, currency, dueDate, note, items } = body || {};
 
     if (!process.env.ADMIN_PASSWORD || password !== process.env.ADMIN_PASSWORD) {
+      // Retraso artificial para dificultar fuerza bruta
+      await new Promise((r) => setTimeout(r, 700));
       res.status(401).json({ error: 'Contraseña incorrecta' });
       return;
     }

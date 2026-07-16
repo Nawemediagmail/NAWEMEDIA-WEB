@@ -78,6 +78,30 @@ nav.wrap {
   cursor: pointer;
 }
 
+.lang-toggle {
+  background: none;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-left: 12px;
+}
+
+.lang-toggle:hover {
+  color: var(--color-gold-bright);
+  border-color: rgba(245,158,11,0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { display: none; }
+}
+
 /* Buttons (spec: preview/components-buttons.html) */
 .btn {
   display: inline-flex;
@@ -200,6 +224,40 @@ nav.wrap {
 section {
   padding: 96px 0;
   border-top: 1px solid var(--color-border-subtle);
+}
+
+/* Clientes / prueba social */
+#clientes {
+  padding: 40px 0;
+  border-top: none;
+}
+
+.clients-label {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.clients-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px 36px;
+}
+
+.clients-strip span {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  transition: var(--transition-fast);
+}
+
+.clients-strip span:hover {
+  color: var(--color-gold-bright);
 }
 
 .section-head {

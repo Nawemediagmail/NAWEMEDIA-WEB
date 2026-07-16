@@ -177,9 +177,10 @@ const lightbox = document.getElementById("reelLightbox");
 const reelFrame = document.getElementById("reelFrame");
 const reelClose = document.getElementById("reelClose");
 
-function openReel(id) {
+function openReel(id, type) {
+  const path = type === "p" ? "p" : "reel";
   reelFrame.innerHTML =
-    '<iframe src="https://www.instagram.com/reel/' + id +
+    '<iframe src="https://www.instagram.com/' + path + '/' + id +
     '/embed/captioned/" allow="autoplay; encrypted-media" allowtransparency="true" scrolling="no" frameborder="0"></iframe>';
   lightbox.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -192,7 +193,7 @@ function closeReel() {
 }
 
 reelCards.forEach((card) => {
-  card.addEventListener("click", () => openReel(card.dataset.reel));
+  card.addEventListener("click", () => openReel(card.dataset.reel, card.dataset.type));
 });
 if (reelClose) reelClose.addEventListener("click", closeReel);
 if (lightbox) {

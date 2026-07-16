@@ -18,6 +18,26 @@ function isRateLimited(ip) {
   return record.count > MAX_ATTEMPTS;
 }
 
+// Log best-effort en Cloudflare KV (no bloquea la respuesta si falla)
+async function logInvoice(entry) {
+  const { CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, CF_KV_API_TOKEN } = process.env;
+  if (!CF_ACCOUNT_ID || !CF_KV_NAMESPACE_ID || !CF_KV_API_TOKEN) return;
+  try {
+    const key = `inv:${Date.now()}:${entry.invoiceId}`;
+    await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${CF_KV_NAMESPACE_ID}/values/${encodeURIComponent(key)}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${CF_KV_API_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(entry),
+      }
+    );
+  } catch (_) { /* no crítico: el log es secundario a la factura real */ }
+}
+
 function paypalBase() {
   return process.env.PAYPAL_ENV === 'live'
     ? 'https://api-m.paypal.com'
@@ -139,10 +159,25 @@ module.exports = async (req, res) => {
       }
     } catch (_) { /* no crítico */ }
 
+    const env = process.env.PAYPAL_ENV === 'live' ? 'live' : 'sandbox';
+    const total = items.reduce((sum, it) => sum + Number(it.unitPrice || 0) * Number(it.quantity || 1), 0);
+
+    await logInvoice({
+      invoiceId,
+      env,
+      clientName: clientName || '',
+      clientEmail,
+      currency: curr,
+      total: Number(total.toFixed(2)),
+      note: note || '',
+      recipientViewUrl,
+      createdAt: new Date().toISOString(),
+    });
+
     res.status(200).json({
       ok: true,
       invoiceId,
-      env: process.env.PAYPAL_ENV === 'live' ? 'live' : 'sandbox',
+      env,
       recipientViewUrl,
     });
   } catch (err) {

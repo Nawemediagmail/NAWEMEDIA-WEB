@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAWEMEDIA — Historial de facturas</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-ui);
+    min-height: 100vh;
+    padding: 40px 16px;
+  }
+  .box { width: 100%; max-width: 920px; margin: 0 auto; }
+  .nw-card { padding: 32px; margin-bottom: 20px; }
+  h1 { font-family: var(--font-heading); font-size: var(--text-2xl); margin: 0 0 4px; }
+  .sub { color: var(--color-text-muted); font-size: var(--text-sm); margin: 0 0 24px; }
+  .sub a { color: var(--color-gold-bright); }
+  label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    margin: 0 0 6px;
+  }
+  input {
+    width: 100%;
+    max-width: 320px;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    padding: 12px 14px;
+  }
+  input:focus { outline: none; border-color: var(--color-gold-bright); }
+  .row { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    border-radius: var(--radius-lg);
+    border: none;
+    cursor: pointer;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    background: var(--color-gold-bright);
+    color: var(--color-primary-text);
+    transition: var(--transition-base);
+  }
+  .btn:hover { background: var(--color-gold-hover); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  #msg { margin-top: 16px; font-size: var(--text-sm); }
+  #msg.error { color: var(--color-error); }
+  table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: var(--text-sm); }
+  th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--color-border-subtle); }
+  th {
+    color: var(--color-text-muted);
+    font-size: var(--text-2xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-weight: var(--weight-semibold);
+  }
+  td.amount { font-weight: var(--weight-black); color: var(--color-gold-bright); white-space: nowrap; }
+  td.env-live { color: var(--color-success); font-weight: var(--weight-bold); font-size: var(--text-2xs); text-transform: uppercase; }
+  td.env-sandbox { color: var(--color-text-faint); font-weight: var(--weight-bold); font-size: var(--text-2xs); text-transform: uppercase; }
+  tr:hover td { background: rgba(245,158,11,0.04); }
+  a.view-link { color: var(--color-gold-bright); font-size: var(--text-xs); text-decoration: none; font-weight: var(--weight-bold); }
+  .empty { color: var(--color-text-muted); margin-top: 20px; }
+  @media (max-width: 700px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tr { border-bottom: 1px solid var(--color-border-subtle); padding: 12px 0; }
+    td { border: none; padding: 4px 0; }
+    td::before { content: attr(data-label); display: block; font-size: var(--text-2xs); color: var(--color-text-faint); text-transform: uppercase; letter-spacing: var(--tracking-wide); }
+  }
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="nw-card">
+    <h1>Historial de facturas</h1>
+    <p class="sub"><a href="index.html">← Volver a generar factura</a></p>
+
+    <div class="row">
+      <div>
+        <label>Contraseña</label>
+        <input type="password" id="password" autocomplete="current-password">
+      </div>
+      <button class="btn" id="loadBtn">Cargar historial</button>
+    </div>
+
+    <div id="msg"></div>
+    <div id="tableWrap"></div>
+  </div>
+</div>
+
+<script>
+document.getElementById('loadBtn').addEventListener('click', async () => {
+  const msg = document.getElementById('msg');
+  const wrap = document.getElementById('tableWrap');
+  const btn = document.getElementById('loadBtn');
+  const password = document.getElementById('password').value;
+  msg.className = ''; msg.textContent = ''; wrap.innerHTML = '';
+
+  if (!password) { msg.className = 'error'; msg.textContent = 'Ingresá la contraseña.'; return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Cargando...';
+
+  try {
+    const resp = await fetch('/api/invoice-log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || 'Error desconocido');
+
+    if (data.warning) {
+      msg.textContent = data.warning;
+    }
+
+    if (!data.invoices || data.invoices.length === 0) {
+      wrap.innerHTML = '<p class="empty">Todavía no hay facturas registradas.</p>';
+      return;
+    }
+
+    const rows = data.invoices.map((inv) => {
+      const fecha = inv.createdAt ? new Date(inv.createdAt).toLocaleString('es-AR', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
+      const envClass = inv.env === 'live' ? 'env-live' : 'env-sandbox';
+      const link = inv.recipientViewUrl
+        ? `<a class="view-link" href="${inv.recipientViewUrl}" target="_blank" rel="noopener">Ver →</a>`
+        : '—';
+      return `<tr>
+        <td data-label="Fecha">${fecha}</td>
+        <td data-label="Cliente">${inv.clientName || '—'}<br><span style="color:var(--color-text-faint);font-size:var(--text-xs);">${inv.clientEmail || ''}</span></td>
+        <td data-label="Nota">${inv.note || '—'}</td>
+        <td data-label="Monto" class="amount">${(inv.total ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 })} ${inv.currency || ''}</td>
+        <td data-label="Entorno" class="${envClass}">${inv.env || '—'}</td>
+        <td data-label="Factura">${link}</td>
+      </tr>`;
+    }).join('');
+
+    wrap.innerHTML = `<table>
+      <thead><tr><th>Fecha</th><th>Cliente</th><th>Nota</th><th>Monto</th><th>Entorno</th><th>Factura</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  } catch (err) {
+    msg.className = 'error';
+    msg.textContent = '❌ ' + err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Cargar historial';
+  }
+});
+</script>
+</body>
+</html>

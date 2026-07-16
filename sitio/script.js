@@ -170,3 +170,54 @@ if (finePointer && !reducedMotion) {
   };
   requestAnimationFrame(followCursor);
 }
+
+// Lightbox de reels — reproduce el reel embebido de Instagram
+const reelCards = document.querySelectorAll(".reel-card");
+const lightbox = document.getElementById("reelLightbox");
+const reelFrame = document.getElementById("reelFrame");
+const reelClose = document.getElementById("reelClose");
+
+function openReel(id) {
+  reelFrame.innerHTML =
+    '<iframe src="https://www.instagram.com/reel/' + id +
+    '/embed/captioned/" allow="autoplay; encrypted-media" allowtransparency="true" scrolling="no" frameborder="0"></iframe>';
+  lightbox.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeReel() {
+  lightbox.classList.remove("open");
+  reelFrame.innerHTML = "";
+  document.body.style.overflow = "";
+}
+
+reelCards.forEach((card) => {
+  card.addEventListener("click", () => openReel(card.dataset.reel));
+});
+if (reelClose) reelClose.addEventListener("click", closeReel);
+if (lightbox) {
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeReel();
+  });
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && lightbox && lightbox.classList.contains("open")) closeReel();
+});
+
+// Tilt 3D sutil en cards (solo desktop, respeta reduced-motion)
+if (finePointer && !reducedMotion) {
+  document.querySelectorAll(".reel-card").forEach((card) => {
+    card.classList.add("tilt");
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.setProperty("--rx", `${(-py * 6).toFixed(2)}deg`);
+      card.style.setProperty("--ry", `${(px * 6).toFixed(2)}deg`);
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
+    });
+  });
+}

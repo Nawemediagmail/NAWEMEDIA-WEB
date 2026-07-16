@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAWEMEDIA — Facturación privada</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-ui);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+  .box {
+    width: 100%;
+    max-width: 640px;
+  }
+  .nw-card { padding: 32px; margin-bottom: 20px; }
+  label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    margin: 18px 0 6px;
+  }
+  label:first-of-type { margin-top: 0; }
+  input, textarea {
+    width: 100%;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    padding: 12px 14px;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--color-gold-bright);
+  }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .items { margin-top: 8px; }
+  .item-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 12px;
+  }
+  .item-row label { margin: 0 0 6px; }
+  .remove-item {
+    background: none;
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-muted);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    cursor: pointer;
+    height: 42px;
+  }
+  .remove-item:hover { color: var(--color-error); border-color: var(--color-error); }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--radius-lg);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    transition: var(--transition-base);
+  }
+  .btn-primary { background: var(--color-gold-bright); color: var(--color-primary-text); }
+  .btn-primary:hover { background: var(--color-gold-hover); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-secondary {
+    background: var(--color-bg-elevated);
+    color: var(--color-gold-bright);
+    border: 1px solid rgba(245,158,11,0.2);
+  }
+  .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; gap: 12px; flex-wrap: wrap; }
+  #msg { margin-top: 18px; font-size: var(--text-sm); line-height: var(--leading-relaxed); }
+  #msg.ok { color: var(--color-success); }
+  #msg.error { color: var(--color-error); }
+  #msg a { color: var(--color-gold-bright); }
+  h1 { font-family: var(--font-heading); font-size: var(--text-2xl); margin: 0 0 4px; }
+  .sub { color: var(--color-text-muted); font-size: var(--text-sm); margin: 0 0 24px; }
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="nw-card">
+    <h1>Generar factura PayPal</h1>
+    <p class="sub">Herramienta interna — no compartir el link ni la contraseña.</p>
+
+    <label>Contraseña</label>
+    <input type="password" id="password" autocomplete="current-password">
+
+    <div class="row2">
+      <div>
+        <label>Nombre del cliente</label>
+        <input type="text" id="clientName" placeholder="Ej: Ámbar Lombardi">
+      </div>
+      <div>
+        <label>Email del cliente</label>
+        <input type="email" id="clientEmail" placeholder="cliente@mail.com">
+      </div>
+    </div>
+
+    <div class="row2">
+      <div>
+        <label>Moneda</label>
+        <input type="text" id="currency" value="USD">
+      </div>
+      <div>
+        <label>Fecha de vencimiento</label>
+        <input type="date" id="dueDate">
+      </div>
+    </div>
+
+    <label>Nota / descripción general</label>
+    <textarea id="note" rows="2" placeholder="Ej: Servicio de EPK + presupuesto interactivo — Julio 2026"></textarea>
+
+    <label style="margin-top:24px;">Ítems de la factura</label>
+    <div class="items" id="itemsWrap"></div>
+    <button type="button" class="btn btn-secondary" id="addItem">+ Agregar ítem</button>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary" id="submitBtn">Crear y enviar factura</button>
+    </div>
+
+    <div id="msg"></div>
+  </div>
+</div>
+
+<script>
+const itemsWrap = document.getElementById('itemsWrap');
+
+function addItemRow(values) {
+  const row = document.createElement('div');
+  row.className = 'item-row';
+  row.innerHTML = `
+    <div>
+      <label>Descripción</label>
+      <input type="text" class="it-name" placeholder="Ej: Diseño de EPK" value="${values?.name || ''}">
+    </div>
+    <div>
+      <label>Cantidad</label>
+      <input type="number" class="it-qty" min="1" value="${values?.qty || 1}">
+    </div>
+    <div>
+      <label>Precio unitario</label>
+      <input type="number" class="it-price" min="0" step="0.01" value="${values?.price || ''}">
+    </div>
+    <button type="button" class="remove-item" title="Quitar ítem">✕</button>
+  `;
+  row.querySelector('.remove-item').addEventListener('click', () => row.remove());
+  itemsWrap.appendChild(row);
+}
+addItemRow();
+document.getElementById('addItem').addEventListener('click', () => addItemRow());
+
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const msg = document.getElementById('msg');
+  msg.className = '';
+  msg.textContent = '';
+
+  const password = document.getElementById('password').value;
+  const clientName = document.getElementById('clientName').value.trim();
+  const clientEmail = document.getElementById('clientEmail').value.trim();
+  const currency = document.getElementById('currency').value.trim() || 'USD';
+  const dueDate = document.getElementById('dueDate').value;
+  const note = document.getElementById('note').value.trim();
+
+  const items = Array.from(itemsWrap.querySelectorAll('.item-row')).map(row => ({
+    name: row.querySelector('.it-name').value.trim(),
+    quantity: Number(row.querySelector('.it-qty').value || 1),
+    unitPrice: Number(row.querySelector('.it-price').value || 0),
+  })).filter(it => it.name && it.unitPrice > 0);
+
+  if (!password) { msg.className = 'error'; msg.textContent = 'Ingresá la contraseña.'; return; }
+  if (!clientEmail) { msg.className = 'error'; msg.textContent = 'Ingresá el email del cliente.'; return; }
+  if (items.length === 0) { msg.className = 'error'; msg.textContent = 'Agregá al menos un ítem con precio.'; return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    const resp = await fetch('/api/create-invoice', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password, clientName, clientEmail, currency, dueDate, note, items }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || 'Error desconocido');
+
+    msg.className = 'ok';
+    msg.innerHTML = `✅ Factura creada y enviada (entorno: ${data.env}). ID: ${data.invoiceId}.` +
+      (data.recipientViewUrl ? ` <a href="${data.recipientViewUrl}" target="_blank" rel="noopener">Ver factura →</a>` : ' El cliente recibirá el link de pago por email.');
+  } catch (err) {
+    msg.className = 'error';
+    msg.textContent = '❌ ' + err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Crear y enviar factura';
+  }
+});
+</script>
+</body>
+</html>

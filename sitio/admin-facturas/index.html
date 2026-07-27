@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NAWEMEDIA — Facturación privada</title>
 <meta name="robots" content="noindex,nofollow">
+
+<link rel="manifest" href="/admin-facturas/manifest.json">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" type="image/png" sizes="192x192" href="/admin-facturas/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/admin-facturas/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NAWEMEDIA Pay">
+
 <link rel="stylesheet" href="/colors_and_type.css">
 <style>
   * { box-sizing: border-box; }
@@ -99,10 +109,62 @@
   #msg a { color: var(--color-gold-bright); }
   h1 { font-family: var(--font-heading); font-size: var(--text-2xl); margin: 0 0 4px; }
   .sub { color: var(--color-text-muted); font-size: var(--text-sm); margin: 0 0 24px; }
+
+  .install-bar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--color-bg-elevated);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+  }
+  .install-bar.show { display: flex; }
+  .install-bar span { font-size: var(--text-sm); color: var(--color-text-secondary); }
+  .install-bar .btn { padding: 10px 18px; font-size: var(--text-2xs); white-space: nowrap; }
+
+  .pwa-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(3,3,10,0.86);
+    backdrop-filter: blur(8px);
+  }
+  .pwa-modal.open { display: flex; }
+  .pwa-modal-card {
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+  }
+  .pwa-modal-card ol { margin: 16px 0 0; padding-left: 20px; color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.7; }
+  .pwa-modal-card ol b { color: var(--color-gold-bright); }
+  .pwa-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-bg-elevated);
+    color: var(--color-text-primary);
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
 <div class="box">
+  <div class="install-bar" id="installBar">
+    <span>📲 Instalá esta herramienta como app en tu celular o compu.</span>
+    <button type="button" class="btn btn-primary" id="installBtn">Instalar</button>
+  </div>
+
   <div class="nw-card">
     <h1>Generar factura PayPal</h1>
     <p class="sub">Herramienta interna — no compartir el link ni la contraseña. · <a href="/admin-facturas/historial.html" style="color:var(--color-gold-bright);">Ver historial →</a></p>
@@ -146,6 +208,94 @@
     <div id="msg"></div>
   </div>
 </div>
+
+<div class="pwa-modal" id="iosModal">
+  <div class="pwa-modal-card nw-card" style="padding:28px;">
+    <button type="button" class="pwa-close" id="iosModalClose">✕</button>
+    <h1 style="font-size:var(--text-lg);">Instalar en iPhone / iPad</h1>
+    <p class="sub" style="margin:6px 0 0;">Safari no ofrece instalar solo — se hace a mano en unos segundos:</p>
+    <ol>
+      <li>Tocá el ícono de <b>Compartir</b> (el cuadrado con la flecha hacia arriba) en la barra inferior de Safari.</li>
+      <li>Deslizá y elegí <b>"Agregar a pantalla de inicio"</b>.</li>
+      <li>Confirmá tocando <b>"Agregar"</b> arriba a la derecha.</li>
+    </ol>
+    <p class="sub" style="margin-top:14px;">Va a quedar un ícono propio de NAWEMEDIA en tu pantalla de inicio, y se abre sin barra del navegador.</p>
+  </div>
+</div>
+
+<div class="pwa-modal" id="androidModal">
+  <div class="pwa-modal-card nw-card" style="padding:28px;">
+    <button type="button" class="pwa-close" id="androidModalClose">✕</button>
+    <h1 style="font-size:var(--text-lg);">Instalar en Android / Chrome</h1>
+    <p class="sub" style="margin:6px 0 0;">Si Chrome todavía no te ofreció instalar solo:</p>
+    <ol>
+      <li>Tocá el menú de <b>⋮</b> (tres puntos) arriba a la derecha de Chrome.</li>
+      <li>Elegí la opción <b>"Instalar aplicación"</b>.</li>
+      <li><b>Importante:</b> no uses "Agregar a pantalla de inicio" — esa opción da un acceso directo genérico, sin el ícono real ni el modo app.</li>
+    </ol>
+    <p class="sub" style="margin-top:14px;">Si no ves "Instalar aplicación" en el menú, esperá unos segundos y volvé a intentar — Chrome a veces tarda en ofrecerlo.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const installBar = document.getElementById('installBar');
+  const installBtn = document.getElementById('installBtn');
+  const iosModal = document.getElementById('iosModal');
+  const androidModal = document.getElementById('androidModal');
+
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  let deferredPrompt = null;
+
+  function openModal(modal) { modal.classList.add('open'); }
+  function closeModal(modal) { modal.classList.remove('open'); }
+
+  document.getElementById('iosModalClose').addEventListener('click', () => closeModal(iosModal));
+  document.getElementById('androidModalClose').addEventListener('click', () => closeModal(androidModal));
+  [iosModal, androidModal].forEach((m) => m.addEventListener('click', (e) => { if (e.target === m) closeModal(m); }));
+
+  if (!isStandalone) {
+    if (isIOS) {
+      // iOS nunca dispara beforeinstallprompt: mostramos el botón directo a las instrucciones manuales
+      installBar.classList.add('show');
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBar.classList.add('show');
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (isIOS) {
+        openModal(iosModal);
+        return;
+      }
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        if (outcome === 'accepted') installBar.classList.remove('show');
+      } else {
+        // Chrome todavía no ofreció el evento nativo: instrucciones manuales
+        openModal(androidModal);
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installBar.classList.remove('show');
+      deferredPrompt = null;
+    });
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/admin-facturas/sw.js', { scope: '/admin-facturas/' })
+      .catch((err) => console.warn('No se pudo registrar el service worker:', err));
+  }
+})();
+</script>
 
 <script>
 const itemsWrap = document.getElementById('itemsWrap');

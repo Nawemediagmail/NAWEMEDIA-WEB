@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>NAWEMEDIA — Stat Row</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #05070d;
+      }
+      :root {
+        --bg: #05070d;
+        --bg-surf: #0b0e18;
+        --border-md: rgba(255, 255, 255, 0.1);
+        --text: #f1f5f9;
+        --text-mut: #8b95aa;
+        --magenta: #ff2d95;
+        --violet: #7b61ff;
+        --cyan: #00e5ff;
+      }
+      #stage {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        container-type: size;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      #scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      #glow {
+        position: absolute;
+        width: 60cqw;
+        height: 60cqw;
+        left: 50%;
+        top: -28cqh;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(123, 97, 255, 0.16) 0%, rgba(255, 45, 149, 0.1) 45%, rgba(0, 0, 0, 0) 72%);
+        pointer-events: none;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 6.7cqw 8.3cqw;
+        box-sizing: border-box;
+      }
+
+      #corner-mark {
+        position: absolute;
+        top: 3.6cqw;
+        left: 8.3cqw;
+        width: 2.4cqw;
+        height: 2.9cqw;
+        opacity: 0;
+        z-index: 10;
+      }
+
+      #eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-mut);
+        opacity: 0;
+        margin-bottom: 0.9cqw;
+      }
+
+      #headline {
+        font-family: "League Gothic", sans-serif;
+        font-weight: 400;
+        font-size: 5.2cqw;
+        line-height: 0.95;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        color: var(--text);
+        opacity: 0;
+        margin-bottom: 3.2cqw;
+      }
+
+      #stat-row {
+        display: flex;
+        gap: 2cqw;
+        width: 100%;
+      }
+
+      .tile {
+        flex: 1 1 0;
+        background: var(--bg-surf);
+        border: 0.1cqw solid var(--border-md);
+        border-radius: 0.52cqw;
+        padding: 2.4cqw 2cqw;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+      }
+      .tile .value {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 5.5cqw;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+        color: var(--text);
+      }
+      .tile .track {
+        width: 100%;
+        height: 0.35cqw;
+        min-height: 4px;
+        border-radius: 999px;
+        background: var(--border-md);
+        margin: 1.1cqw 0 1.1cqw;
+        overflow: hidden;
+      }
+      .tile .fill {
+        width: 0%;
+        height: 100%;
+        border-radius: 999px;
+      }
+      .tile .label {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-mut);
+      }
+
+      #t1 .fill { background: var(--magenta); }
+      #t2 .fill { background: var(--violet); }
+      #t3 .fill { background: var(--cyan); }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="stat-row"
+      data-start="0"
+      data-duration="7"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="scene" class="clip" data-start="0" data-duration="7" data-track-index="0">
+        <div id="glow"></div>
+
+        <svg id="corner-mark" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF2D95" />
+              <stop offset="45%" stop-color="#FF5C39" />
+              <stop offset="100%" stop-color="#FFC300" />
+            </linearGradient>
+          </defs>
+          <polygon points="155,110 245,150 155,190" fill="url(#markGrad)" />
+        </svg>
+
+        <div class="scene-content">
+          <p id="eyebrow">Nawemedia — En números</p>
+          <h2 id="headline">Lo que ya construimos.</h2>
+
+          <div id="stat-row">
+            <div class="tile" id="t1">
+              <div class="value" id="v1">0</div>
+              <div class="track"><div class="fill" id="f1"></div></div>
+              <div class="label">EPKs de DJs activos</div>
+            </div>
+            <div class="tile" id="t2">
+              <div class="value" id="v2">0</div>
+              <div class="track"><div class="fill" id="f2"></div></div>
+              <div class="label">Servicios en el catálogo</div>
+            </div>
+            <div class="tile" id="t3">
+              <div class="value" id="v3">0%</div>
+              <div class="track"><div class="fill" id="f3"></div></div>
+              <div class="label">Descuento máximo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to("#glow", { scale: 1.08, duration: 5.4, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
+
+      tl.fromTo(
+        "#corner-mark",
+        { autoAlpha: 0, scale: 0.6 },
+        { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" },
+        0.1,
+      );
+
+      tl.fromTo("#eyebrow", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.2);
+      tl.fromTo(
+        "#headline",
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" },
+        0.38,
+      );
+
+      // ── three stat tiles: pop in, then count-up + fill in sync (seek-safe proxy tweens) ──
+      function statTile(tileSel, valueSel, fillSel, target, suffix, popAt, countAt) {
+        tl.fromTo(
+          tileSel,
+          { autoAlpha: 0, y: 36, scale: 0.95 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)" },
+          popAt,
+        );
+
+        const proxy = { n: 0 };
+        const valueEl = document.querySelector(valueSel);
+        tl.to(
+          proxy,
+          {
+            n: target,
+            duration: 0.9,
+            ease: "power2.out",
+            onUpdate: function () {
+              valueEl.textContent = Math.round(proxy.n) + suffix;
+            },
+          },
+          countAt,
+        );
+        tl.fromTo(fillSel, { width: "0%" }, { width: "100%", duration: 0.9, ease: "power2.out" }, countAt);
+      }
+
+      statTile("#t1", "#v1", "#f1", 6, "", 0.75, 0.95);
+      statTile("#t2", "#v2", "#f2", 16, "", 0.91, 1.11);
+      statTile("#t3", "#v3", "#f3", 20, "%", 1.07, 1.27);
+
+      tl.seek(0);
+      window.__timelines["stat-row"] = tl;
+    </script>
+  </body>
+</html>

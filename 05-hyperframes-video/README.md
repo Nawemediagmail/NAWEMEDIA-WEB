@@ -12,6 +12,7 @@ los skills de HyperFrames instalados en `04-notas-tecnicas/hyperframes-video.md`
 | [`transition-flash/`](transition-flash/) | Cuarta pieza construida y renderizada (MP4 4s) — transición real entre las piezas 1 y 2, shader retinteado |
 | [`demo-preview/`](demo-preview/) | Quinta pieza construida y renderizada (MP4 7s) — captura real del motor de presupuestos + cursor sintético |
 | [`lower-thirds/`](lower-thirds/) | Sexta pieza construida y renderizada (MP4 8s) — los 6 DJs reales con EPK activo, sin testimonios inventados |
+| [`cta-micro/`](cta-micro/) | Séptima y última pieza construida y renderizada (MP4 4s) — micro-interacción del botón "Ver cotización" real |
 
 ## Cómo se usa
 
@@ -38,4 +39,11 @@ clientes, micro-interacción del CTA). Cada una mapea a un componente de `frame.
 | 4 | Transición flash retinteada | ✅ construida — [`transition-flash/`](transition-flash/) |
 | 5 | Demo preview embebido | ✅ construida — [`demo-preview/`](demo-preview/) |
 | 6 | Lower-thirds de clientes | ✅ construida — [`lower-thirds/`](lower-thirds/) |
-| 7 | Micro-interacción del CTA | Pendiente |
+| 7 | Micro-interacción del CTA | ✅ construida — [`cta-micro/`](cta-micro/) |
+
+**Las 7 piezas están construidas y renderizadas.** Cada carpeta es un proyecto HyperFrames
+independiente y re-renderizable (`npx hyperframes render . -q high -o ./renders/video.mp4`).
+Todas comparten `frame.md` como fuente de marca y, donde fue posible, contenido real verificado
+contra `nw-tokens.js`, el inventario, o el producto en vivo — nunca copy o cifras inventadas.
+Siguiente paso natural: llevar estos MP4/composiciones al proyecto real de `nawemeddia.com`
+cuando exista.

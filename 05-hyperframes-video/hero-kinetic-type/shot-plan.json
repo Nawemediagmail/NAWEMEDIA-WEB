@@ -1,0 +1,27 @@
+{
+  "category": "kinetic-type",
+  "duration_s": 7,
+  "fps": 30,
+  "canvas": { "w": 1920, "h": 1080, "aspect": "16:9" },
+  "style": "rave-poster hero lockup — brand triangle mark settles, NAWEMEDIA slams in condensed uppercase, gradient text-clip on one syllable, hairline rule draws, mono eyebrow settles. Ambient radial glows + oversized ghost brand-triangle breathe continuously for loop-friendly hold.",
+  "palette": ["#05070D", "#FF2D95", "#FF5C39", "#FFC300", "#7B61FF", "#00E5FF", "#F1F5F9", "#8B95AA"],
+  "font": "League Gothic + JetBrains Mono",
+  "beats": [0.15, 0.3, 0.95, 1.15],
+  "export": "mp4",
+  "asset_needs": [],
+  "content": {
+    "scenes": [
+      {
+        "id": "hero",
+        "start": 0,
+        "end": 7,
+        "text": "NAWEMEDIA — Agencia de contenido — DJs & eventos",
+        "emphasis_words": ["WE"],
+        "emotion": "confident, high-impact, nightlife",
+        "motion": "logo-mark pop-settle -> wordmark kinetic slam (back.out) -> hairline draw -> eyebrow settle; ambient glow breathing + ghost-mark drift throughout",
+        "beats": [0.15, 0.3, 0.95, 1.15]
+      }
+    ]
+  },
+  "notes": "First of 7 hero-index pieces mapped in frame.md (05-hyperframes-video/frame.md, NAWEMEDIA-WEB repo). Design spec: colors/gradients verbatim from nw-tokens.js; logo-mark triangle geometry verbatim from the production loading-splash SVG. Loop-friendly: no exit animation, ambient background motion continues through the hold so a player loop cuts cleanly."
+}

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>NAWEMEDIA — CTA Micro-interaction</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #05070d;
+      }
+      :root {
+        --bg: #05070d;
+        --text: #f1f5f9;
+        --text-mut: #8b95aa;
+        --magenta: #ff2d95;
+        --coral: #ff5c39;
+        --yellow: #ffc300;
+      }
+      #stage {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        container-type: size;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      #scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      #glow {
+        position: absolute;
+        width: 46cqw;
+        height: 46cqw;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 45, 149, 0.18) 0%, rgba(255, 45, 149, 0) 70%);
+        pointer-events: none;
+      }
+
+      #corner-mark {
+        position: absolute;
+        top: 3.6cqw;
+        left: 8.3cqw;
+        width: 2.4cqw;
+        height: 2.9cqw;
+        opacity: 0;
+      }
+      #corner-label {
+        position: absolute;
+        top: 3.9cqw;
+        left: 11.2cqw;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-mut);
+        opacity: 0;
+      }
+
+      /* ── stage for the button + its click affordances ── */
+      #btn-stage {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ── the one sanctioned full-gradient-fill surface (frame.md: cta-button) ── */
+      #cta {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        display: flex;
+        align-items: center;
+        gap: 0.8cqw;
+        padding: 1.5cqw 3cqw;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, var(--magenta) 0%, var(--coral) 50%, var(--yellow) 100%);
+        white-space: nowrap;
+        opacity: 0;
+      }
+      #cta span {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 1.4cqw;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--bg);
+      }
+      #cta svg {
+        width: 1.3cqw;
+        height: 1.3cqw;
+      }
+
+      #ripple {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1px;
+        height: 1px;
+        border-radius: 9999px;
+        border: 2px solid var(--magenta);
+        opacity: 0;
+      }
+
+      /* ── synthetic cursor ── */
+      #cursor {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--text);
+        box-shadow: 0 0 0 4px rgba(241, 245, 249, 0.2);
+        opacity: 0;
+        z-index: 20;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="cta-micro"
+      data-start="0"
+      data-duration="4"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="scene" class="clip" data-start="0" data-duration="4" data-track-index="0">
+        <div id="glow"></div>
+
+        <svg id="corner-mark" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF2D95" />
+              <stop offset="45%" stop-color="#FF5C39" />
+              <stop offset="100%" stop-color="#FFC300" />
+            </linearGradient>
+          </defs>
+          <polygon points="155,110 245,150 155,190" fill="url(#markGrad)" />
+        </svg>
+        <p id="corner-label">Nawemedia — CTA</p>
+
+        <div id="btn-stage">
+          <div id="ripple"></div>
+          <div id="cta">
+            <span>Ver cotización</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#05070D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+          <div id="cursor"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to("#glow", { scale: 1.1, duration: 4.6, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
+
+      tl.fromTo(
+        "#corner-mark",
+        { autoAlpha: 0, scale: 0.6 },
+        { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" },
+        0.1,
+      );
+      tl.fromTo(
+        "#corner-label",
+        { autoAlpha: 0, x: -10 },
+        { autoAlpha: 1, x: 0, duration: 0.3, ease: "power2.out" },
+        0.2,
+      );
+
+      // ── button: pop in, then continuous idle breathing (the sanctioned micro-motion) ──
+      tl.fromTo(
+        "#cta",
+        { autoAlpha: 0, xPercent: -50, yPercent: -50, scale: 0.85 },
+        { autoAlpha: 1, xPercent: -50, yPercent: -50, scale: 1, duration: 0.4, ease: "back.out(1.8)" },
+        0.2,
+      );
+      // idle breathing owns "scale" only in the windows the press/release sequence doesn't
+      tl.to("#cta", { scale: 1.025, duration: 0.42, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0.61);
+
+      // ── cursor: approaches, presses, releases (the demonstrated interaction) ──
+      tl.fromTo(
+        "#cursor",
+        { autoAlpha: 0, xPercent: -50, yPercent: -50, x: 420, y: -260 },
+        { autoAlpha: 1, xPercent: -50, yPercent: -50, x: 210, y: -20, duration: 0.35, ease: "power1.out" },
+        0.75,
+      );
+      tl.to("#cursor", { x: 140, y: 4, duration: 0.35, ease: "power2.inOut" }, 1.1);
+
+      // press: cursor + button both dip
+      tl.to("#cursor", { scale: 0.85, duration: 0.1, ease: "power2.in" }, 1.45);
+      tl.to("#cta", { scale: 0.94, duration: 0.1, ease: "power2.in" }, 1.45);
+
+      // release: overshoot spring + ripple confirms the click
+      tl.to("#cursor", { scale: 1, duration: 0.22, ease: "back.out(3)" }, 1.55);
+      tl.to("#cta", { scale: 1.06, duration: 0.22, ease: "back.out(3)" }, 1.55);
+      tl.to("#cta", { scale: 1, duration: 0.35, ease: "sine.inOut" }, 1.77);
+
+      tl.set("#ripple", { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.3, autoAlpha: 0.9 }, 1.55);
+      tl.to("#ripple", { scale: 2.6, autoAlpha: 0, duration: 0.55, ease: "power2.out" }, 1.55);
+
+      tl.to("#cursor", { autoAlpha: 0, duration: 0.3, ease: "power1.in" }, 2.3);
+
+      // idle breathing resumes once the press/release sequence is done with "scale"
+      tl.to("#cta", { scale: 1.025, duration: 0.425, repeat: 4, yoyo: true, ease: "sine.inOut" }, 2.12);
+
+      tl.seek(0);
+      window.__timelines["cta-micro"] = tl;
+    </script>
+  </body>
+</html>

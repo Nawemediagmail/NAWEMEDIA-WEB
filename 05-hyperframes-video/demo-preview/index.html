@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>NAWEMEDIA — Demo Preview</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #05070d;
+      }
+      :root {
+        --bg: #05070d;
+        --bg-surf: #0b0e18;
+        --border-md: rgba(255, 255, 255, 0.1);
+        --border-hi: rgba(255, 255, 255, 0.18);
+        --text: #f1f5f9;
+        --text-mut: #8b95aa;
+        --magenta: #ff2d95;
+      }
+      #stage {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        container-type: size;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      #scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      #glow {
+        position: absolute;
+        width: 60cqw;
+        height: 60cqw;
+        left: 50%;
+        top: -30cqh;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 45, 149, 0.14) 0%, rgba(0, 229, 255, 0.08) 45%, rgba(0, 0, 0, 0) 72%);
+        pointer-events: none;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 5.2cqw 8.3cqw;
+        box-sizing: border-box;
+      }
+
+      #corner-mark {
+        position: absolute;
+        top: 3.6cqw;
+        left: 8.3cqw;
+        width: 2.4cqw;
+        height: 2.9cqw;
+        opacity: 0;
+        z-index: 10;
+      }
+
+      #eyebrow {
+        align-self: flex-start;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-mut);
+        opacity: 0;
+        margin-bottom: 0.9cqw;
+      }
+
+      #headline {
+        align-self: flex-start;
+        font-family: "League Gothic", sans-serif;
+        font-weight: 400;
+        font-size: 5.2cqw;
+        line-height: 0.95;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        color: var(--text);
+        opacity: 0;
+        margin-bottom: 2.6cqw;
+      }
+
+      /* ── demo-frame bezel: minimal chrome, the product UI is the content ── */
+      #bezel {
+        position: relative;
+        width: 1200px;
+        background: var(--bg-surf);
+        border: 2px solid var(--border-hi);
+        border-radius: 20px;
+        overflow: hidden;
+        opacity: 0;
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+      }
+      #bezel-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 36px;
+        padding: 0 16px;
+        background: var(--bg-surf);
+        border-bottom: 1px solid var(--border-md);
+      }
+      #bezel-bar span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--text-mut);
+        opacity: 0.5;
+      }
+      #bezel-viewport {
+        position: relative;
+        width: 1200px;
+        height: 675px;
+        overflow: hidden;
+      }
+      #bezel-viewport img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1200px;
+        height: 675px;
+        display: block;
+        transform-origin: 38% 40%;
+      }
+
+      /* ── synthetic cursor: simulates a real click on the real UI ── */
+      #cursor {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--magenta);
+        box-shadow: 0 0 0 4px rgba(255, 45, 149, 0.25);
+        opacity: 0;
+        z-index: 20;
+      }
+      #cursor-ring {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--magenta);
+        opacity: 0;
+        z-index: 19;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="demo-preview"
+      data-start="0"
+      data-duration="7"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="scene" class="clip" data-start="0" data-duration="7" data-track-index="0">
+        <div id="glow"></div>
+
+        <svg id="corner-mark" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF2D95" />
+              <stop offset="45%" stop-color="#FF5C39" />
+              <stop offset="100%" stop-color="#FFC300" />
+            </linearGradient>
+          </defs>
+          <polygon points="155,110 245,150 155,190" fill="url(#markGrad)" />
+        </svg>
+
+        <div class="scene-content">
+          <p id="eyebrow">Nawemedia — Demos</p>
+          <h2 id="headline">El motor de presupuestos, en vivo.</h2>
+
+          <div id="bezel">
+            <div id="bezel-bar"><span></span><span></span><span></span></div>
+            <div id="bezel-viewport" data-layout-allow-overflow="true">
+              <img src="./assets/presupuesto-app.png" alt="" data-layout-allow-overflow="true" />
+              <div id="cursor-ring"></div>
+              <div id="cursor"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to("#glow", { scale: 1.08, duration: 5.4, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
+
+      tl.fromTo(
+        "#corner-mark",
+        { autoAlpha: 0, scale: 0.6 },
+        { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" },
+        0.1,
+      );
+      tl.fromTo("#eyebrow", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.2);
+      tl.fromTo(
+        "#headline",
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" },
+        0.38,
+      );
+
+      // ── bezel: pop-settle, then a slow Ken Burns drift on the real screenshot ──
+      tl.fromTo(
+        "#bezel",
+        { autoAlpha: 0, y: 36, scale: 0.97 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.4)" },
+        0.6,
+      );
+      tl.fromTo(
+        "#bezel-viewport img",
+        { scale: 1 },
+        { scale: 1.05, duration: 6.4, ease: "sine.inOut" },
+        0.6,
+      );
+
+      // ── synthetic cursor: real click position on the real screenshot ──
+      // "Reels Promocionales" card, scaled 1200/1920 from the source screenshot
+      var CARD_X = 600; // (736 + 1183) / 2 * (1200/1920)
+      var CARD_Y = 273; // (404 + 468) / 2 * (675/1080)
+      var START_X = 140;
+      var START_Y = 90;
+
+      tl.set("#cursor", { xPercent: -50, yPercent: -50, x: START_X, y: START_Y }, 1.3);
+      tl.fromTo("#cursor", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, ease: "power1.out" }, 1.3);
+      tl.to("#cursor", { x: CARD_X, y: CARD_Y, duration: 0.9, ease: "power2.inOut" }, 1.6);
+
+      // click pulse at arrival
+      tl.to("#cursor", { scale: 0.75, duration: 0.1, ease: "power2.in" }, 2.5);
+      tl.to("#cursor", { scale: 1, duration: 0.18, ease: "back.out(3)" }, 2.6);
+      tl.set("#cursor-ring", { xPercent: -50, yPercent: -50, x: CARD_X, y: CARD_Y, autoAlpha: 1, scale: 1 }, 2.5);
+      tl.to("#cursor-ring", { scale: 2.6, autoAlpha: 0, duration: 0.5, ease: "power2.out" }, 2.5);
+
+      tl.to("#cursor", { autoAlpha: 0, duration: 0.3, ease: "power1.in" }, 3.3);
+
+      tl.seek(0);
+      window.__timelines["demo-preview"] = tl;
+    </script>
+  </body>
+</html>

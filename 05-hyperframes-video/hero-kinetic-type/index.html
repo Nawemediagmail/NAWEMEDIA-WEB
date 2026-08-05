@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>NAWEMEDIA — Hero Kinetic Type</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #05070d;
+      }
+      :root {
+        --bg: #05070d;
+        --text: #f1f5f9;
+        --text-mut: #8b95aa;
+        --magenta: #ff2d95;
+        --coral: #ff5c39;
+        --violet: #7b61ff;
+        --cyan: #00e5ff;
+        --yellow: #ffc300;
+      }
+      #stage {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        container-type: size;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      #scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ── background layer (z0): ghost logo-mark, drifting oversized brand triangle ── */
+      #ghost-mark {
+        position: absolute;
+        right: -6cqw;
+        bottom: -10cqh;
+        width: 62cqw;
+        height: 62cqw;
+        opacity: 0.07;
+      }
+
+      /* ── background layer: radial glows, breathing ── */
+      .glow {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      #glow-a {
+        width: 62cqw;
+        height: 62cqw;
+        left: -14cqw;
+        top: -18cqh;
+        background: radial-gradient(circle, rgba(255, 45, 149, 0.22) 0%, rgba(255, 45, 149, 0) 70%);
+      }
+      #glow-b {
+        width: 54cqw;
+        height: 54cqw;
+        right: -10cqw;
+        bottom: -16cqh;
+        background: radial-gradient(
+          circle,
+          rgba(123, 97, 255, 0.18) 0%,
+          rgba(0, 229, 255, 0.1) 45%,
+          rgba(0, 229, 255, 0) 72%
+        );
+      }
+
+      /* ── foreground content ── */
+      .scene-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 8.3cqw;
+        box-sizing: border-box;
+      }
+
+      #lockup-row {
+        display: flex;
+        align-items: center;
+        gap: 1.6cqw;
+        margin-bottom: 0.6cqw;
+      }
+      #logo-mark {
+        width: 4.4cqw;
+        height: 5.3cqw;
+        flex: none;
+        opacity: 0;
+      }
+
+      #wordmark {
+        font-family: "League Gothic", sans-serif;
+        font-weight: 400;
+        font-size: 9.5cqw;
+        line-height: 0.9;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        color: var(--text);
+        white-space: nowrap;
+        opacity: 0;
+      }
+      #wordmark .accent {
+        background: linear-gradient(90deg, var(--magenta) 0%, var(--coral) 45%, var(--yellow) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      #rule {
+        width: 0%;
+        height: 0.15cqw;
+        min-height: 2px;
+        margin: 1.4cqw 0 1.2cqw;
+        background: linear-gradient(90deg, var(--magenta) 0%, var(--coral) 45%, var(--yellow) 100%);
+        transform-origin: left center;
+      }
+
+      #eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-mut);
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="hero"
+      data-start="0"
+      data-duration="7"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="scene" class="clip" data-start="0" data-duration="7" data-track-index="0">
+        <svg id="ghost-mark" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="ghostGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF2D95" />
+              <stop offset="45%" stop-color="#FF5C39" />
+              <stop offset="100%" stop-color="#FFC300" />
+            </linearGradient>
+          </defs>
+          <polygon points="155,110 245,150 155,190" fill="url(#ghostGrad)" />
+        </svg>
+
+        <div id="glow-a" class="glow"></div>
+        <div id="glow-b" class="glow"></div>
+
+        <div class="scene-content">
+          <div id="lockup-row">
+            <svg id="logo-mark" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FF2D95" />
+                  <stop offset="45%" stop-color="#FF5C39" />
+                  <stop offset="100%" stop-color="#FFC300" />
+                </linearGradient>
+              </defs>
+              <polygon points="155,110 245,150 155,190" fill="url(#markGrad)" />
+            </svg>
+          </div>
+          <h1 id="wordmark">NA<span class="accent">WE</span>MEDIA</h1>
+          <div id="rule"></div>
+          <p id="eyebrow">Agencia de contenido — DJs &amp; eventos</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // ── ambient background: breathing glows + drifting ghost mark (seek-safe repeats) ──
+      gsap.set("#ghost-mark", { transformOrigin: "70% 60%" });
+      tl.to("#glow-a", { scale: 1.08, duration: 4.6, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
+      tl.to("#glow-b", { scale: 1.12, duration: 5.4, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0.4);
+      tl.to("#ghost-mark", { rotation: 6, duration: 9, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
+
+      // ── logo-mark: small pop-settle, confirms the brand icon first ──
+      tl.fromTo(
+        "#logo-mark",
+        { autoAlpha: 0, scale: 0.5, rotation: -12, transformOrigin: "50% 50%" },
+        { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.35, ease: "back.out(2.2)" },
+        0.15,
+      );
+
+      // ── wordmark: kinetic slam, the dominant motif ──
+      tl.fromTo(
+        "#wordmark",
+        { autoAlpha: 0, scale: 0.62, y: 18 },
+        { autoAlpha: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" },
+        0.3,
+      );
+
+      // ── structural rule: draws left-to-right ──
+      tl.fromTo("#rule", { width: "0%" }, { width: "18%", duration: 0.45, ease: "power3.out" }, 0.95);
+
+      // ── eyebrow: settles in after the hero has landed ──
+      tl.fromTo(
+        "#eyebrow",
+        { autoAlpha: 0, y: 14 },
+        { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" },
+        1.15,
+      );
+
+      tl.seek(0);
+      window.__timelines["hero"] = tl;
+    </script>
+  </body>
+</html>

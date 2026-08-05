@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>NAWEMEDIA — Service Reveal</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #05070d;
+      }
+      :root {
+        --bg: #05070d;
+        --bg-card: #101322;
+        --border-md: rgba(255, 255, 255, 0.1);
+        --text: #f1f5f9;
+        --text-mut: #8b95aa;
+        --magenta: #ff2d95;
+        --coral: #ff5c39;
+      }
+      #stage {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        container-type: size;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      #scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ── background: one restrained glow (dense card grid needs less decoration) ── */
+      #glow {
+        position: absolute;
+        width: 58cqw;
+        height: 58cqw;
+        left: 50%;
+        top: -30cqh;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 45, 149, 0.14) 0%, rgba(123, 97, 255, 0.08) 45%, rgba(0, 0, 0, 0) 72%);
+        pointer-events: none;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 6.7cqw 8.3cqw;
+        box-sizing: border-box;
+      }
+
+      /* ── corner brand lockup (small, consistent with hero piece) ── */
+      #corner-mark {
+        position: absolute;
+        top: 3.6cqw;
+        left: 8.3cqw;
+        width: 2.4cqw;
+        height: 2.9cqw;
+        opacity: 0;
+        z-index: 10;
+      }
+
+      #eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-mut);
+        opacity: 0;
+        margin-bottom: 0.9cqw;
+      }
+
+      #headline {
+        font-family: "League Gothic", sans-serif;
+        font-weight: 400;
+        font-size: 5.2cqw;
+        line-height: 0.95;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        color: var(--text);
+        opacity: 0;
+        margin-bottom: 2.8cqw;
+      }
+
+      #card-row {
+        display: flex;
+        gap: 1.5cqw;
+        width: 100%;
+      }
+
+      .card {
+        position: relative;
+        flex: 1 1 0;
+        background: var(--bg-card);
+        border: 0.1cqw solid var(--border-md);
+        border-radius: 0.83cqw;
+        padding: 1.6cqw 1.4cqw;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8cqw;
+        opacity: 0;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0.2cqw;
+        background: var(--accent);
+      }
+      .card .swatch {
+        width: 2.6cqw;
+        height: 2.6cqw;
+        border-radius: 0.42cqw;
+        background: var(--accent);
+      }
+      .card .title {
+        font-family: "League Gothic", sans-serif;
+        font-weight: 400;
+        font-size: 2.4cqw;
+        line-height: 0.95;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+      .card .desc {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text-mut);
+      }
+
+      #c1 { --accent: linear-gradient(135deg, #ff2d95, #7b61ff); }
+      #c2 { --accent: linear-gradient(135deg, #ff5c39, #ffc300); }
+      #c3 { --accent: linear-gradient(135deg, #7b61ff, #00e5ff); }
+      #c4 { --accent: linear-gradient(135deg, #ff2d95, #ff7a00); }
+      #c5 { --accent: linear-gradient(135deg, #00e5ff, #7b61ff); }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="service-reveal"
+      data-start="0"
+      data-duration="8"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="scene" class="clip" data-start="0" data-duration="8" data-track-index="0">
+        <div id="glow"></div>
+
+        <svg id="corner-mark" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF2D95" />
+              <stop offset="45%" stop-color="#FF5C39" />
+              <stop offset="100%" stop-color="#FFC300" />
+            </linearGradient>
+          </defs>
+          <polygon points="155,110 245,150 155,190" fill="url(#markGrad)" />
+        </svg>
+
+        <div class="scene-content">
+          <p id="eyebrow">Nawemedia — Servicios</p>
+          <h2 id="headline">Cinco líneas. Un solo look.</h2>
+
+          <div id="card-row">
+            <div class="card" id="c1">
+              <div class="swatch"></div>
+              <div class="title">Redes</div>
+              <div class="desc">Crecé y dominá tus redes.</div>
+            </div>
+            <div class="card" id="c2">
+              <div class="swatch"></div>
+              <div class="title">Eventos</div>
+              <div class="desc">Diseños y videos para eventos.</div>
+            </div>
+            <div class="card" id="c3">
+              <div class="swatch"></div>
+              <div class="title">Visuales LED</div>
+              <div class="desc">Visuales impactantes en pantallas.</div>
+            </div>
+            <div class="card" id="c4">
+              <div class="swatch"></div>
+              <div class="title">Campaña completa</div>
+              <div class="desc">Solución integral para tu marca.</div>
+            </div>
+            <div class="card" id="c5">
+              <div class="swatch"></div>
+              <div class="title">Personalizado</div>
+              <div class="desc">Contanos tu idea, lo hacemos real.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // ── ambient background: slow breathing glow ──
+      tl.to("#glow", { scale: 1.1, duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut" }, 0);
+
+      // ── corner brand mark: quiet confirm ──
+      tl.fromTo(
+        "#corner-mark",
+        { autoAlpha: 0, scale: 0.6 },
+        { autoAlpha: 1, scale: 1, duration: 0.3, ease: "back.out(2)" },
+        0.1,
+      );
+
+      // ── eyebrow + headline ──
+      tl.fromTo("#eyebrow", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.2);
+      tl.fromTo(
+        "#headline",
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" },
+        0.38,
+      );
+
+      // ── five cards cascade left → right ──
+      const cardIds = ["#c1", "#c2", "#c3", "#c4", "#c5"];
+      const cardStart = 0.75;
+      const cardStagger = 0.16;
+      cardIds.forEach((sel, i) => {
+        const t = cardStart + i * cardStagger;
+        tl.fromTo(
+          sel,
+          { autoAlpha: 0, y: 44, scale: 0.94 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" },
+          t,
+        );
+      });
+
+      tl.seek(0);
+      window.__timelines["service-reveal"] = tl;
+    </script>
+  </body>
+</html>

@@ -81,8 +81,15 @@ components:
     border: "0.15cqw solid {colors.borderMd}"
     rounded: "{radius.md}"
     hoverBackground: "{colors.bgCardHov}"
-    accentBar: "0.2cqw tall, one gradient stop color per card, top edge only"
-    description: "Scroll-reveal service tile (EPKs / Presupuestos / Catálogo / ClubOS / Redes). Each card gets ONE accent hue from the palette, not the full gradient — five cards cycling five hues is the rhythm."
+    accentBar: "0.2cqw tall, top edge only, filled with the category's own gradient (not a cycled single hue)"
+    description: >
+      Service tile. Correction: NAWEMEDIA's real catalog (`nw-tokens.js` → `window.NW.CATALOG`)
+      already assigns each of its 5 categories its own two-stop gradient — reuse these verbatim,
+      don't invent a hue-cycle: Redes `135deg, #FF2D95→#7B61FF` · Eventos `135deg,
+      #FF5C39→#FFC300` · Visuales LED `135deg, #7B61FF→#00E5FF` · Campaña completa `135deg,
+      #FF2D95→#FF7A00` · Personalizado `135deg, #00E5FF→#7B61FF`. Icon swatch = a small
+      rounded-square filled with the card's own gradient (geometric placeholder, not a
+      fabricated icon asset) — see Numerals & Claims.
   stat-tile:
     backgroundColor: "{colors.bgSurf}"
     border: "0.1cqw solid {colors.borderLo}"

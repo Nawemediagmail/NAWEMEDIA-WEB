@@ -6,8 +6,9 @@ description: >
   reveals, stat/chart, transitions, demo previews, lower-thirds, CTA). Colors, gradients and
   radii are copied verbatim from `nw-tokens.js` (nawemedia-presupuesto-v6, the production
   budget engine that will be embedded on the site) — this is not a new palette, it's the
-  existing brand rewritten for the frame. Typography is new: the web build has no display
-  webfont yet (system font stack only), so this spec introduces the video-first type pair.
+  existing brand rewritten for the frame. Typography is a deliberate divergence, not a gap:
+  the web build already ships a custom webfont (Sora 400-800), but this spec introduces a
+  different video-first type pair (League Gothic + JetBrains Mono) — see "Known Gaps" for why.
 unit: the frame — 1920×1080 primary; 1080×1920 and 1080×1080 documented for social cuts
 principle: atoms are sacred (brand tokens verbatim) · composition is free · numbers come from the script
 
@@ -154,8 +155,10 @@ scale (see Composition Rules), not in avoiding it.
   for everything else — body, labels, data, eyebrows. Sans + mono, never two sans.
 - **Glass-dark cards**: `bgCard`/`bgCardHov` fills, hairline borders (`borderLo/Md/Hi`), radius
   10/16/20px verbatim from the token set.
-- **One accent hue per element**, not the full gradient repeated everywhere — five service
-  cards cycling five hues is the rhythm; a page of six-color gradients everywhere is noise.
+- **One accent per element**, not the full gradient repeated everywhere. For most components
+  that means one solid hue; the five service cards are the sanctioned exception — each reuses
+  its own real two-stop gradient from `window.NW.CATALOG` (verbatim, not an invented cycle —
+  see the `service-card` component). A page of six-color gradients everywhere is still noise.
 
 ## The Frame
 

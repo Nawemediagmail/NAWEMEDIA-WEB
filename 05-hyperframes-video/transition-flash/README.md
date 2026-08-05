@@ -26,6 +26,13 @@ efecto, fidelidad exacta.
 
 `hyperframes check`: 0 errores, 0 warnings.
 
+## Fix post-review
+
+`assets/scene-a-hero.png` se regeneró después de que un fix de layout en `../hero-kinetic-type`
+(ver su README) cambiara el frame final de esa pieza — el asset y el render de esta pieza
+estaban desactualizados respecto al hero corregido. Vuelto a capturar y re-renderizar para que
+la transición siga siendo pixel-perfect al hero real.
+
 ## Re-renderizar
 
 ```bash

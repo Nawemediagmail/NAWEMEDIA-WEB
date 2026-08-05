@@ -31,3 +31,13 @@ Durante el build se detectó que `nawemedia-presupuesto-v6` sí usa un webfont c
 400–800) — el `frame.md` original decía "solo system font", corregido. También se confirmó el
 isotipo real (triángulo/play-button del loading splash) y se usó su geometría exacta acá en vez
 de inventar una forma. Ver "Known Gaps" en `../frame.md` para el detalle.
+
+## Fix post-review (layout)
+
+Una revisión de PR encontró que `#scene` (el `.clip` interno) no tenía `width`/`height`
+explícitos — el mismo bug de centrado documentado en `../service-reveal/README.md`, que nunca
+se había vuelto a aplicar acá. `justify-content: center` no hacía nada porque el `height: 100%`
+de `.scene-content` no resolvía contra nada. Corregido con la misma regla que usan las otras 6
+piezas (`#scene { position: relative; width: 100%; height: 100%; }`) y vuelto a renderizar — el
+contenido ahora sí queda centrado verticalmente. Como `../transition-flash` usa el frame final
+de esta pieza como textura, también se actualizó y re-renderizó esa pieza en cascada.

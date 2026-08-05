@@ -59,6 +59,11 @@ radius:
   lg: "1.04cqw"   # 20px @1920 — verbatim from nw-tokens.radiusLg
 
 components:
+  logo-mark:
+    shape: "triangle, apex-right, ~30% w / 27% h of its box (verbatim proportions from the production loading-splash SVG polygon)"
+    fill: "{gradients.main}"
+    underline: "thin {gradients.main} rule beneath, {radius.sm} corner"
+    description: "The confirmed real isotype (not invented) — reuse this exact triangle geometry, not a generic play/arrow shape."
   hero-kinetic-title:
     fontFamily: "{typography.heading-xl}"
     textColor: "{colors.text}"
@@ -273,10 +278,22 @@ until a script/data source supplies real values.
 
 ## Known Gaps
 
-- **Typography is new, not inherited.** The current web build (`nawemedia-presupuesto-v6`)
-  ships zero custom webfonts (system font stack only). League Gothic + JetBrains Mono are
-  proposed here for the *video* layer; if they read well, port them back into a `design.md`
-  for the web build so type stays unified across site and video.
+- **Typography is a deliberate divergence, not an oversight.** Correction: the web build
+  (`nawemedia-presupuesto-v6`) DOES ship a custom webfont — **Sora**, weights 400–800, on
+  `body` (verified in the app's embedded CSS, not just the loading splash). Sora is on
+  `typography.md`'s banned-monoculture list — it's the safe, generic choice every AI-assisted
+  build reaches for, which is exactly why the video layer doesn't inherit it: at frame scale
+  the type IS the poster, and a rave-poster condensed display (League Gothic) reads far more
+  distinctive than Sora does at 200px+. If this pairing under-performs in practice, the fallback
+  is Sora at video scale, not a silent revert.
+- **Logo mark exists — use it, don't invent a substitute.** The production loading splash
+  (`index.html`) inlines the real isotype: a **play-button triangle** in `{gradients.main}`
+  (`polygon points="155,110 245,150 155,190"` in a 400×300 viewBox, i.e. a triangle roughly
+  30% width / 27% height, apex-right) above a thin gradient underline rule, above the
+  wordmark. Reuse this exact triangle geometry (scaled) as a decorative/closing mark instead
+  of a generic shape — it's the one piece of real brand identity confirmed outside the token
+  file. New component: `logo-mark` — `{gradients.main}`-filled triangle, same proportions,
+  paired with a `{radius.sm}` gradient underline rule.
 - **Motion intentionally out of scope.** This spec is composition + brand only — durations,
   eases, and per-piece choreography for the 7 animations discussed (hero, scroll reveal,
   stat/chart, transition, demo preview, lower-third, CTA) live in `hyperframes-animation`

@@ -6,6 +6,7 @@ los skills de HyperFrames instalados en `04-notas-tecnicas/hyperframes-video.md`
 | Archivo | Contenido |
 |---|---|
 | [`frame.md`](frame.md) | Frame-scale design spec (colores, tipografía, componentes) — tokens copiados verbatim de `nw-tokens.js` (`nawemedia-presupuesto-v6`), tipografía nueva para video (League Gothic + JetBrains Mono) |
+| [`hero-kinetic-type/`](hero-kinetic-type/) | Primera pieza construida y renderizada (MP4 7s) — proyecto HyperFrames completo, listo para re-render |
 
 ## Cómo se usa
 
@@ -22,5 +23,14 @@ construyendo las piezas.
 
 Ver la lista completa discutida en sesión (hero kinetic type, scroll reveal de servicios,
 stat/chart animado, transición flash retinteada, demo preview embebido, lower-thirds de
-clientes, micro-interacción del CTA). Cada una mapea a un componente de `frame.md`; falta la
-etapa de motion (`hyperframes-animation`) para definir timing/easing por pieza.
+clientes, micro-interacción del CTA). Cada una mapea a un componente de `frame.md`.
+
+| # | Pieza | Estado |
+|---|---|---|
+| 1 | Hero kinetic type | ✅ construida — [`hero-kinetic-type/`](hero-kinetic-type/) |
+| 2 | Scroll reveal de servicios | Pendiente |
+| 3 | Stat/chart animado | Pendiente |
+| 4 | Transición flash retinteada | Pendiente |
+| 5 | Demo preview embebido | Pendiente |
+| 6 | Lower-thirds de clientes | Pendiente |
+| 7 | Micro-interacción del CTA | Pendiente |

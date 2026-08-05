@@ -15,6 +15,7 @@ Dominio comprado: **www.nawemeddia.com**
 | [`02-demos-portfolio/`](02-demos-portfolio) | Demos en vivo (Netlify) y EPKs de clientes activos, listos para linkear/embeber en la sección "Demos" |
 | [`03-repositorios-mapa.md`](03-repositorios-mapa.md) | Mapa de todos los repos de GitHub, qué versión de cada sistema usar y cuáles son obsoletas |
 | [`04-notas-tecnicas/stack-resumen.md`](04-notas-tecnicas/stack-resumen.md) | Stack técnico real detectado en cada repo (para decidir el stack del sitio institucional) |
+| [`04-notas-tecnicas/hyperframes-video.md`](04-notas-tecnicas/hyperframes-video.md) | HyperFrames (heygen-com), motor de video HTML-nativo instalado como skill de agente — para generar videos demo/promo |
 
 ## Próximo paso sugerido
 

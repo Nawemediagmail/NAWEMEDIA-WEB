@@ -11,6 +11,7 @@ los skills de HyperFrames instalados en `04-notas-tecnicas/hyperframes-video.md`
 | [`stat-chart/`](stat-chart/) | Tercera pieza construida y renderizada (MP4 7s) — 3 stats reales con count-up seek-safe |
 | [`transition-flash/`](transition-flash/) | Cuarta pieza construida y renderizada (MP4 4s) — transición real entre las piezas 1 y 2, shader retinteado |
 | [`demo-preview/`](demo-preview/) | Quinta pieza construida y renderizada (MP4 7s) — captura real del motor de presupuestos + cursor sintético |
+| [`lower-thirds/`](lower-thirds/) | Sexta pieza construida y renderizada (MP4 8s) — los 6 DJs reales con EPK activo, sin testimonios inventados |
 
 ## Cómo se usa
 
@@ -36,5 +37,5 @@ clientes, micro-interacción del CTA). Cada una mapea a un componente de `frame.
 | 3 | Stat/chart animado | ✅ construida — [`stat-chart/`](stat-chart/) |
 | 4 | Transición flash retinteada | ✅ construida — [`transition-flash/`](transition-flash/) |
 | 5 | Demo preview embebido | ✅ construida — [`demo-preview/`](demo-preview/) |
-| 6 | Lower-thirds de clientes | Pendiente |
+| 6 | Lower-thirds de clientes | ✅ construida — [`lower-thirds/`](lower-thirds/) |
 | 7 | Micro-interacción del CTA | Pendiente |

@@ -1,8 +1,8 @@
 # NAWEMEDIA-WEB — Inventario y material fuente para nawemeddia.com
 
-Este repo NO es el sitio web todavía. Es el punto de partida: un inventario ordenado
-de todo lo que NAWEMEDIA ya construyó y que puede alimentar nawemeddia.com
-(servicios, demos, sistema de presupuestos, catálogos, EPKs, etc.).
+Arrancó como inventario ordenado de todo lo que NAWEMEDIA ya construyó (servicios, demos,
+sistema de presupuestos, catálogos, EPKs, etc.) y ahora también aloja el sitio institucional
+en producción, bajo [`sitio/`](sitio) — desplegado en `nawemedia.com` vía Vercel.
 
 Dominio comprado: **www.nawemeddia.com**
 
@@ -10,6 +10,7 @@ Dominio comprado: **www.nawemeddia.com**
 
 | Carpeta | Contenido |
 |---|---|
+| [`sitio/`](sitio) | El sitio institucional real, en producción (`nawemedia.com`) |
 | [`00-INVENTARIO-GENERAL.md`](00-INVENTARIO-GENERAL.md) | Tabla maestra: todo repo + todo sitio Netlify, qué es, estado, para qué sirve en la web |
 | [`01-servicios/`](01-servicios) | Una ficha por línea de servicio de la agencia (EPKs, Presupuestos, Catálogos, ClubOS, Onboarding) |
 | [`02-demos-portfolio/`](02-demos-portfolio) | Demos en vivo (Netlify) y EPKs de clientes activos, listos para linkear/embeber en la sección "Demos" |

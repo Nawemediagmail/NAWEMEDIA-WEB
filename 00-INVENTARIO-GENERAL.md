@@ -1,6 +1,7 @@
 # Inventario general
 
 Relevado el 2026-07-15 directamente desde GitHub (org `Nawemediagmail`) y Netlify.
+Re-relevado (repos + fechas de push) el 2026-08-12 — ver `03-repositorios-mapa.md` para el detalle actualizado.
 
 ## Repositorios GitHub
 
@@ -21,6 +22,7 @@ Detectados por búsqueda en la org, requieren agregarse a la sesión si se quier
 - `dj-nawel-demo-epk`, `dj-ambarlombardi-epk`, `sofi-epk-app`, `PRESS-KIT-WEB-RONALD-ROSSENOUFF` — EPKs de clientes individuales
 - `nawemedia-catalopg-os-v5` usa rama por defecto `nawemedia` (no `main`) — igual que `dj-nawel-demo-epk` y `nawemedia-presupuesto-v6`
 - `miculka-logistica`, `savori...` (`creadores`, `miculka-test-01`) — proyectos de clientes fuera del rubro música
+- `ui-ux-pro-max-skill` — nuevo en la org (detectado 2026-08-12), fork público de una skill de terceros; no es contenido propio de NAWEMEDIA
 
 ## Sitios Netlify (equipo activo, plan dev)
 

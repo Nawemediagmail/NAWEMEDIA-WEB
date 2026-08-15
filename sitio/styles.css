@@ -580,6 +580,22 @@ footer .wrap {
 
 .footer-logo-img { height: 16px; width: auto; display: block; opacity: 0.9; }
 
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-social a {
+  color: var(--color-text-faint);
+  display: flex;
+  transition: var(--transition-fast);
+}
+
+.footer-social a:hover {
+  color: var(--color-gold-bright);
+}
+
 @media (max-width: 760px) {
   .nav-links { display: none; }
   .menu-toggle { display: inline-flex; }

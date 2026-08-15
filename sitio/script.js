@@ -257,3 +257,29 @@ if (imgLightbox) {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && imgLightbox && imgLightbox.classList.contains("open")) closeImg();
 });
+
+// Eventos de conversión GA4
+function gaEvent(name, params) {
+  if (typeof gtag === "function") gtag("event", name, params);
+}
+
+document.addEventListener("click", (e) => {
+  const waLink = e.target.closest('a[href^="https://wa.me/"]');
+  if (waLink) gaEvent("whatsapp_click", { link_url: waLink.href });
+
+  const mailLink = e.target.closest('a[href^="mailto:"]');
+  if (mailLink) gaEvent("email_click", { link_url: mailLink.href });
+});
+
+const contactSection = document.getElementById("contacto");
+if (contactSection && "IntersectionObserver" in window) {
+  const contactObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        gaEvent("contact_view", {});
+        contactObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  contactObserver.observe(contactSection);
+}

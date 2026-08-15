@@ -1138,3 +1138,48 @@ main > section + section:not(#clientes)::before {
 @media (prefers-reduced-motion: reduce) {
   .wa-float { animation: none; }
 }
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faq-item {
+  padding: 22px 28px;
+  cursor: pointer;
+}
+
+.faq-item summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: "+";
+  flex: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-gold-bright);
+  transition: var(--transition-slow);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  font-family: var(--font-ui);
+  color: var(--color-text-muted);
+  margin: 16px 0 0;
+  font-size: var(--text-base);
+}

@@ -630,44 +630,5 @@
 </footer>
 
 <script src="script.js"></script>
-
-<!-- Eventos de conversión GA4: WhatsApp, email, visita a presupuesto y contacto -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    if (!window.gtag) return;
-
-    document.addEventListener('click', function (e) {
-      var waLink = e.target.closest('a[href*="wa.me"]');
-      if (waLink) {
-        gtag('event', 'whatsapp_click', { link_url: waLink.href });
-        return;
-      }
-      var mailLink = e.target.closest('a[href^="mailto:"]');
-      if (mailLink) {
-        gtag('event', 'email_click', { link_url: mailLink.href });
-      }
-    });
-
-    var sectionsToTrack = [
-      { id: 'presupuesto', eventName: 'view_presupuesto_section' },
-      { id: 'contacto', eventName: 'view_contact_section' }
-    ];
-    if ('IntersectionObserver' in window) {
-      sectionsToTrack.forEach(function (s) {
-        var el = document.getElementById(s.id);
-        if (!el) return;
-        var observer = new IntersectionObserver(function (entries, obs) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              gtag('event', s.eventName);
-              obs.disconnect();
-            }
-          });
-        }, { threshold: 0.4 });
-        observer.observe(el);
-      });
-    }
-  });
-</script>
 </body>
 </html>

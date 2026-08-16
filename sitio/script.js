@@ -283,3 +283,16 @@ if (contactSection && "IntersectionObserver" in window) {
   }, { threshold: 0.4 });
   contactObserver.observe(contactSection);
 }
+
+const presupuestoSection = document.getElementById("presupuesto");
+if (presupuestoSection && "IntersectionObserver" in window) {
+  const presupuestoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        gaEvent("view_presupuesto_section", {});
+        presupuestoObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  presupuestoObserver.observe(presupuestoSection);
+}

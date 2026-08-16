@@ -22,7 +22,11 @@
 <meta name="twitter:description" content="Branding, motion graphics, LED visuals, EPKs y presupuestos interactivos para DJs, artistas, clubes y marcas urbanas.">
 <meta name="twitter:image" content="https://www.nawemedia.com/assets/og-cover.png">
 
-<link rel="icon" type="image/png" href="assets/logo-cuadrado.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="stylesheet" href="colors_and_type.css">
 <link rel="stylesheet" href="styles.css">
 <script defer src="/_vercel/insights/script.js"></script>
@@ -626,5 +630,44 @@
 </footer>
 
 <script src="script.js"></script>
+
+<!-- Eventos de conversión GA4: WhatsApp, email, visita a presupuesto y contacto -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.gtag) return;
+
+    document.addEventListener('click', function (e) {
+      var waLink = e.target.closest('a[href*="wa.me"]');
+      if (waLink) {
+        gtag('event', 'whatsapp_click', { link_url: waLink.href });
+        return;
+      }
+      var mailLink = e.target.closest('a[href^="mailto:"]');
+      if (mailLink) {
+        gtag('event', 'email_click', { link_url: mailLink.href });
+      }
+    });
+
+    var sectionsToTrack = [
+      { id: 'presupuesto', eventName: 'view_presupuesto_section' },
+      { id: 'contacto', eventName: 'view_contact_section' }
+    ];
+    if ('IntersectionObserver' in window) {
+      sectionsToTrack.forEach(function (s) {
+        var el = document.getElementById(s.id);
+        if (!el) return;
+        var observer = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              gtag('event', s.eventName);
+              obs.disconnect();
+            }
+          });
+        }, { threshold: 0.4 });
+        observer.observe(el);
+      });
+    }
+  });
+</script>
 </body>
 </html>

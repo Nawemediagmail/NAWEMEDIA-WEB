@@ -178,6 +178,66 @@
     .card { padding: 4px 16px; }
     .item-row { flex-wrap: wrap; }
   }
+
+  /* Concept cards (item + explanation + inline addon control) */
+  .concept-card { padding: 24px; }
+  .concept-card + .concept-card { margin-top: -12px; }
+  .concept-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .concept-icon {
+    font-size: 20px; line-height: 1; width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(245,158,11,0.12); color: var(--color-gold-bright);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .concept-titlewrap { flex: 1; display: flex; align-items: center; padding-top: 8px; }
+  .concept-title {
+    font-family: var(--font-heading); font-size: 14.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: #fff;
+  }
+  .concept-price {
+    font-family: var(--font-heading); font-size: 17px; font-weight: 600; color: var(--color-gold-bright);
+    white-space: nowrap; padding-top: 8px;
+  }
+  .concept-desc { margin: 0 0 18px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .concept-desc li { font-size: 13.5px; color: var(--color-text-muted); line-height: 1.5; padding-left: 18px; position: relative; }
+  .concept-desc li::before { content: '•'; position: absolute; left: 3px; color: var(--color-gold-bright); }
+
+  .addon-row {
+    display: flex; align-items: center; gap: 14px; padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.06); cursor: pointer; user-select: none;
+  }
+  .addon-row input { display: none; }
+  .addon-label { flex: 1; font-size: 13.5px; font-weight: 600; color: var(--color-text-secondary); }
+  .addon-price { font-family: var(--font-heading); font-size: 15px; font-weight: 600; color: var(--color-gold-bright); white-space: nowrap; }
+
+  .promo-options { display: flex; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
+  .promo-option {
+    flex: 1; min-width: 150px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: var(--color-bg-elevated); border: 1px solid var(--color-border-default); border-radius: 12px;
+    padding: 14px 12px; cursor: pointer; transition: all 0.2s; text-align: center;
+  }
+  .promo-option input { display: none; }
+  .promo-option.is-checked { border-color: var(--color-gold-bright); background: rgba(245,158,11,0.08); }
+  .promo-option-label {
+    font-family: var(--font-heading); font-size: 12.5px; font-weight: 600; color: #fff; text-transform: uppercase;
+    letter-spacing: 0.04em; display: flex; align-items: center; gap: 6px;
+  }
+  .promo-option-price { font-family: var(--font-heading); font-size: 15px; color: var(--color-gold-bright); }
+
+  /* Timeline */
+  .timeline-row { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-day {
+    flex-shrink: 0; width: 100px; font-family: var(--font-heading); font-size: 12.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-gold-bright);
+  }
+  .timeline-desc p { margin: 0 0 4px; font-size: 13.5px; color: var(--color-text-secondary); line-height: 1.5; }
+  .timeline-desc p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 480px) {
+    .concept-head { flex-wrap: wrap; }
+    .concept-price { width: 100%; padding-top: 0; }
+    .timeline-row { flex-direction: column; gap: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -201,57 +261,85 @@
 
   <form id="checkout-form">
 
-    <p class="section-label">01 · Qué Incluye</p>
-    <div class="card">
-      <div class="item-row">
-        <label class="checkbox-container">
-          <input type="checkbox" checked disabled>
+    <p class="section-label">01 · Qué Incluye el Servicio</p>
+
+    <div class="card concept-card">
+      <div class="concept-head">
+        <span class="concept-icon">🌐</span>
+        <div class="concept-titlewrap"><div class="concept-title">Página Web Propia</div></div>
+        <div class="concept-price">u$s 120</div>
+      </div>
+      <ul class="concept-desc">
+        <li>Sitio web con reproductores integrados de SoundCloud y YouTube.</li>
+        <li>Galería de fotos, rider técnico y botón de contacto.</li>
+        <li>Dominio web incluido (ej: www.djnawel.com).</li>
+      </ul>
+      <label class="addon-row" for="addon-ext2y">
+        <span class="checkbox-container">
+          <input type="checkbox" class="addon-checkbox" id="addon-ext2y" data-key="ext2y" data-price="20">
           <span class="checkmark"></span>
+        </span>
+        <span class="addon-label">Sumar 1 año más de dominio y alojamiento</span>
+        <span class="addon-price">+ u$s 20</span>
+      </label>
+    </div>
+
+    <div class="card concept-card">
+      <div class="concept-head">
+        <span class="concept-icon">✉️</span>
+        <div class="concept-titlewrap"><div class="concept-title">Envío a Promotores</div></div>
+      </div>
+      <ul class="concept-desc">
+        <li>Redactamos el correo de presentación profesional.</li>
+        <li>Enviamos tu material a clubes y agencias para buscarte nuevas fechas.</li>
+      </ul>
+      <div class="promo-options">
+        <label class="promo-option" id="promo-option-1" for="addon-promo1">
+          <input type="checkbox" class="addon-checkbox" id="addon-promo1" data-key="promo1" data-price="35">
+          <span class="promo-option-label">1 Mes</span>
+          <span class="promo-option-price">+ u$s 35</span>
         </label>
-        <div class="item-info">
-          <div class="item-title">Press Kit Web — Diseño Completo <span class="badge-included">Incluido</span></div>
-          <div class="item-desc">Sitio interactivo con reproductores, biografía, fotos y contacto. Incluye tu dominio propio y 1 año de alojamiento online.</div>
-        </div>
-        <div class="item-price">u$s 120</div>
+        <label class="promo-option" id="promo-option-3" for="addon-promo3">
+          <input type="checkbox" class="addon-checkbox" id="addon-promo3" data-key="promo3" data-price="70">
+          <span class="promo-option-label">3 Meses <span class="badge">Mejor Valor</span></span>
+          <span class="promo-option-price">+ u$s 70</span>
+        </label>
       </div>
     </div>
 
-    <p class="section-label">02 · Servicios Adicionales</p>
-    <div class="card">
-      <div class="item-row">
-        <label class="checkbox-container">
-          <input type="checkbox" class="addon-checkbox" id="addon-ext2y" data-key="ext2y" data-price="20">
-          <span class="checkmark"></span>
-        </label>
-        <div class="item-info">
-          <div class="item-title">2 Años Online</div>
-          <div class="item-desc">Extendé el dominio y el alojamiento un año adicional sobre el que ya viene incluido, sin preocuparte por renovaciones.</div>
-        </div>
-        <div class="item-price">+ u$s 20</div>
+    <div class="card concept-card">
+      <div class="concept-head">
+        <span class="concept-icon">🔗</span>
+        <div class="concept-titlewrap"><div class="concept-title">Imagen Profesional</div></div>
       </div>
-
-      <div class="item-row">
-        <label class="checkbox-container">
-          <input type="checkbox" class="addon-checkbox" id="addon-promo1" data-key="promo1" data-price="35">
+      <ul class="concept-desc">
+        <li>Ordenamos el link de tu biografía de Instagram y unificamos cómo te ves en internet.</li>
+      </ul>
+      <label class="addon-row" for="addon-imgpro">
+        <span class="checkbox-container">
+          <input type="checkbox" class="addon-checkbox" id="addon-imgpro" data-key="imgpro" data-price="50">
           <span class="checkmark"></span>
-        </label>
-        <div class="item-info">
-          <div class="item-title">Servicio de Promoción — 1 Mes</div>
-          <div class="item-desc">Enviamos tu material a clubes y promotores de nuestra base de datos durante 30 días para buscarte fechas.</div>
+        </span>
+        <span class="addon-label">Sumar Imagen Profesional</span>
+        <span class="addon-price">+ u$s 50</span>
+      </label>
+    </div>
+
+    <p class="section-label">02 · Tiempos de Entrega</p>
+    <div class="card card-plain">
+      <div class="timeline-row">
+        <div class="timeline-day">Día 1 a 3</div>
+        <div class="timeline-desc">
+          <p>Recopilamos tus fotos, sets y escribimos tu biografía.</p>
+          <p>Comenzamos a diseñar la web.</p>
         </div>
-        <div class="item-price">+ u$s 35</div>
       </div>
-
-      <div class="item-row">
-        <label class="checkbox-container">
-          <input type="checkbox" class="addon-checkbox" id="addon-promo3" data-key="promo3" data-price="70">
-          <span class="checkmark"></span>
-        </label>
-        <div class="item-info">
-          <div class="item-title">Servicio de Promoción — 3 Meses <span class="badge">Mejor Valor</span></div>
-          <div class="item-desc">Mantenemos tu perfil rotando en nuestra red de contactos durante 90 días seguidos.</div>
+      <div class="timeline-row">
+        <div class="timeline-day">Día 4 a 7</div>
+        <div class="timeline-desc">
+          <p>Entregamos la web finalizada con tu dominio propio.</p>
+          <p>Iniciamos el envío a clubes y promotores.</p>
         </div>
-        <div class="item-price">+ u$s 70</div>
       </div>
     </div>
 
@@ -321,7 +409,15 @@
       window.location.href = ONBOARDING_URL;
     });
 
-    const STORAGE_KEYS = ['addon-ext2y', 'addon-promo1', 'addon-promo3', 'dj-name', 'dj-email', 'dj-phone'];
+    const STORAGE_KEYS = ['addon-ext2y', 'addon-promo1', 'addon-promo3', 'addon-imgpro', 'dj-name', 'dj-email', 'dj-phone'];
+
+    const promoOption1 = document.getElementById('promo-option-1');
+    const promoOption3 = document.getElementById('promo-option-3');
+
+    const syncPromoOptions = () => {
+      promoOption1.classList.toggle('is-checked', promo1.checked);
+      promoOption3.classList.toggle('is-checked', promo3.checked);
+    };
 
     const loadState = () => {
       checkboxes.forEach((cb) => {
@@ -333,6 +429,7 @@
         if (saved) input.value = saved;
       });
       calculateTotal();
+      syncPromoOptions();
       validateForm();
     };
 
@@ -349,6 +446,7 @@
       box.addEventListener('change', (e) => {
         if (e.target.id === 'addon-promo1' && e.target.checked) promo3.checked = false;
         if (e.target.id === 'addon-promo3' && e.target.checked) promo1.checked = false;
+        syncPromoOptions();
         calculateTotal();
       });
     });

@@ -290,11 +290,11 @@
 
 <div class="modal-overlay" id="success-modal">
   <div class="modal-content">
-    <span class="modal-icon">📩</span>
-    <h3 class="modal-title">¡Factura Enviada!</h3>
-    <p class="modal-text" id="modal-text">Revisá tu bandeja de entrada (y spam) en los próximos minutos: ahí te va a llegar la factura de PayPal para pagar cuando quieras. El siguiente paso es completar el onboarding de tu Press Kit.</p>
+    <span class="modal-icon">🎉</span>
+    <h3 class="modal-title">¡Gracias por tu Compra!</h3>
+    <p class="modal-text" id="modal-text">Te enviamos la factura de PayPal a tu email para completar el pago cuando quieras. Al presionar OK vas a ser redirigido automáticamente al portal de onboarding para cargar todos los datos de tu Press Kit.</p>
     <div class="modal-actions">
-      <a class="modal-btn-primary" id="modal-continue" href="https://www.nawemedia.com/press-kit-web_formulario-DJ">Continuar con el Onboarding →</a>
+      <button type="button" class="modal-btn-primary" id="modal-ok">OK, Continuar →</button>
       <a class="modal-btn-secondary" id="modal-invoice" href="#" target="_blank" rel="noopener">Ver Factura de PayPal</a>
     </div>
   </div>
@@ -314,6 +314,12 @@
     const form = document.getElementById('checkout-form');
     const modal = document.getElementById('success-modal');
     const modalInvoiceLink = document.getElementById('modal-invoice');
+    const modalOkBtn = document.getElementById('modal-ok');
+    const ONBOARDING_URL = 'https://www.nawemedia.com/press-kit-web_formulario-DJ';
+
+    modalOkBtn.addEventListener('click', () => {
+      window.location.href = ONBOARDING_URL;
+    });
 
     const STORAGE_KEYS = ['addon-ext2y', 'addon-promo1', 'addon-promo3', 'dj-name', 'dj-email', 'dj-phone'];
 

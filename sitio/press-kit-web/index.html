@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press Kit Web — Revisión y Pago | NAWEMEDIA</title>
+<meta name="description" content="Revisá qué incluye tu Press Kit Web, elegí los servicios adicionales y recibí la factura de pago por email para arrancar.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/colors_and_type.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7KXMLDBHQF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7KXMLDBHQF');
+</script>
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  .bg-texture {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(139,0,255,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 15%, rgba(255,0,170,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 90%, rgba(0,102,255,0.05) 0%, transparent 55%);
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+
+  /* Header */
+  .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-word-img { height: 22px; width: auto; display: block; }
+  .back-link {
+    font-family: var(--font-ui); font-size: var(--text-xs, 12px); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none;
+    color: var(--color-text-muted); border: 1px solid var(--color-border-subtle);
+    border-radius: 999px; padding: 8px 16px; transition: all 0.2s;
+  }
+  .back-link:hover { color: var(--color-text-primary); border-color: rgba(245,158,11,0.4); }
+
+  .header { text-align: center; margin-bottom: 44px; padding-bottom: 24px; border-bottom: 1px solid var(--color-border-subtle); }
+  .kicker {
+    font-family: var(--font-heading); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--color-gold-bright); margin-bottom: 14px;
+  }
+  .title { font-family: var(--font-display); font-size: clamp(34px, 7vw, 48px); color: #fff; letter-spacing: 0.02em; line-height: 1.05; margin: 0; }
+  .subtitle { font-size: 15px; color: var(--color-text-secondary); max-width: 540px; margin: 16px auto 0; }
+
+  .section-label {
+    font-family: var(--font-heading); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--color-gold-bright); margin: 0 0 18px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--color-border-subtle); }
+
+  .card {
+    background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);
+    border-radius: 20px; padding: 6px 24px; margin-bottom: 32px;
+  }
+  .card-plain { padding: 24px; }
+
+  /* Item rows */
+  .item-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .item-row:last-child { border-bottom: none; }
+
+  .checkbox-container { display: flex; align-items: center; cursor: pointer; user-select: none; margin-top: 2px; flex-shrink: 0; }
+  .checkbox-container input { display: none; }
+  .checkmark {
+    width: 24px; height: 24px; background: var(--color-bg-elevated); border: 1px solid var(--color-text-faint);
+    border-radius: 6px; display: flex; justify-content: center; align-items: center; transition: all 0.2s;
+  }
+  .checkbox-container input:checked ~ .checkmark { background: var(--color-gold-bright); border-color: var(--color-gold-bright); }
+  .checkbox-container input:checked ~ .checkmark::after { content: '✓'; color: #1A1200; font-size: 14px; font-weight: bold; }
+  .checkbox-container input:disabled ~ .checkmark { opacity: 0.55; cursor: not-allowed; }
+
+  .item-info { flex: 1; }
+  .item-title { font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: #fff; margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .item-desc { font-size: 13.5px; color: var(--color-text-muted); line-height: 1.55; }
+  .item-price { font-family: var(--font-heading); font-size: 18px; font-weight: 600; color: var(--color-gold-bright); white-space: nowrap; padding-top: 2px; }
+
+  .badge {
+    font-family: var(--font-heading); font-size: 10px; padding: 2px 9px; border-radius: 999px;
+    letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid rgba(245,158,11,0.4);
+    background: rgba(245,158,11,0.1); color: var(--color-gold-bright);
+  }
+  .badge-included {
+    font-family: var(--font-heading); font-size: 10px; padding: 2px 9px; border-radius: 999px;
+    letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid rgba(34,197,94,0.35);
+    background: rgba(34,197,94,0.1); color: var(--color-success);
+  }
+
+  /* Form */
+  .form-group { margin-bottom: 18px; }
+  .form-group:last-child { margin-bottom: 0; }
+  .form-label {
+    display: block; font-family: var(--font-ui); font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--color-text-secondary); margin-bottom: 8px;
+  }
+  .form-input {
+    width: 100%; background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);
+    color: #fff; padding: 13px 16px; border-radius: 8px; font-family: var(--font-ui); font-size: 15px;
+    outline: none; transition: border 0.2s;
+  }
+  .form-input::placeholder { color: var(--color-text-faint); }
+  .form-input:focus { border-color: var(--color-gold-bright); }
+
+  /* Total */
+  .total-box {
+    background: linear-gradient(135deg, rgba(245,158,11,0.10), rgba(139,0,255,0.06));
+    border: 1px solid rgba(245,158,11,0.35); border-radius: 16px; padding: 22px 26px;
+    margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .total-label { font-family: var(--font-heading); font-size: 13px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-text-secondary); }
+  .total-amount { font-family: var(--font-display); font-size: 40px; color: #fff; line-height: 1; }
+
+  .trust-note {
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    margin-bottom: 20px; font-size: 12px; color: var(--color-text-faint); text-align: center;
+  }
+  .trust-note img { height: 18px; opacity: 0.55; filter: grayscale(100%); }
+
+  .btn-submit {
+    width: 100%; background: var(--color-gold-bright); color: #1A1200; border: none;
+    padding: 18px; border-radius: 10px; font-family: var(--font-heading); font-size: 15px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    box-shadow: 0 0 30px rgba(245,158,11,0.15);
+  }
+  .btn-submit:hover:not(:disabled) { background: var(--color-gold-hover); transform: scale(1.01); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+  .status-msg { font-size: 13px; text-align: center; margin-top: 14px; min-height: 18px; color: var(--color-text-muted); font-family: var(--font-ui); }
+  .status-msg.error { color: var(--color-error); }
+
+  .footer-text { font-size: 12px; color: var(--color-text-faint); text-align: center; margin-top: 18px; display: block; line-height: 1.6; }
+  .footer-text a { color: var(--color-text-secondary); text-decoration: underline; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(10,10,10,0.92); display: flex; justify-content: center; align-items: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(6px); padding: 20px;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-content {
+    background: var(--color-bg-card); border: 1px solid rgba(245,158,11,0.4); border-radius: 20px;
+    padding: 44px 32px; text-align: center; max-width: 420px; width: 100%;
+    transform: translateY(20px); transition: transform 0.3s ease;
+  }
+  .modal-overlay.active .modal-content { transform: translateY(0); }
+  .modal-icon { font-size: 46px; margin-bottom: 16px; display: block; }
+  .modal-title { font-family: var(--font-display); font-size: 32px; color: #fff; margin: 0 0 10px; letter-spacing: 0.02em; }
+  .modal-text { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 26px; line-height: 1.6; }
+  .modal-actions { display: flex; flex-direction: column; gap: 10px; }
+  .modal-btn-primary, .modal-btn-secondary {
+    display: block; width: 100%; text-align: center; padding: 14px 18px; border-radius: 10px;
+    font-family: var(--font-heading); font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; text-decoration: none; cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .modal-btn-primary { background: var(--color-gold-bright); color: #1A1200; }
+  .modal-btn-primary:hover { background: var(--color-gold-hover); }
+  .modal-btn-secondary { background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-default); }
+  .modal-btn-secondary:hover { border-color: rgba(245,158,11,0.4); color: #fff; }
+
+  @media (max-width: 480px) {
+    .card { padding: 4px 16px; }
+    .item-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+
+<div class="wrap">
+
+  <div class="top-nav">
+    <a href="https://www.nawemedia.com/" class="logo">
+      <img src="/assets/logo-titulo.png" alt="NAWEMEDIA" class="logo-word-img">
+    </a>
+    <a href="https://www.nawemedia.com/" class="back-link">← Volver al Home</a>
+  </div>
+
+  <div class="header">
+    <div class="kicker">Press Kit Web · Revisión y Pago</div>
+    <h1 class="title">Tu Press Kit Web</h1>
+    <p class="subtitle">Revisá qué incluye tu página, sumá los servicios que necesites y completá tus datos. Te enviamos la factura de pago a tu email para arrancar de inmediato.</p>
+  </div>
+
+  <form id="checkout-form">
+
+    <p class="section-label">01 · Qué Incluye</p>
+    <div class="card">
+      <div class="item-row">
+        <label class="checkbox-container">
+          <input type="checkbox" checked disabled>
+          <span class="checkmark"></span>
+        </label>
+        <div class="item-info">
+          <div class="item-title">Press Kit Web — Diseño Completo <span class="badge-included">Incluido</span></div>
+          <div class="item-desc">Sitio interactivo con reproductores, biografía, fotos y contacto. Incluye tu dominio propio y 1 año de alojamiento online.</div>
+        </div>
+        <div class="item-price">u$s 120</div>
+      </div>
+    </div>
+
+    <p class="section-label">02 · Servicios Adicionales</p>
+    <div class="card">
+      <div class="item-row">
+        <label class="checkbox-container">
+          <input type="checkbox" class="addon-checkbox" id="addon-ext2y" data-key="ext2y" data-price="20">
+          <span class="checkmark"></span>
+        </label>
+        <div class="item-info">
+          <div class="item-title">2 Años Online</div>
+          <div class="item-desc">Extendé el dominio y el alojamiento un año adicional sobre el que ya viene incluido, sin preocuparte por renovaciones.</div>
+        </div>
+        <div class="item-price">+ u$s 20</div>
+      </div>
+
+      <div class="item-row">
+        <label class="checkbox-container">
+          <input type="checkbox" class="addon-checkbox" id="addon-promo1" data-key="promo1" data-price="35">
+          <span class="checkmark"></span>
+        </label>
+        <div class="item-info">
+          <div class="item-title">Servicio de Promoción — 1 Mes</div>
+          <div class="item-desc">Enviamos tu material a clubes y promotores de nuestra base de datos durante 30 días para buscarte fechas.</div>
+        </div>
+        <div class="item-price">+ u$s 35</div>
+      </div>
+
+      <div class="item-row">
+        <label class="checkbox-container">
+          <input type="checkbox" class="addon-checkbox" id="addon-promo3" data-key="promo3" data-price="70">
+          <span class="checkmark"></span>
+        </label>
+        <div class="item-info">
+          <div class="item-title">Servicio de Promoción — 3 Meses <span class="badge">Mejor Valor</span></div>
+          <div class="item-desc">Mantenemos tu perfil rotando en nuestra red de contactos durante 90 días seguidos.</div>
+        </div>
+        <div class="item-price">+ u$s 70</div>
+      </div>
+    </div>
+
+    <p class="section-label">03 · Tus Datos</p>
+    <div class="card card-plain">
+      <div class="form-group">
+        <label class="form-label" for="dj-name">Nombre Artístico (DJ Name)</label>
+        <input type="text" class="form-input form-required" id="dj-name" placeholder="Ej. DJ Smith" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="dj-email">Correo Electrónico</label>
+        <input type="email" class="form-input form-required" id="dj-email" placeholder="tu@correo.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="dj-phone">Teléfono / WhatsApp</label>
+        <input type="tel" class="form-input form-required" id="dj-phone" placeholder="+54 9 11 1234 5678" required>
+      </div>
+    </div>
+
+    <div class="total-box">
+      <div class="total-label">Inversión Estimada</div>
+      <div class="total-amount" id="total-price">u$s 120</div>
+    </div>
+
+    <div class="trust-note">
+      <span>Pago 100% seguro emitido vía</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+    </div>
+
+    <button type="submit" class="btn-submit" id="btn-submit" disabled>Generar y Enviar Factura</button>
+    <p class="status-msg" id="status-msg"></p>
+
+    <span class="footer-text">Al solicitar la factura aceptás nuestros <a href="https://www.nawemedia.com/#faq">Términos y Condiciones</a>. Ningún cobro se realiza en esta pantalla: la factura de PayPal llega a tu email y vos decidís cuándo pagarla.</span>
+  </form>
+</div>
+
+<div class="modal-overlay" id="success-modal">
+  <div class="modal-content">
+    <span class="modal-icon">📩</span>
+    <h3 class="modal-title">¡Factura Enviada!</h3>
+    <p class="modal-text" id="modal-text">Revisá tu bandeja de entrada (y spam) en los próximos minutos: ahí te va a llegar la factura de PayPal para pagar cuando quieras. El siguiente paso es completar el onboarding de tu Press Kit.</p>
+    <div class="modal-actions">
+      <a class="modal-btn-primary" id="modal-continue" href="https://www.nawemedia.com/press-kit-web_formulario-DJ">Continuar con el Onboarding →</a>
+      <a class="modal-btn-secondary" id="modal-invoice" href="#" target="_blank" rel="noopener">Ver Factura de PayPal</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const API = '/api/press-kit-payment';
+    const basePrice = 120;
+    const checkboxes = document.querySelectorAll('.addon-checkbox');
+    const promo1 = document.getElementById('addon-promo1');
+    const promo3 = document.getElementById('addon-promo3');
+    const totalPriceEl = document.getElementById('total-price');
+    const formInputs = document.querySelectorAll('.form-required');
+    const submitBtn = document.getElementById('btn-submit');
+    const statusMsg = document.getElementById('status-msg');
+    const form = document.getElementById('checkout-form');
+    const modal = document.getElementById('success-modal');
+    const modalInvoiceLink = document.getElementById('modal-invoice');
+
+    const STORAGE_KEYS = ['addon-ext2y', 'addon-promo1', 'addon-promo3', 'dj-name', 'dj-email', 'dj-phone'];
+
+    const loadState = () => {
+      checkboxes.forEach((cb) => {
+        const saved = localStorage.getItem(cb.id);
+        if (saved !== null) cb.checked = saved === 'true';
+      });
+      formInputs.forEach((input) => {
+        const saved = localStorage.getItem(input.id);
+        if (saved) input.value = saved;
+      });
+      calculateTotal();
+      validateForm();
+    };
+
+    const calculateTotal = () => {
+      let currentTotal = basePrice;
+      checkboxes.forEach((cb) => {
+        if (cb.checked) currentTotal += parseInt(cb.getAttribute('data-price'), 10);
+        localStorage.setItem(cb.id, cb.checked);
+      });
+      totalPriceEl.textContent = 'u$s ' + currentTotal;
+    };
+
+    checkboxes.forEach((box) => {
+      box.addEventListener('change', (e) => {
+        if (e.target.id === 'addon-promo1' && e.target.checked) promo3.checked = false;
+        if (e.target.id === 'addon-promo3' && e.target.checked) promo1.checked = false;
+        calculateTotal();
+      });
+    });
+
+    const setStatus = (text, isError) => {
+      statusMsg.textContent = text;
+      statusMsg.className = 'status-msg' + (isError ? ' error' : '');
+    };
+
+    const validateForm = () => {
+      let isValid = true;
+      formInputs.forEach((input) => {
+        if (!input.value.trim() || (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value))) {
+          isValid = false;
+        }
+        localStorage.setItem(input.id, input.value);
+      });
+      submitBtn.disabled = !isValid;
+    };
+
+    formInputs.forEach((input) => input.addEventListener('input', validateForm));
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const djName = document.getElementById('dj-name').value.trim();
+      const clientEmail = document.getElementById('dj-email').value.trim();
+      const addons = Array.from(checkboxes).filter((cb) => cb.checked).map((cb) => cb.getAttribute('data-key'));
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Generando…';
+      setStatus('Generando tu factura de PayPal…', false);
+
+      fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ djName, clientEmail, addons }),
+      })
+        .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+        .then((res) => {
+          if (!res.ok || !res.data.ok) {
+            throw new Error((res.data && res.data.error) || 'No se pudo generar la factura.');
+          }
+          setStatus('¡Listo! Factura enviada a tu email.', false);
+          if (res.data.recipientViewUrl) {
+            modalInvoiceLink.href = res.data.recipientViewUrl;
+            modalInvoiceLink.style.display = 'block';
+          } else {
+            modalInvoiceLink.style.display = 'none';
+          }
+          modal.classList.add('active');
+          STORAGE_KEYS.forEach((k) => localStorage.removeItem(k));
+          submitBtn.textContent = 'Generar y Enviar Factura';
+          submitBtn.disabled = false;
+        })
+        .catch((err) => {
+          setStatus('Error: ' + err.message, true);
+          submitBtn.textContent = 'Generar y Enviar Factura';
+          submitBtn.disabled = false;
+        });
+    });
+
+    loadState();
+  });
+</script>
+</body>
+</html>

@@ -347,6 +347,19 @@ section {
   border-radius: var(--radius-full);
 }
 
+a.nw-tag {
+  text-decoration: none;
+  color: var(--color-gold-bright);
+  font-weight: var(--weight-semibold);
+  transition: var(--transition-fast);
+  margin-left: 8px;
+}
+
+a.nw-tag:hover {
+  background: rgba(245,158,11,0.12);
+  border-color: rgba(245,158,11,0.6);
+}
+
 /* Demos */
 .grid-demos {
   display: grid;

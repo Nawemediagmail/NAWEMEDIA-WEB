@@ -43,6 +43,11 @@ const ADDONS = {
     description: 'Envío de tu material a clubes y promotores de nuestra base de datos durante 90 días.',
     unitPrice: 70,
   },
+  imgpro: {
+    name: 'Imagen Profesional',
+    description: 'Ordenamos el link de tu biografía de Instagram y unificamos cómo te ves en internet.',
+    unitPrice: 50,
+  },
 };
 
 async function logInvoice(entry) {

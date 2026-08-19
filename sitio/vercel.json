@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/press-kit-web_formulario-DJ",
+      "destination": "https://nawemedia-onboarding.vercel.app/press-kit-web_formulario-DJ"
+    },
+    {
+      "source": "/press-kit-web_formulario-DJ/:path*",
+      "destination": "https://nawemedia-onboarding.vercel.app/press-kit-web_formulario-DJ/:path*"
+    }
+  ]
+}

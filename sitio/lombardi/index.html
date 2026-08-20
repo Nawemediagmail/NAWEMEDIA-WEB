@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EPK Ambar Lombardi — Boleta de Pago | NAWEMEDIA</title>
-<meta name="description" content="Detalle del refresh de colores y botones del EPK de Ambar Lombardi. Completá tu email y recibí la factura de pago por PayPal.">
+<meta name="description" content="Detalle del refresh de colores, botones y rediseño de logotipo del EPK de Ambar Lombardi. Completá tu email y recibí la factura de pago por PayPal.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
@@ -66,6 +66,13 @@
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--color-border-subtle); }
 
   .card { background: var(--color-bg-card); border: 1px solid var(--color-border-subtle); border-radius: 20px; padding: 24px; margin-bottom: 32px; }
+  .card-plain { padding: 18px 24px; margin-bottom: 16px; }
+
+  .price-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+  .price-row-label { font-size: 13.5px; color: var(--color-text-secondary); }
+  .price-row-value { font-family: var(--font-heading); font-size: 15px; font-weight: 600; color: #fff; }
+  .price-row-discount .price-row-label,
+  .price-row-discount .price-row-value { color: #00E676; }
 
   .concept-card { padding: 24px; }
   .concept-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
@@ -206,7 +213,19 @@
         <li>Nueva paleta verde + morado sobre tu EPK actual en ambarlombardi.com (sin perder el morado de tu marca).</li>
         <li>Ajuste de resplandores/sombras (glow) para que acompañen la nueva paleta.</li>
         <li>Botones principales con acabado metálico/3D.</li>
-        <li>No incluye rediseño de logo, brand kit ni piezas para merch — solo el refresh visual del EPK.</li>
+        <li>No incluye brand kit completo ni piezas para merch — solo el refresh visual del EPK.</li>
+      </ul>
+    </div>
+
+    <div class="card concept-card">
+      <div class="concept-head">
+        <span class="concept-icon">✒️</span>
+        <div class="concept-titlewrap"><div class="concept-title">Rediseño de Logotipo</div></div>
+        <div class="concept-price">u$s 30</div>
+      </div>
+      <ul class="concept-desc">
+        <li>Nueva tipografía para tu logo, manteniendo el mismo estilo de marca.</li>
+        <li>Aplicado en línea con la nueva paleta verde + morado del EPK.</li>
       </ul>
     </div>
 
@@ -215,7 +234,7 @@
       <div class="timeline-row">
         <div class="timeline-day">Día 1</div>
         <div class="timeline-desc">
-          <p>Aplicamos la nueva paleta y los botones metálicos sobre el EPK ya publicado.</p>
+          <p>Aplicamos la nueva paleta, los botones metálicos y el logotipo rediseñado sobre el EPK ya publicado.</p>
         </div>
       </div>
       <div class="timeline-row">
@@ -238,9 +257,20 @@
       </div>
     </div>
 
+    <div class="card card-plain">
+      <div class="price-row">
+        <span class="price-row-label">Subtotal (colores/botones + logotipo)</span>
+        <span class="price-row-value">u$s 75</span>
+      </div>
+      <div class="price-row price-row-discount">
+        <span class="price-row-label">Descuento por Cliente Habitual</span>
+        <span class="price-row-value">− u$s 20</span>
+      </div>
+    </div>
+
     <div class="total-box">
       <div class="total-label">Total a Pagar</div>
-      <div class="total-amount">u$s 45</div>
+      <div class="total-amount">u$s 55</div>
     </div>
 
     <div class="trust-note">

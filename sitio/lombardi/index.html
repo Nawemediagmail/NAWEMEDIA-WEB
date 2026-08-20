@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPK Ambar Lombardi — Boleta de Pago | NAWEMEDIA</title>
+<meta name="description" content="Detalle del refresh de colores y botones del EPK de Ambar Lombardi. Completá tu email y recibí la factura de pago por PayPal.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/colors_and_type.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7KXMLDBHQF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7KXMLDBHQF');
+</script>
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  .bg-texture {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(0,230,118,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 15%, rgba(139,0,255,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 90%, rgba(0,102,255,0.05) 0%, transparent 55%);
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+
+  .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-word-img { height: 22px; width: auto; display: block; }
+  .back-link {
+    font-family: var(--font-ui); font-size: var(--text-xs, 12px); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none;
+    color: var(--color-text-muted); border: 1px solid var(--color-border-subtle);
+    border-radius: 999px; padding: 8px 16px; transition: all 0.2s;
+  }
+  .back-link:hover { color: var(--color-text-primary); border-color: rgba(245,158,11,0.4); }
+
+  .header { text-align: center; margin-bottom: 44px; padding-bottom: 24px; border-bottom: 1px solid var(--color-border-subtle); }
+  .kicker {
+    font-family: var(--font-heading); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--color-gold-bright); margin-bottom: 14px;
+  }
+  .title { font-family: var(--font-display); font-size: clamp(32px, 6.5vw, 46px); color: #fff; letter-spacing: 0.02em; line-height: 1.05; margin: 0; }
+  .subtitle { font-size: 15px; color: var(--color-text-secondary); max-width: 540px; margin: 16px auto 0; }
+
+  .section-label {
+    font-family: var(--font-heading); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--color-gold-bright); margin: 0 0 18px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--color-border-subtle); }
+
+  .card { background: var(--color-bg-card); border: 1px solid var(--color-border-subtle); border-radius: 20px; padding: 24px; margin-bottom: 32px; }
+
+  .concept-card { padding: 24px; }
+  .concept-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .concept-icon {
+    font-size: 20px; line-height: 1; width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(0,230,118,0.12); color: #00E676;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .concept-titlewrap { flex: 1; display: flex; align-items: center; padding-top: 8px; }
+  .concept-title {
+    font-family: var(--font-heading); font-size: 14.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: #fff;
+  }
+  .concept-price {
+    font-family: var(--font-heading); font-size: 17px; font-weight: 600; color: var(--color-gold-bright);
+    white-space: nowrap; padding-top: 8px;
+  }
+  .concept-desc { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .concept-desc li { font-size: 13.5px; color: var(--color-text-muted); line-height: 1.5; padding-left: 18px; position: relative; }
+  .concept-desc li::before { content: '•'; position: absolute; left: 3px; color: var(--color-gold-bright); }
+
+  .timeline-row { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-day {
+    flex-shrink: 0; width: 100px; font-family: var(--font-heading); font-size: 12.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-gold-bright);
+  }
+  .timeline-desc p { margin: 0 0 4px; font-size: 13.5px; color: var(--color-text-secondary); line-height: 1.5; }
+  .timeline-desc p:last-child { margin-bottom: 0; }
+
+  .form-group { margin-bottom: 18px; }
+  .form-group:last-child { margin-bottom: 0; }
+  .form-label {
+    display: block; font-family: var(--font-ui); font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--color-text-secondary); margin-bottom: 8px;
+  }
+  .form-input {
+    width: 100%; background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);
+    color: #fff; padding: 13px 16px; border-radius: 8px; font-family: var(--font-ui); font-size: 15px;
+    outline: none; transition: border 0.2s;
+  }
+  .form-input::placeholder { color: var(--color-text-faint); }
+  .form-input:focus { border-color: var(--color-gold-bright); }
+
+  .total-box {
+    background: linear-gradient(135deg, rgba(0,230,118,0.10), rgba(139,0,255,0.08));
+    border: 1px solid rgba(0,230,118,0.35); border-radius: 16px; padding: 22px 26px;
+    margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .total-label { font-family: var(--font-heading); font-size: 13px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-text-secondary); }
+  .total-amount { font-family: var(--font-display); font-size: 40px; color: #fff; line-height: 1; }
+
+  .trust-note {
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    margin-bottom: 20px; font-size: 12px; color: var(--color-text-faint); text-align: center;
+  }
+  .trust-note img { height: 18px; opacity: 0.55; filter: grayscale(100%); }
+
+  .btn-submit {
+    width: 100%; background: var(--color-gold-bright); color: #1A1200; border: none;
+    padding: 18px; border-radius: 10px; font-family: var(--font-heading); font-size: 15px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    box-shadow: 0 0 30px rgba(245,158,11,0.15);
+  }
+  .btn-submit:hover:not(:disabled) { background: var(--color-gold-hover); transform: scale(1.01); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+  .status-msg { font-size: 13px; text-align: center; margin-top: 14px; min-height: 18px; color: var(--color-text-muted); font-family: var(--font-ui); }
+  .status-msg.error { color: var(--color-error); }
+
+  .footer-text { font-size: 12px; color: var(--color-text-faint); text-align: center; margin-top: 18px; display: block; line-height: 1.6; }
+  .footer-text a { color: var(--color-text-secondary); text-decoration: underline; }
+
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(10,10,10,0.92); display: flex; justify-content: center; align-items: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(6px); padding: 20px;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-content {
+    background: var(--color-bg-card); border: 1px solid rgba(0,230,118,0.4); border-radius: 20px;
+    padding: 44px 32px; text-align: center; max-width: 420px; width: 100%;
+    transform: translateY(20px); transition: transform 0.3s ease;
+  }
+  .modal-overlay.active .modal-content { transform: translateY(0); }
+  .modal-icon { font-size: 46px; margin-bottom: 16px; display: block; }
+  .modal-title { font-family: var(--font-display); font-size: 32px; color: #fff; margin: 0 0 10px; letter-spacing: 0.02em; }
+  .modal-text { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 26px; line-height: 1.6; }
+  .modal-actions { display: flex; flex-direction: column; gap: 10px; }
+  .modal-btn-primary, .modal-btn-secondary {
+    display: block; width: 100%; text-align: center; padding: 14px 18px; border-radius: 10px;
+    font-family: var(--font-heading); font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; text-decoration: none; cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .modal-btn-primary { background: var(--color-gold-bright); color: #1A1200; }
+  .modal-btn-primary:hover { background: var(--color-gold-hover); }
+  .modal-btn-secondary { background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-default); }
+  .modal-btn-secondary:hover { border-color: rgba(245,158,11,0.4); color: #fff; }
+
+  @media (max-width: 480px) {
+    .card { padding: 16px; }
+    .concept-head { flex-wrap: wrap; }
+    .concept-price { width: 100%; padding-top: 0; }
+    .timeline-row { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+
+<div class="wrap">
+
+  <div class="top-nav">
+    <a href="https://www.nawemedia.com/" class="logo">
+      <img src="/assets/logo-titulo.png" alt="NAWEMEDIA" class="logo-word-img">
+    </a>
+    <a href="https://www.nawemedia.com/" class="back-link">← Volver al Home</a>
+  </div>
+
+  <div class="header">
+    <div class="kicker">EPK Ambar Lombardi · Revisión y Pago</div>
+    <h1 class="title">Refresh de tu EPK</h1>
+    <p class="subtitle">Detalle del trabajo acordado para tu 1er aniversario como DJ. Confirmá tu email y te enviamos la factura de PayPal para arrancar.</p>
+  </div>
+
+  <form id="checkout-form">
+
+    <p class="section-label">01 · Qué Incluye</p>
+
+    <div class="card concept-card">
+      <div class="concept-head">
+        <span class="concept-icon">🎨</span>
+        <div class="concept-titlewrap"><div class="concept-title">Refresh de Colores y Botones</div></div>
+        <div class="concept-price">u$s 45</div>
+      </div>
+      <ul class="concept-desc">
+        <li>Nueva paleta verde + morado sobre tu EPK actual en ambarlombardi.com (sin perder el morado de tu marca).</li>
+        <li>Ajuste de resplandores/sombras (glow) para que acompañen la nueva paleta.</li>
+        <li>Botones principales con acabado metálico/3D.</li>
+        <li>No incluye rediseño de logo, brand kit ni piezas para merch — solo el refresh visual del EPK.</li>
+      </ul>
+    </div>
+
+    <p class="section-label">02 · Tiempos de Entrega</p>
+    <div class="card">
+      <div class="timeline-row">
+        <div class="timeline-day">Día 1</div>
+        <div class="timeline-desc">
+          <p>Aplicamos la nueva paleta y los botones metálicos sobre el EPK ya publicado.</p>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-day">Día 1-2</div>
+        <div class="timeline-desc">
+          <p>Ajustes finales según tu feedback y publicación en ambarlombardi.com.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">03 · Tus Datos</p>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label" for="client-name">Nombre</label>
+        <input type="text" class="form-input form-required" id="client-name" placeholder="Ambar Lombardi" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="client-email">Correo Electrónico</label>
+        <input type="email" class="form-input form-required" id="client-email" placeholder="tu@correo.com" required>
+      </div>
+    </div>
+
+    <div class="total-box">
+      <div class="total-label">Total a Pagar</div>
+      <div class="total-amount">u$s 45</div>
+    </div>
+
+    <div class="trust-note">
+      <span>Pago 100% seguro emitido vía</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+    </div>
+
+    <button type="submit" class="btn-submit" id="btn-submit" disabled>Generar y Enviar Factura</button>
+    <p class="status-msg" id="status-msg"></p>
+
+    <span class="footer-text">Al solicitar la factura aceptás nuestros <a href="https://www.nawemedia.com/#faq">Términos y Condiciones</a>. Ningún cobro se realiza en esta pantalla: la factura de PayPal llega a tu email y vos decidís cuándo pagarla.</span>
+  </form>
+</div>
+
+<div class="modal-overlay" id="success-modal">
+  <div class="modal-content">
+    <span class="modal-icon">🎉</span>
+    <h3 class="modal-title">¡Gracias!</h3>
+    <p class="modal-text">Te enviamos la factura de PayPal a tu email para completar el pago cuando quieras. Apenas se acredite arrancamos con el refresh de tu EPK.</p>
+    <div class="modal-actions">
+      <a class="modal-btn-primary" id="modal-invoice" href="#" target="_blank" rel="noopener">Ver Factura de PayPal</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const API = '/api/lombardi-payment';
+    const formInputs = document.querySelectorAll('.form-required');
+    const submitBtn = document.getElementById('btn-submit');
+    const statusMsg = document.getElementById('status-msg');
+    const form = document.getElementById('checkout-form');
+    const modal = document.getElementById('success-modal');
+    const modalInvoiceLink = document.getElementById('modal-invoice');
+
+    const STORAGE_KEYS = ['client-name', 'client-email'];
+
+    const loadState = () => {
+      formInputs.forEach((input) => {
+        const saved = localStorage.getItem(input.id);
+        if (saved) input.value = saved;
+      });
+      validateForm();
+    };
+
+    const setStatus = (text, isError) => {
+      statusMsg.textContent = text;
+      statusMsg.className = 'status-msg' + (isError ? ' error' : '');
+    };
+
+    const validateForm = () => {
+      let isValid = true;
+      formInputs.forEach((input) => {
+        if (!input.value.trim() || (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value))) {
+          isValid = false;
+        }
+        localStorage.setItem(input.id, input.value);
+      });
+      submitBtn.disabled = !isValid;
+    };
+
+    formInputs.forEach((input) => input.addEventListener('input', validateForm));
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const clientName = document.getElementById('client-name').value.trim();
+      const clientEmail = document.getElementById('client-email').value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Generando…';
+      setStatus('Generando tu factura de PayPal…', false);
+
+      fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientName, clientEmail }),
+      })
+        .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+        .then((res) => {
+          if (!res.ok || !res.data.ok) {
+            throw new Error((res.data && res.data.error) || 'No se pudo generar la factura.');
+          }
+          setStatus('¡Listo! Factura enviada a tu email.', false);
+          if (res.data.recipientViewUrl) {
+            modalInvoiceLink.href = res.data.recipientViewUrl;
+            modalInvoiceLink.style.display = 'block';
+          } else {
+            modalInvoiceLink.style.display = 'none';
+          }
+          modal.classList.add('active');
+          STORAGE_KEYS.forEach((k) => localStorage.removeItem(k));
+          submitBtn.textContent = 'Generar y Enviar Factura';
+          submitBtn.disabled = false;
+        })
+        .catch((err) => {
+          setStatus('Error: ' + err.message, true);
+          submitBtn.textContent = 'Generar y Enviar Factura';
+          submitBtn.disabled = false;
+        });
+    });
+
+    loadState();
+  });
+</script>
+</body>
+</html>

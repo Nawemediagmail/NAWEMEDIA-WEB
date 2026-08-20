@@ -32,9 +32,12 @@ const ITEMS = [
     description: 'Nueva tipografía sobre el mismo estilo de marca, en línea con la nueva paleta verde + morado.',
     unitPrice: 30,
   },
+  {
+    name: 'Descuento por Cliente Habitual',
+    description: 'Descuento aplicado por ser cliente recurrente de NAWEMEDIA.',
+    unitPrice: -20,
+  },
 ];
-
-const LOYALTY_DISCOUNT = 20;
 
 async function logInvoice(entry) {
   const { CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, CF_KV_API_TOKEN } = process.env;
@@ -109,7 +112,6 @@ module.exports = async (req, res) => {
       detail: {
         currency_code: 'USD',
         note: 'EPK Ambar Lombardi · Refresh de Colores, Botones y Rediseño de Logotipo',
-        discount: { amount: { currency_code: 'USD', value: LOYALTY_DISCOUNT.toFixed(2) } },
       },
       primary_recipients: [
         {
@@ -173,8 +175,7 @@ module.exports = async (req, res) => {
     } catch (_) { /* no crítico */ }
 
     const env = process.env.PAYPAL_ENV === 'live' ? 'live' : 'sandbox';
-    const subtotal = ITEMS.reduce((sum, it) => sum + it.unitPrice, 0);
-    const total = subtotal - LOYALTY_DISCOUNT;
+    const total = ITEMS.reduce((sum, it) => sum + it.unitPrice, 0);
 
     await logInvoice({
       invoiceId,
@@ -183,8 +184,6 @@ module.exports = async (req, res) => {
       clientName: clientName || '',
       clientEmail,
       currency: 'USD',
-      subtotal,
-      discount: LOYALTY_DISCOUNT,
       total,
       recipientViewUrl,
       createdAt: new Date().toISOString(),

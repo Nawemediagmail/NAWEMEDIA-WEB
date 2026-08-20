@@ -1,9 +1,10 @@
 // Función serverless pública: genera y envía una factura real de PayPal (Invoicing API v2)
-// para el refresh de colores/botones del EPK de Ambar Lombardi y devuelve el link de la factura.
+// para el refresh de colores/botones + rediseño de logotipo del EPK de Ambar Lombardi
+// (con descuento por cliente habitual) y devuelve el link de la factura.
 // Reutiliza las mismas variables de entorno que press-kit-payment.js / generate-payment.js en Vercel:
 // PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_ENV ("sandbox" o "live")
-// No pide contraseña porque lo dispara el propio cliente: el precio está fijo acá
-// (no llega desde el request) para que no se pueda alterar.
+// No pide contraseña porque lo dispara el propio cliente: los precios están fijos acá
+// (no llegan desde el request) para que no se puedan alterar.
 
 const attempts = new Map();
 const MAX_ATTEMPTS = 5;
@@ -20,11 +21,20 @@ function isRateLimited(ip) {
   return record.count > MAX_ATTEMPTS;
 }
 
-const ITEM = {
-  name: 'EPK Ambar Lombardi — Refresh de Colores y Botones',
-  description: 'Actualización de paleta (verde + morado), ajuste de glows/sombras y botones con acabado metálico/3D sobre el EPK ya existente en ambarlombardi.com.',
-  unitPrice: 45,
-};
+const ITEMS = [
+  {
+    name: 'EPK Ambar Lombardi — Refresh de Colores y Botones',
+    description: 'Actualización de paleta (verde + morado), ajuste de glows/sombras y botones con acabado metálico/3D sobre el EPK ya existente en ambarlombardi.com.',
+    unitPrice: 45,
+  },
+  {
+    name: 'Rediseño de Logotipo',
+    description: 'Nueva tipografía sobre el mismo estilo de marca, en línea con la nueva paleta verde + morado.',
+    unitPrice: 30,
+  },
+];
+
+const LOYALTY_DISCOUNT = 20;
 
 async function logInvoice(entry) {
   const { CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, CF_KV_API_TOKEN } = process.env;
@@ -98,7 +108,8 @@ module.exports = async (req, res) => {
     const invoicePayload = {
       detail: {
         currency_code: 'USD',
-        note: 'EPK Ambar Lombardi · Refresh de Colores y Botones',
+        note: 'EPK Ambar Lombardi · Refresh de Colores, Botones y Rediseño de Logotipo',
+        discount: { amount: { currency_code: 'USD', value: LOYALTY_DISCOUNT.toFixed(2) } },
       },
       primary_recipients: [
         {
@@ -108,14 +119,12 @@ module.exports = async (req, res) => {
           },
         },
       ],
-      items: [
-        {
-          name: ITEM.name,
-          description: ITEM.description,
-          quantity: '1',
-          unit_amount: { currency_code: 'USD', value: ITEM.unitPrice.toFixed(2) },
-        },
-      ],
+      items: ITEMS.map((it) => ({
+        name: it.name,
+        description: it.description,
+        quantity: '1',
+        unit_amount: { currency_code: 'USD', value: it.unitPrice.toFixed(2) },
+      })),
     };
 
     const createResp = await fetch(`${base}/v2/invoicing/invoices`, {
@@ -164,6 +173,8 @@ module.exports = async (req, res) => {
     } catch (_) { /* no crítico */ }
 
     const env = process.env.PAYPAL_ENV === 'live' ? 'live' : 'sandbox';
+    const subtotal = ITEMS.reduce((sum, it) => sum + it.unitPrice, 0);
+    const total = subtotal - LOYALTY_DISCOUNT;
 
     await logInvoice({
       invoiceId,
@@ -172,7 +183,9 @@ module.exports = async (req, res) => {
       clientName: clientName || '',
       clientEmail,
       currency: 'USD',
-      total: ITEM.unitPrice,
+      subtotal,
+      discount: LOYALTY_DISCOUNT,
+      total,
       recipientViewUrl,
       createdAt: new Date().toISOString(),
     });
@@ -181,7 +194,7 @@ module.exports = async (req, res) => {
       ok: true,
       invoiceId,
       env,
-      total: ITEM.unitPrice,
+      total,
       recipientViewUrl,
     });
   } catch (err) {

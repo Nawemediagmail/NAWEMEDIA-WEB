@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/virginiasoledispa",
+      "destination": "/virginiasoledispa/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/press-kit-web_formulario-DJ",
@@ -9,7 +16,7 @@
       "destination": "https://nawemedia-onboarding.vercel.app/press-kit-web_formulario-DJ/:path*"
     },
     {
-      "source": "/virginiasoledispa",
+      "source": "/virginiasoledispa/",
       "destination": "https://nawemedia-epks.vercel.app/djs/DJ%20VIRGINIA%20SOLEDISPA%20EPK_V02/index.html"
     },
     {

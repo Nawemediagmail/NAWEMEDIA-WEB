@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EPK Ambar Lombardi — Boleta de Pago | NAWEMEDIA</title>
-<meta name="description" content="Detalle del refresh de colores, botones y rediseño de logotipo del EPK de Ambar Lombardi. Completá tu email y recibí la factura de pago por PayPal.">
+<meta name="description" content="Elegí qué querés hacer ahora en tu EPK — logotipo, animación y/o presskit — y recibí la factura de pago por PayPal.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
@@ -65,7 +65,7 @@
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--color-border-subtle); }
 
-  .card { background: var(--color-bg-card); border: 1px solid var(--color-border-subtle); border-radius: 20px; padding: 24px; margin-bottom: 32px; }
+  .card { background: var(--color-bg-card); border: 1px solid var(--color-border-subtle); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
   .card-plain { padding: 18px 24px; margin-bottom: 16px; }
 
   .price-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
@@ -74,7 +74,8 @@
   .price-row-discount .price-row-label,
   .price-row-discount .price-row-value { color: #00E676; }
 
-  .concept-card { padding: 24px; }
+  .concept-card { padding: 24px; cursor: pointer; transition: border-color 0.2s; }
+  .concept-card.is-checked { border-color: #00E676; }
   .concept-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
   .concept-icon {
     font-size: 20px; line-height: 1; width: 44px; height: 44px; border-radius: 12px;
@@ -90,9 +91,21 @@
     font-family: var(--font-heading); font-size: 17px; font-weight: 600; color: var(--color-gold-bright);
     white-space: nowrap; padding-top: 8px;
   }
-  .concept-desc { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .concept-desc { margin: 0 0 14px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
   .concept-desc li { font-size: 13.5px; color: var(--color-text-muted); line-height: 1.5; padding-left: 18px; position: relative; }
   .concept-desc li::before { content: '•'; position: absolute; left: 3px; color: var(--color-gold-bright); }
+
+  .checkbox-container { display: flex; align-items: center; cursor: pointer; user-select: none; }
+  .checkbox-container input { display: none; }
+  .checkmark {
+    width: 24px; height: 24px; background: var(--color-bg-elevated); border: 1px solid var(--color-text-faint);
+    border-radius: 6px; display: flex; justify-content: center; align-items: center; transition: all 0.2s; flex-shrink: 0;
+  }
+  .checkbox-container input:checked ~ .checkmark { background: #00E676; border-color: #00E676; }
+  .checkbox-container input:checked ~ .checkmark::after { content: '✓'; color: #06110b; font-size: 14px; font-weight: bold; }
+
+  .concept-select-row { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .concept-select-label { flex: 1; font-size: 13.5px; font-weight: 600; color: var(--color-text-secondary); }
 
   .timeline-row { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .timeline-row:last-child { border-bottom: none; }
@@ -195,29 +208,15 @@
 
   <div class="header">
     <div class="kicker">EPK Ambar Lombardi · Revisión y Pago</div>
-    <h1 class="title">Refresh de tu EPK</h1>
-    <p class="subtitle">Detalle del trabajo acordado para tu 1er aniversario como DJ. Confirmá tu email y te enviamos la factura de PayPal para arrancar.</p>
+    <h1 class="title">Elegí qué hacer ahora</h1>
+    <p class="subtitle">Seleccioná los ítems que querés encargar. Confirmá tu email y te enviamos la factura de PayPal para arrancar.</p>
   </div>
 
   <form id="checkout-form">
 
-    <p class="section-label">01 · Qué Incluye</p>
+    <p class="section-label">01 · Elegí los Ítems</p>
 
-    <div class="card concept-card">
-      <div class="concept-head">
-        <span class="concept-icon">🎨</span>
-        <div class="concept-titlewrap"><div class="concept-title">Refresh de Colores y Botones</div></div>
-        <div class="concept-price">u$s 45</div>
-      </div>
-      <ul class="concept-desc">
-        <li>Nueva paleta verde + morado sobre tu EPK actual en ambarlombardi.com (sin perder el morado de tu marca).</li>
-        <li>Ajuste de resplandores/sombras (glow) para que acompañen la nueva paleta.</li>
-        <li>Botones principales con acabado metálico/3D.</li>
-        <li>No incluye brand kit completo ni piezas para merch — solo el refresh visual del EPK.</li>
-      </ul>
-    </div>
-
-    <div class="card concept-card">
+    <label class="card concept-card" for="item-logo">
       <div class="concept-head">
         <span class="concept-icon">✒️</span>
         <div class="concept-titlewrap"><div class="concept-title">Rediseño de Logotipo</div></div>
@@ -225,16 +224,59 @@
       </div>
       <ul class="concept-desc">
         <li>Nueva tipografía para tu logo, manteniendo el mismo estilo de marca.</li>
-        <li>Aplicado en línea con la nueva paleta verde + morado del EPK.</li>
       </ul>
-    </div>
+      <div class="concept-select-row">
+        <span class="concept-select-label">Sumar este ítem</span>
+        <span class="checkbox-container">
+          <input type="checkbox" class="item-checkbox" id="item-logo" data-key="logo" data-price="30">
+          <span class="checkmark"></span>
+        </span>
+      </div>
+    </label>
+
+    <label class="card concept-card" for="item-animation">
+      <div class="concept-head">
+        <span class="concept-icon">✨</span>
+        <div class="concept-titlewrap"><div class="concept-title">Animación de Logo Personalizada</div></div>
+        <div class="concept-price">u$s 15</div>
+      </div>
+      <ul class="concept-desc">
+        <li>Animación de tu logotipo para usar en redes e intros de sets.</li>
+      </ul>
+      <div class="concept-select-row">
+        <span class="concept-select-label">Sumar este ítem</span>
+        <span class="checkbox-container">
+          <input type="checkbox" class="item-checkbox" id="item-animation" data-key="animation" data-price="15">
+          <span class="checkmark"></span>
+        </span>
+      </div>
+    </label>
+
+    <label class="card concept-card" for="item-presskit">
+      <div class="concept-head">
+        <span class="concept-icon">🎨</span>
+        <div class="concept-titlewrap"><div class="concept-title">Rediseño de Presskit</div></div>
+        <div class="concept-price">u$s 45</div>
+      </div>
+      <ul class="concept-desc">
+        <li>Nueva paleta verde + morado sobre tu EPK actual en ambarlombardi.com (sin perder el morado de tu marca).</li>
+        <li>Ajuste de resplandores/sombras (glow) y botones principales con acabado metálico/3D.</li>
+      </ul>
+      <div class="concept-select-row">
+        <span class="concept-select-label">Sumar este ítem</span>
+        <span class="checkbox-container">
+          <input type="checkbox" class="item-checkbox" id="item-presskit" data-key="presskit" data-price="45">
+          <span class="checkmark"></span>
+        </span>
+      </div>
+    </label>
 
     <p class="section-label">02 · Tiempos de Entrega</p>
     <div class="card">
       <div class="timeline-row">
         <div class="timeline-day">Día 1</div>
         <div class="timeline-desc">
-          <p>Aplicamos la nueva paleta, los botones metálicos y el logotipo rediseñado sobre el EPK ya publicado.</p>
+          <p>Empezamos con los ítems que hayas seleccionado sobre el EPK ya publicado.</p>
         </div>
       </div>
       <div class="timeline-row">
@@ -257,12 +299,12 @@
       </div>
     </div>
 
-    <div class="card card-plain">
+    <div class="card card-plain" id="price-breakdown" style="display: none;">
       <div class="price-row">
-        <span class="price-row-label">Subtotal (colores/botones + logotipo)</span>
-        <span class="price-row-value">u$s 75</span>
+        <span class="price-row-label">Subtotal</span>
+        <span class="price-row-value" id="price-subtotal">u$s 0</span>
       </div>
-      <div class="price-row price-row-discount">
+      <div class="price-row price-row-discount" id="price-discount-row" style="display: none;">
         <span class="price-row-label">Descuento por Cliente Habitual</span>
         <span class="price-row-value">− u$s 20</span>
       </div>
@@ -270,7 +312,7 @@
 
     <div class="total-box">
       <div class="total-label">Total a Pagar</div>
-      <div class="total-amount">u$s 55</div>
+      <div class="total-amount" id="total-price">u$s 0</div>
     </div>
 
     <div class="trust-note">
@@ -289,7 +331,7 @@
   <div class="modal-content">
     <span class="modal-icon">🎉</span>
     <h3 class="modal-title">¡Gracias!</h3>
-    <p class="modal-text">Te enviamos la factura de PayPal a tu email para completar el pago cuando quieras. Apenas se acredite arrancamos con el refresh de tu EPK.</p>
+    <p class="modal-text">Te enviamos la factura de PayPal a tu email para completar el pago cuando quieras. Apenas se acredite arrancamos con lo que elegiste.</p>
     <div class="modal-actions">
       <a class="modal-btn-primary" id="modal-invoice" href="#" target="_blank" rel="noopener">Ver Factura de PayPal</a>
     </div>
@@ -299,20 +341,65 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const API = '/api/lombardi-payment';
+    const ALL_ITEM_KEYS = ['logo', 'animation', 'presskit'];
+    const DISCOUNT = 20;
+    const checkboxes = document.querySelectorAll('.item-checkbox');
     const formInputs = document.querySelectorAll('.form-required');
     const submitBtn = document.getElementById('btn-submit');
     const statusMsg = document.getElementById('status-msg');
     const form = document.getElementById('checkout-form');
     const modal = document.getElementById('success-modal');
     const modalInvoiceLink = document.getElementById('modal-invoice');
+    const priceBreakdown = document.getElementById('price-breakdown');
+    const priceSubtotalEl = document.getElementById('price-subtotal');
+    const priceDiscountRow = document.getElementById('price-discount-row');
+    const totalPriceEl = document.getElementById('total-price');
 
-    const STORAGE_KEYS = ['client-name', 'client-email'];
+    const STORAGE_KEYS = ['client-name', 'client-email', 'item-logo', 'item-animation', 'item-presskit'];
+
+    const getSelectedKeys = () => Array.from(checkboxes).filter((cb) => cb.checked).map((cb) => cb.getAttribute('data-key'));
+
+    const calculateTotal = () => {
+      const selected = Array.from(checkboxes).filter((cb) => cb.checked);
+      const subtotal = selected.reduce((sum, cb) => sum + parseInt(cb.getAttribute('data-price'), 10), 0);
+      const allSelected = ALL_ITEM_KEYS.every((key) => getSelectedKeys().includes(key));
+      const discount = allSelected ? DISCOUNT : 0;
+      const total = subtotal - discount;
+
+      checkboxes.forEach((cb) => {
+        cb.closest('.concept-card').classList.toggle('is-checked', cb.checked);
+        localStorage.setItem(cb.id, cb.checked);
+      });
+
+      if (selected.length > 0) {
+        priceBreakdown.style.display = 'block';
+        priceSubtotalEl.textContent = 'u$s ' + subtotal;
+        priceDiscountRow.style.display = discount > 0 ? 'flex' : 'none';
+      } else {
+        priceBreakdown.style.display = 'none';
+      }
+
+      totalPriceEl.textContent = 'u$s ' + total;
+      return selected.length > 0;
+    };
+
+    checkboxes.forEach((box) => {
+      box.addEventListener('change', () => {
+        calculateTotal();
+        validateForm();
+      });
+    });
 
     const loadState = () => {
+      checkboxes.forEach((cb) => {
+        const saved = localStorage.getItem(cb.id);
+        if (saved !== null) cb.checked = saved === 'true';
+      });
       formInputs.forEach((input) => {
         const saved = localStorage.getItem(input.id);
         if (saved) input.value = saved;
       });
+      calculateTotal();
       validateForm();
     };
 
@@ -322,7 +409,7 @@
     };
 
     const validateForm = () => {
-      let isValid = true;
+      let isValid = calculateTotal();
       formInputs.forEach((input) => {
         if (!input.value.trim() || (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value))) {
           isValid = false;
@@ -339,6 +426,7 @@
 
       const clientName = document.getElementById('client-name').value.trim();
       const clientEmail = document.getElementById('client-email').value.trim();
+      const items = getSelectedKeys();
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Generando…';
@@ -347,7 +435,7 @@
       fetch(API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clientName, clientEmail }),
+        body: JSON.stringify({ clientName, clientEmail, items }),
       })
         .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
         .then((res) => {

@@ -40,8 +40,11 @@ const CATALOG = {
   },
 };
 
-const ALL_ITEM_KEYS = Object.keys(CATALOG);
-const BUNDLE_DISCOUNT = 20;
+function getDiscount(selectedKeys) {
+  if (selectedKeys.length < 2) return 0;
+  if (selectedKeys.length === 3) return 25;
+  return selectedKeys.includes('presskit') ? 20 : 5;
+}
 
 async function logInvoice(entry) {
   const { CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, CF_KV_API_TOKEN } = process.env;
@@ -119,12 +122,12 @@ module.exports = async (req, res) => {
     }
 
     const lineItems = selectedKeys.map((key) => CATALOG[key]);
-    const allSelected = ALL_ITEM_KEYS.every((key) => selectedKeys.includes(key));
-    if (allSelected) {
+    const discount = getDiscount(selectedKeys);
+    if (discount > 0) {
       lineItems.push({
         name: 'Descuento por Cliente Habitual',
         description: 'Descuento aplicado por ser cliente recurrente de NAWEMEDIA.',
-        unitPrice: -BUNDLE_DISCOUNT,
+        unitPrice: -discount,
       });
     }
 

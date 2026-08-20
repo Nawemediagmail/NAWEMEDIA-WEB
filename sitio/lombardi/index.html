@@ -341,8 +341,6 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const API = '/api/lombardi-payment';
-    const ALL_ITEM_KEYS = ['logo', 'animation', 'presskit'];
-    const DISCOUNT = 20;
     const checkboxes = document.querySelectorAll('.item-checkbox');
     const formInputs = document.querySelectorAll('.form-required');
     const submitBtn = document.getElementById('btn-submit');
@@ -359,11 +357,16 @@
 
     const getSelectedKeys = () => Array.from(checkboxes).filter((cb) => cb.checked).map((cb) => cb.getAttribute('data-key'));
 
+    const getDiscount = (keys) => {
+      if (keys.length < 2) return 0;
+      if (keys.length === 3) return 25;
+      return keys.includes('presskit') ? 20 : 5;
+    };
+
     const calculateTotal = () => {
       const selected = Array.from(checkboxes).filter((cb) => cb.checked);
       const subtotal = selected.reduce((sum, cb) => sum + parseInt(cb.getAttribute('data-price'), 10), 0);
-      const allSelected = ALL_ITEM_KEYS.every((key) => getSelectedKeys().includes(key));
-      const discount = allSelected ? DISCOUNT : 0;
+      const discount = getDiscount(getSelectedKeys());
       const total = subtotal - discount;
 
       checkboxes.forEach((cb) => {

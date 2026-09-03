@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presupuesto V1 Reducida — Electric Side Gestión</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#0A0A0A; --card:#111118; --elevated:#1A1A26;
+  --gold:#D4AF37; --amber:#F59E0B; --amber-hover:#D97706;
+  --red:#C00000; --pink:#FF00AA; --cyan:#00FFFF;
+  --purple:#8B00FF; --blue:#0066FF; --yellow:#FFD700;
+  --text-primary:#F1F5F9; --text-secondary:#CBD5E1;
+  --text-muted:#94A3B8; --text-faint:#475569;
+  --success:#22C55E; --warning:#F59E0B; --error:#EF4444;
+  --grad-logo:linear-gradient(90deg,#0066FF,#8B00FF,#FF00AA,#FFD700);
+  --font-display:'Bebas Neue',Impact,sans-serif;
+  --font-heading:'Oswald',sans-serif;
+  --font-ui:'Inter',system-ui,sans-serif;
+  --font-body:'Montserrat',sans-serif;
+  --shadow-glow-gold:0 0 40px rgba(245,158,11,.15),0 0 80px rgba(245,158,11,.07);
+}
+
+@page{size:A4;margin:0}
+
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--text-primary);
+  font-family:var(--font-ui); min-height:100vh;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+
+.bg-texture{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse at 15% 12%, rgba(245,158,11,.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 30%, rgba(0,102,255,.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 88%, rgba(139,0,255,.05) 0%, transparent 55%);
+  pointer-events:none; z-index:0;
+}
+
+.page{max-width:900px; margin:0 auto; padding:28px 20px 48px; position:relative; z-index:1}
+@media(min-width:760px){.page{padding:48px 48px 64px}}
+
+.grad-line{height:2px; width:100%; background:var(--grad-logo); border-radius:2px; margin-bottom:28px}
+.grad-line.bottom{margin:36px 0 0}
+
+/* ---------- HEADER ---------- */
+.header{
+  display:flex; flex-direction:column; gap:20px;
+  margin-bottom:36px; padding-bottom:26px;
+  border-bottom:1px solid rgba(245,158,11,.2);
+}
+@media(min-width:760px){.header{flex-direction:row; justify-content:space-between; align-items:flex-start; margin-bottom:44px}}
+.logo-wrap{display:flex; align-items:center; gap:14px; margin-bottom:14px}
+.logo-mark{
+  width:46px; height:46px; border-radius:12px; flex-shrink:0;
+  background:var(--grad-logo);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-size:22px; color:#0A0A0A; letter-spacing:.02em;
+}
+.logo-wordmark{
+  font-family:var(--font-display); font-size:28px; letter-spacing:.1em; line-height:1;
+  background:var(--grad-logo); -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.logo-underline{height:2px; background:var(--grad-logo); border-radius:2px; margin-top:3px}
+.prop-label{font-family:var(--font-heading); font-size:10px; letter-spacing:.3em; color:var(--text-faint); text-transform:uppercase; margin-bottom:6px}
+.client-name{font-family:var(--font-display); font-size:44px; letter-spacing:.03em; color:var(--text-primary); line-height:.95; margin-bottom:6px}
+@media(min-width:760px){.client-name{font-size:56px}}
+.client-sub{font-size:12px; color:var(--text-muted); font-family:var(--font-body); letter-spacing:.03em; line-height:1.6}
+.header-right{display:flex; flex-wrap:wrap; gap:8px}
+@media(min-width:760px){.header-right{flex-direction:column; align-items:flex-end; padding-top:6px}}
+.badge-main{
+  font-family:var(--font-heading); font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(212,175,55,.1));
+  border:1px solid rgba(245,158,11,.4); color:var(--amber);
+  padding:6px 15px; border-radius:9999px; white-space:nowrap;
+}
+.badge-sub{
+  font-family:var(--font-heading); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.1); color:var(--text-muted);
+  padding:5px 13px; border-radius:9999px; white-space:nowrap;
+}
+
+/* ---------- SECTION ---------- */
+.section{margin-bottom:38px; break-inside:avoid}
+.section-label{
+  font-family:var(--font-heading); font-size:10px; letter-spacing:.3em;
+  color:var(--text-faint); text-transform:uppercase;
+  margin:0 0 14px; display:flex; align-items:center; gap:12px;
+}
+.section-label::after{content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)}
+.section-title{font-family:var(--font-heading); font-size:20px; font-weight:600; color:var(--text-primary); letter-spacing:.02em; margin-bottom:10px; line-height:1.25}
+.lead{font-family:var(--font-body); font-size:13px; line-height:1.75; color:var(--text-muted); margin-bottom:16px}
+.lead strong{color:var(--text-secondary)}
+
+/* ---------- CARDS GENERICAS ---------- */
+.panel{background:rgba(15,15,25,.6); border:1px solid rgba(30,41,59,.8); border-radius:20px; padding:20px}
+@media(min-width:760px){.panel{padding:24px}}
+
+.grid{display:grid; gap:10px}
+.cols-2{grid-template-columns:1fr}
+.cols-3{grid-template-columns:1fr}
+.cols-4{grid-template-columns:1fr 1fr}
+@media(min-width:640px){
+  .cols-2{grid-template-columns:repeat(2,1fr)}
+  .cols-3{grid-template-columns:repeat(3,1fr)}
+  .cols-4{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ---------- COSTO DEL PROBLEMA ---------- */
+.stat-card{
+  background:rgba(15,15,25,.8); border:1px solid rgba(30,41,59,.8);
+  border-radius:18px; padding:16px 14px; position:relative; overflow:hidden;
+}
+.stat-card::before{content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--red),#FF4444)}
+.stat-num{font-family:var(--font-display); font-size:32px; color:var(--amber); line-height:1; letter-spacing:.03em}
+.stat-label{font-family:var(--font-heading); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint); margin-bottom:8px}
+.stat-sub{font-size:10px; color:var(--text-muted); font-family:var(--font-body); margin-top:4px; line-height:1.5}
+
+/* ---------- SCOPE ---------- */
+.scope-col{background:rgba(15,15,25,.6); border:1px solid rgba(30,41,59,.8); border-radius:20px; padding:18px}
+.scope-head{font-family:var(--font-heading); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--text-faint); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,.05)}
+.scope-item{font-size:11.5px; color:var(--text-muted); padding:6px 0; border-bottom:1px solid rgba(255,255,255,.04); display:flex; align-items:flex-start; gap:9px; font-family:var(--font-body); line-height:1.5}
+.scope-item:last-child{border-bottom:none}
+.ok{color:var(--success); font-size:10px; margin-top:2px; flex-shrink:0}
+.no{color:var(--error); font-size:10px; margin-top:2px; flex-shrink:0}
+.warn{color:var(--warning); font-size:10px; margin-top:2px; flex-shrink:0}
+.arr{color:var(--blue); font-size:10px; margin-top:2px; flex-shrink:0}
+
+/* ---------- ETAPAS ---------- */
+.stage{
+  background:rgba(26,26,38,.8); border:1px solid rgba(255,255,255,.06);
+  border-radius:18px; padding:18px; position:relative; overflow:hidden; break-inside:avoid;
+}
+.stage::before{content:''; position:absolute; top:0; left:0; right:0; height:2px}
+.stage.s1::before{background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.stage.s2::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.stage.s3::before{background:linear-gradient(90deg,var(--amber),var(--gold))}
+.stage.s4::before{background:linear-gradient(90deg,#0F9B7A,var(--success))}
+.stage-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:6px}
+.stage-id{font-family:var(--font-heading); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--text-faint)}
+.stage-week{font-family:var(--font-heading); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap}
+.stage-name{font-family:var(--font-display); font-size:22px; letter-spacing:.03em; color:var(--text-primary); line-height:1.05; margin-bottom:10px}
+.stage-list{font-size:11px; color:var(--text-muted); font-family:var(--font-body); line-height:1.85; margin-bottom:12px}
+.stage-pay{display:flex; justify-content:space-between; align-items:baseline; padding-top:10px; border-top:1px solid rgba(255,255,255,.06)}
+.stage-pct{font-family:var(--font-heading); font-size:10px; letter-spacing:.14em; color:var(--text-faint); text-transform:uppercase}
+.stage-amount{font-family:var(--font-display); font-size:24px; color:var(--amber); letter-spacing:.03em}
+.stage-accept{font-size:10px; color:var(--text-faint); font-family:var(--font-body); margin-top:8px; line-height:1.5; font-style:italic}
+
+/* ---------- SUBTOTAL ---------- */
+.subtotal-bar{
+  background:rgba(245,158,11,.05); border:1px solid rgba(245,158,11,.2); border-radius:18px;
+  padding:18px 22px; display:flex; flex-direction:column; gap:10px; margin-bottom:14px;
+}
+@media(min-width:640px){.subtotal-bar{flex-direction:row; justify-content:space-between; align-items:center}}
+.sub-left{font-family:var(--font-heading); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-muted)}
+.sub-left span{display:block; font-size:10px; color:var(--text-faint); letter-spacing:.04em; margin-top:3px; font-family:var(--font-body); text-transform:none; line-height:1.5}
+.sub-right{display:flex; align-items:baseline; gap:10px}
+.sub-clp{font-family:var(--font-display); font-size:40px; color:var(--gold); letter-spacing:.03em; line-height:1}
+.sub-ars{font-size:11px; color:var(--text-muted); font-family:var(--font-body)}
+
+/* ---------- PLANES ---------- */
+.plans-grid{display:grid; grid-template-columns:1fr; gap:14px}
+@media(min-width:760px){.plans-grid{grid-template-columns:repeat(3,1fr); gap:10px}}
+.plan-card{background:rgba(26,26,38,.9); border:1px solid rgba(30,41,59,.9); border-radius:20px; padding:20px; position:relative; break-inside:avoid}
+.plan-card.recommended{border:2px solid var(--amber); background:rgba(245,158,11,.04); margin-top:12px}
+@media(min-width:760px){.plan-card.recommended{margin-top:0}}
+.rec-tag{
+  position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--amber),var(--gold)); color:#0A0A0A;
+  font-family:var(--font-heading); font-size:9px; letter-spacing:.14em; text-transform:uppercase;
+  padding:3px 12px; border-radius:9999px; white-space:nowrap; font-weight:600;
+}
+.plan-label{font-family:var(--font-heading); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--text-faint); margin-bottom:8px}
+.plan-price{font-family:var(--font-display); font-size:32px; color:var(--amber); letter-spacing:.02em; line-height:1}
+.plan-unit{font-size:10px; color:var(--text-muted); margin-bottom:6px; font-family:var(--font-body)}
+.plan-save{font-size:10px; color:var(--success); font-weight:600; min-height:14px; margin-bottom:10px; font-family:var(--font-body)}
+.plan-divider{border:none; border-top:1px solid rgba(255,255,255,.06); margin:10px 0}
+.plan-detail{font-size:10.5px; color:var(--text-muted); line-height:1.75; font-family:var(--font-body)}
+.plan-detail strong{color:var(--text-secondary)}
+.plan-code{display:inline-block; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); font-family:var(--font-ui); font-size:9px; padding:2px 8px; border-radius:6px; color:var(--text-muted); margin-top:6px; letter-spacing:.1em}
+
+/* ---------- PLAN MENSUAL ---------- */
+.tier{background:rgba(15,15,25,.75); border:1px solid rgba(30,41,59,.9); border-radius:20px; padding:20px; position:relative; overflow:hidden; break-inside:avoid}
+.tier.featured{border-color:rgba(245,158,11,.45); background:rgba(245,158,11,.04)}
+.tier::before{content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--purple))}
+.tier.featured::before{background:linear-gradient(90deg,var(--amber),var(--gold))}
+.tier-name{font-family:var(--font-display); font-size:24px; letter-spacing:.04em; color:var(--text-primary); line-height:1; margin-bottom:4px}
+.tier-price{font-family:var(--font-display); font-size:30px; color:var(--amber); letter-spacing:.02em; line-height:1; margin-top:10px}
+.tier-per{font-size:10px; color:var(--text-muted); font-family:var(--font-body); margin-bottom:12px}
+.tier-list{font-size:11px; color:var(--text-muted); font-family:var(--font-body); line-height:1.85}
+.tier-list span{color:var(--success); font-size:10px}
+
+/* ---------- TABLA OPCIONALES ---------- */
+.opt-table{border:1px solid rgba(30,41,59,.8); border-radius:18px; overflow:hidden}
+.opt-head{
+  display:grid; grid-template-columns:1fr 96px; gap:10px; padding:11px 16px;
+  background:rgba(26,26,38,.9); font-family:var(--font-heading);
+  font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--text-faint);
+}
+.opt-row{
+  display:grid; grid-template-columns:1fr 96px; gap:10px; padding:12px 16px;
+  border-top:1px solid rgba(255,255,255,.04); font-size:12px;
+  color:var(--text-secondary); font-family:var(--font-body); align-items:start;
+}
+.opt-name{font-weight:600; color:var(--text-secondary); display:block; margin-bottom:3px; font-size:12px}
+.opt-desc{font-size:10.5px; color:var(--text-faint); line-height:1.55; display:block}
+.opt-price{font-family:var(--font-heading); font-size:13px; color:var(--amber); text-align:right; letter-spacing:.03em; white-space:nowrap}
+.opt-price.tbd{color:var(--text-faint); font-size:10px; letter-spacing:.1em; text-transform:uppercase}
+.opt-group{
+  padding:9px 16px; background:rgba(139,0,255,.07); border-top:1px solid rgba(139,0,255,.18);
+  font-family:var(--font-heading); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:#C4A6FF;
+}
+
+/* ---------- INFO NOTES ---------- */
+.info-note{border-radius:16px; padding:14px 18px; margin-bottom:14px; font-size:12px; line-height:1.7; font-family:var(--font-body)}
+.info-note strong{color:var(--text-secondary)}
+.info-note.purple{background:rgba(139,0,255,.06); border:1px solid rgba(139,0,255,.2); color:var(--text-muted)}
+.info-note.amber{background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.2); color:var(--text-muted)}
+.info-note.blue{background:rgba(0,102,255,.06); border:1px solid rgba(0,102,255,.2); color:var(--text-muted)}
+.info-note.red{background:rgba(192,0,0,.07); border:1px solid rgba(192,0,0,.25); color:var(--text-muted)}
+
+/* ---------- CONDICIONES ---------- */
+.cond-item{padding:11px 0; border-bottom:1px solid rgba(255,255,255,.05); font-family:var(--font-body)}
+.cond-item:last-child{border-bottom:none}
+.cond-title{font-family:var(--font-heading); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-secondary); margin-bottom:4px}
+.cond-text{font-size:11.5px; color:var(--text-muted); line-height:1.65}
+
+/* ---------- PASOS ---------- */
+.step{display:flex; gap:14px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.05); align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-num{
+  font-family:var(--font-display); font-size:20px; color:var(--amber);
+  width:34px; height:34px; flex-shrink:0; border-radius:10px;
+  background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.25);
+  display:flex; align-items:center; justify-content:center; line-height:1;
+}
+.step-body{font-family:var(--font-body); font-size:12px; color:var(--text-muted); line-height:1.6; padding-top:6px}
+.step-body strong{color:var(--text-secondary); display:block; margin-bottom:2px; font-size:12.5px}
+
+/* ---------- FOOTER ---------- */
+.footer{display:flex; flex-direction:column; gap:14px; padding-top:22px; border-top:1px solid rgba(255,255,255,.06)}
+@media(min-width:640px){.footer{flex-direction:row; justify-content:space-between; align-items:center}}
+.footer-left{display:flex; align-items:center; gap:12px}
+.footer-mark{width:26px; height:26px; border-radius:8px; background:var(--grad-logo); opacity:.7; flex-shrink:0}
+.footer-text{font-size:10px; color:var(--text-faint); font-family:var(--font-body); line-height:1.55}
+.footer-rate{font-size:10px; color:var(--text-faint); font-family:var(--font-ui); line-height:1.55}
+@media(min-width:640px){.footer-rate{text-align:right}}
+
+@media print{
+  body{background:#0A0A0A}
+  .page{padding:20px 24px 28px; max-width:100%}
+  .section{margin-bottom:26px}
+  .stage,.plan-card,.tier,.opt-table,.subtotal-bar,.panel,.scope-col{break-inside:avoid}
+  .page-break{break-before:page}
+}
+</style>
+<style>
+/* ---- modelos comerciales ---- */
+.model-grid{display:grid; grid-template-columns:1fr; gap:16px}
+@media(min-width:760px){.model-grid{grid-template-columns:1fr 1fr; gap:12px}}
+.model{background:rgba(26,26,38,.9); border:1px solid rgba(30,41,59,.9); border-radius:22px; padding:22px; position:relative; break-inside:avoid}
+.model.pick{border:2px solid var(--amber); background:rgba(245,158,11,.05); margin-top:12px}
+@media(min-width:760px){.model.pick{margin-top:0}}
+.model-tag{position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,var(--amber),var(--gold)); color:#0A0A0A; font-family:var(--font-heading); font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:3px 14px; border-radius:9999px; white-space:nowrap; font-weight:600}
+.model-kind{font-family:var(--font-heading); font-size:9px; letter-spacing:.24em; text-transform:uppercase; color:var(--text-faint); margin-bottom:6px}
+.model-name{font-family:var(--font-display); font-size:26px; letter-spacing:.03em; color:var(--text-primary); line-height:1; margin-bottom:12px}
+.model-big{font-family:var(--font-display); font-size:38px; color:var(--amber); letter-spacing:.02em; line-height:1}
+.model-per{font-size:11px; color:var(--text-muted); font-family:var(--font-body); margin-bottom:4px}
+.model-second{font-size:12px; color:var(--text-secondary); font-family:var(--font-body); margin-bottom:12px; line-height:1.6}
+.model-list{font-size:11.5px; color:var(--text-muted); font-family:var(--font-body); line-height:1.85; padding-top:12px; border-top:1px solid rgba(255,255,255,.07)}
+.model-list span{color:var(--success); font-size:10px}
+.model-foot{margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,.07); font-size:11px; color:var(--text-faint); font-family:var(--font-body); line-height:1.6}
+.effort{background:rgba(0,102,255,.06); border:1px solid rgba(0,102,255,.22); border-radius:16px; padding:14px 18px; margin-top:14px; font-family:var(--font-body); font-size:12px; color:var(--text-muted); line-height:1.7}
+.effort strong{color:var(--text-secondary)}
+</style>
+</head>
+<body>
+<div class="bg-texture"></div>
+<div class="page">
+  <div class="grad-line"></div>
+
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-wrap">
+        <div class="logo-mark">N</div>
+        <div>
+          <div class="logo-wordmark">NAWEMEDIA</div>
+          <div class="logo-underline"></div>
+        </div>
+      </div>
+      <div class="prop-label">Presupuesto de Implementación · V1 Reducida</div>
+      <div class="client-name">ELECTRIC SIDE</div>
+      <div class="client-sub">
+        Electric Side Gestión — Núcleo de trabajos y presupuestos<br>
+        Atención: Juan Gutiérrez · Septiembre 2026
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="badge-main">Arranque mínimo viable</span>
+      <span class="badge-sub">5 semanas · 3 etapas</span>
+      <span class="badge-sub">Válido 15 días</span>
+    </div>
+  </header>
+
+  <!-- ===== OBJETO ===== -->
+  <section class="section">
+    <p class="section-label">Objeto de este presupuesto</p>
+    <h2 class="section-title">Resolver primero el problema que duele, no construir todo de una vez</h2>
+    <p class="lead">
+      Esta es una versión acotada de la propuesta original. En lugar de implementar el sistema completo
+      de entrada, se construye <strong>el núcleo que ataca la fricción concreta</strong>: pasar de un trabajo
+      relevado a un presupuesto enviado, desde el celular, sin volver a cargar lo mismo dos veces.
+    </p>
+    <p class="lead">
+      Todo lo demás — relevamientos con fotos, catálogos de proveedores, seguimiento comercial — queda
+      disponible y cotizado, pero <strong>se agrega cuando el sistema ya esté funcionando y demuestre que
+      vale la pena</strong>. Se paga por lo que se usa, en el orden en que hace falta.
+    </p>
+    <div class="info-note blue">
+      <strong>Criterio:</strong> es preferible tener funcionando en 5 semanas lo que se usa todos los días,
+      que esperar dos meses por un sistema completo del que la mitad va a quedar sin usar el primer año.
+    </div>
+  </section>
+
+  <!-- ===== PROBLEMA ===== -->
+  <section class="section">
+    <p class="section-label">Punto de partida</p>
+    <h2 class="section-title">Lo que cuesta hoy hacer un presupuesto</h2>
+    <div class="grid cols-4">
+      <div class="stat-card">
+        <div class="stat-label">Por presupuesto</div>
+        <div class="stat-num">1,5–2 h</div>
+        <div class="stat-sub">Relevar, volver, abrir Word, rearmar todo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Objetivo</div>
+        <div class="stat-num">3–5 min</div>
+        <div class="stat-sub">Presupuesto habitual desde el celular</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Demora típica</div>
+        <div class="stat-num">1–3 días</div>
+        <div class="stat-sub">Entre la visita y el envío al cliente</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Consecuencia</div>
+        <div class="stat-num">Trabajos</div>
+        <div class="stat-sub">Ya se perdieron oportunidades por demora</div>
+      </div>
+    </div>
+    <div class="info-note amber" style="margin-top:14px">
+      <strong>El punto no es ahorrar tiempo:</strong> es responder el mismo día. Un presupuesto que sale en
+      el momento, con buena presentación, gana trabajos que hoy se pierden porque llegan tres días tarde
+      o directamente no llegan.
+    </div>
+  </section>
+
+  <!-- ===== ALCANCE ===== -->
+  <section class="section page-break">
+    <p class="section-label">Alcance V1 Reducida</p>
+    <h2 class="section-title">Qué se construye ahora y qué queda para después</h2>
+    <div class="grid cols-2">
+      <div class="scope-col">
+        <div class="scope-head">Incluido en esta implementación</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Clientes:</strong> alta, edición, búsqueda y reutilización en trabajos futuros</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Trabajos:</strong> cliente, dirección, categoría, descripción, estado, notas e historial</div>
+        <div class="scope-item"><span class="ok">✓</span> Categorías completas: proyecto lumínico, electricidad, refrigeración, herrería, mantenimiento y otros</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Catálogo propio de materiales:</strong> buscador, alta, edición y actualización de precios</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Presupuestos</strong> vinculados al Trabajo: materiales, cantidades, mano de obra en varias líneas, otros conceptos y cálculos automáticos</div>
+        <div class="scope-item"><span class="ok">✓</span> Condiciones comerciales, validez y garantías configurables</div>
+        <div class="scope-item"><span class="ok">✓</span> Duplicación de presupuestos con nueva numeración y fecha</div>
+        <div class="scope-item"><span class="ok">✓</span> Snapshot de precios: un presupuesto enviado conserva los valores con los que se emitió</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>PDF</strong> con identidad Electric Side y precio al final</div>
+        <div class="scope-item"><span class="ok">✓</span> Envío por WhatsApp y email desde la app</div>
+        <div class="scope-item"><span class="ok">✓</span> Login, base de datos remota y sincronización celular ↔ computadora</div>
+        <div class="scope-item"><span class="ok">✓</span> Backups automáticos diarios y exportación de datos</div>
+        <div class="scope-item"><span class="ok">✓</span> Mobile-first, con uso completo en escritorio</div>
+      </div>
+      <div class="scope-col">
+        <div class="scope-head">Para más adelante — ya cotizado</div>
+        <div class="scope-item"><span class="warn">→</span> <strong>Relevamientos con fotos, medidas y observaciones.</strong> Es el módulo más grande que se pospone. Mientras tanto se usan las notas del Trabajo.</div>
+        <div class="scope-item"><span class="warn">→</span> Filtros por proveedor e importación de listas de DEMASLED o Integral Nueve por planilla</div>
+        <div class="scope-item"><span class="warn">→</span> Comparación de precio histórico contra vigente al duplicar</div>
+        <div class="scope-item"><span class="warn">→</span> App instalable con relevamiento sin señal</div>
+        <div class="scope-item"><span class="warn">→</span> Link público de presupuesto con aceptación registrada</div>
+        <div class="scope-item"><span class="warn">→</span> Recordatorios de seguimiento y panel de conversión</div>
+        <div class="scope-item"><span class="no">✕</span> Facturación ARCA, cobros online y firma digital</div>
+        <div class="scope-item"><span class="no">✕</span> Multiusuario, stock, compras y contabilidad</div>
+        <div class="scope-item"><span class="no">✕</span> Sitio web público y gestión de redes</div>
+        <div class="scope-item"><span class="warn">!</span> Integración automática con proveedores: <strong>no existe API pública verificada</strong>. El catálogo es propio y administrado por Electric Side.</div>
+      </div>
+    </div>
+    <div class="info-note purple" style="margin-top:14px">
+      <strong>Nada se pierde:</strong> el sistema se construye con la arquitectura completa desde el primer día.
+      Los módulos pospuestos se enchufan encima sin rehacer nada. Recortar el alcance no significa recortar
+      las bases.
+    </div>
+  </section>
+
+  <!-- ===== ETAPAS ===== -->
+  <section class="section page-break">
+    <p class="section-label">Plan de implementación</p>
+    <h2 class="section-title">3 etapas · 5 semanas</h2>
+    <p class="lead">
+      Cada etapa tiene un entregable verificable y un criterio de aceptación. Si una etapa no cumple su
+      criterio, no se factura.
+    </p>
+    <div class="grid cols-3">
+
+      <div class="stage s1">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 01</span>
+          <span class="stage-week">Semana 1</span>
+        </div>
+        <div class="stage-name">FUNDACIONES</div>
+        <div class="stage-list">
+          — Cierre del alcance<br>
+          — Modelo de datos completo<br>
+          — Infraestructura: Supabase, Vercel, dominio y repositorio<br>
+          — Login y seguridad de acceso<br>
+          — Backups automáticos
+        </div>
+        <div class="stage-pay">
+          <span class="stage-pct">35% · Anticipo</span>
+          <span class="stage-amount">$340.000</span>
+        </div>
+        <div class="stage-accept">Aceptación: Juan entra con su usuario desde celular y PC.</div>
+      </div>
+
+      <div class="stage s2">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 02</span>
+          <span class="stage-week">Semanas 2–3</span>
+        </div>
+        <div class="stage-name">CLIENTES Y TRABAJOS</div>
+        <div class="stage-list">
+          — Clientes reutilizables<br>
+          — Trabajos con categoría, dirección y estado<br>
+          — Notas e historial<br>
+          — Catálogo propio de materiales con buscador<br>
+          — Carga y edición de precios
+        </div>
+        <div class="stage-pay">
+          <span class="stage-pct">30%</span>
+          <span class="stage-amount">$300.000</span>
+        </div>
+        <div class="stage-accept">Aceptación: Juan carga un trabajo real y lo ve desde los dos dispositivos.</div>
+      </div>
+
+      <div class="stage s3">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 03</span>
+          <span class="stage-week">Semanas 4–5</span>
+        </div>
+        <div class="stage-name">PRESUPUESTOS Y ENTREGA</div>
+        <div class="stage-list">
+          — Presupuesto vinculado al Trabajo<br>
+          — Mano de obra, otros conceptos y cálculos<br>
+          — Snapshot de precios y duplicación<br>
+          — PDF con identidad Electric Side<br>
+          — Envío por WhatsApp y email<br>
+          — Publicación, migración y capacitación
+        </div>
+        <div class="stage-pay">
+          <span class="stage-pct">35% · Al publicar</span>
+          <span class="stage-amount">$340.000</span>
+        </div>
+        <div class="stage-accept">Aceptación: Juan emite y envía un presupuesto real desde el celular.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== INFRA ===== -->
+  <section class="section">
+    <p class="section-label">Infraestructura</p>
+    <h2 class="section-title">Sobre qué se construye y a nombre de quién queda</h2>
+    <div class="grid cols-2">
+      <div class="scope-col">
+        <div class="scope-head">Stack productivo</div>
+        <div class="scope-item"><span class="arr">→</span> <strong>Vercel</strong> — publicación de la aplicación</div>
+        <div class="scope-item"><span class="arr">→</span> <strong>Supabase</strong> — base de datos y autenticación</div>
+        <div class="scope-item"><span class="arr">→</span> <strong>Cloudflare</strong> — DNS, certificado y protección</div>
+        <div class="scope-item"><span class="arr">→</span> <strong>GitHub</strong> — repositorio y respaldo del código</div>
+        <div class="scope-item"><span class="arr">→</span> Dominio: <strong>electric-side.com.ar</strong></div>
+      </div>
+      <div class="scope-col">
+        <div class="scope-head">Titularidad y costos</div>
+        <div class="scope-item"><span class="ok">✓</span> Las cuentas se abren <strong>a nombre de Electric Side</strong>. NAWEMEDIA las administra.</div>
+        <div class="scope-item"><span class="ok">✓</span> El código y los datos son propiedad de Electric Side desde el primer día, en cualquiera de los dos modelos.</div>
+        <div class="scope-item"><span class="ok">✓</span> Sin fotos en esta versión, la infraestructura opera holgadamente dentro de los planes gratuitos. <strong>Costo de infraestructura: $0.</strong></div>
+        <div class="scope-item"><span class="warn">!</span> El dominio <strong>.com.ar</strong> se registra en NIC Argentina con CUIT y Clave Fiscal de Electric Side. Cloudflare no puede registrarlo; sí administrarlo después. NAWEMEDIA acompaña el trámite.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODELOS ===== -->
+  <section class="section page-break">
+    <p class="section-label">Inversión</p>
+    <h2 class="section-title">Dos formas de contratarlo</h2>
+    <p class="lead">
+      El sistema es exactamente el mismo en los dos modelos. Cambia cómo se paga. El primero es una compra
+      con pagos por etapa; el segundo convierte todo en una cuota mensual, sin desembolso fuerte al inicio.
+    </p>
+
+    <div class="model-grid">
+
+      <div class="model">
+        <div class="model-kind">Modelo A</div>
+        <div class="model-name">COMPRA POR ETAPAS</div>
+        <div class="model-big">$980.000</div>
+        <div class="model-per">+ IVA · pago único repartido en 3 etapas</div>
+        <div class="model-second">Más el Plan de Operación desde la publicación, desde $45.000 + IVA por mes.</div>
+        <div class="model-list">
+          <span>✓</span> Etapa 01 → $340.000<br>
+          <span>✓</span> Etapa 02 → $300.000<br>
+          <span>✓</span> Etapa 03 → $340.000<br>
+          <span>✓</span> Cada pago al aprobar la etapa
+        </div>
+        <div class="model-foot">
+          Con pago total anticipado: <strong>$784.000</strong> (20% de descuento, código <code>GRANDE20</code>).<br>
+          En dos pagos 50/50: <strong>$882.000</strong> (10%, código <code>ADELANT10</code>).
+        </div>
+      </div>
+
+      <div class="model pick">
+        <div class="model-tag">Recomendado</div>
+        <div class="model-kind">Modelo B</div>
+        <div class="model-name">SUSCRIPCIÓN</div>
+        <div class="model-big">$135.000</div>
+        <div class="model-per">+ IVA por mes · permanencia mínima 18 meses</div>
+        <div class="model-second">Puesta en marcha: <strong>$150.000 + IVA</strong>. Sin otro desembolso inicial.</div>
+        <div class="model-list">
+          <span>✓</span> Desarrollo completo incluido<br>
+          <span>✓</span> Infraestructura, backups y monitoreo<br>
+          <span>✓</span> Soporte y corrección de errores<br>
+          <span>✓</span> 2 horas mensuales de evolución del sistema<br>
+          <span>✓</span> El código y los datos son de Electric Side desde el día uno
+        </div>
+        <div class="model-foot">
+          Cumplido el mes 18, la cuota baja automáticamente a <strong>$60.000 + IVA por mes</strong>,
+          que es el mantenimiento puro.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="effort">
+      <strong>Cuál conviene.</strong> El Modelo A sale más barato en total y deja el sistema pago de entrada,
+      pero exige poner $980.000 en cinco semanas. El Modelo B evita ese esfuerzo: se arranca con $150.000 y
+      el resto se paga de a poco, mientras el sistema ya está generando presupuestos. Para una operación que
+      todavía está creciendo, el Modelo B es el que no compromete caja.
+    </div>
+
+    <div class="info-note amber" style="margin-top:14px">
+      <strong>Punto de equilibrio:</strong> la cuota del Modelo B se paga sola con <strong>un solo trabajo
+      adicional ganado por mes</strong> — de esos que hoy se pierden porque el presupuesto llegó tarde.
+      No hace falta que el sistema haga milagros: alcanza con que evite una demora al mes.
+    </div>
+  </section>
+
+  <!-- ===== PLAN OPERACION ===== -->
+  <section class="section">
+    <p class="section-label">Plan de Operación — solo Modelo A</p>
+    <h2 class="section-title">Mensual obligatorio desde la publicación</h2>
+    <p class="lead">
+      Un sistema en producción necesita estar en línea, respaldado y con alguien que responda cuando algo
+      falla. En el <strong>Modelo B ya está incluido</strong>. En el Modelo A se contrata aparte y es
+      condición de la implementación.
+    </p>
+    <div class="grid cols-2">
+      <div class="tier">
+        <div class="tier-name">ESENCIAL</div>
+        <div class="tier-price">$45.000</div>
+        <div class="tier-per">por mes + IVA</div>
+        <div class="tier-list">
+          <span>✓</span> Administración de Vercel, Supabase y Cloudflare<br>
+          <span>✓</span> Backups automáticos diarios<br>
+          <span>✓</span> Monitoreo de disponibilidad<br>
+          <span>✓</span> Corrección de errores sin costo<br>
+          <span>✓</span> Soporte por WhatsApp en días hábiles
+        </div>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">PRO</div>
+        <div class="tier-price">$90.000</div>
+        <div class="tier-per">por mes + IVA</div>
+        <div class="tier-list">
+          <span>✓</span> Todo lo del plan Esencial<br>
+          <span>✓</span> 2 horas mensuales de evolución del sistema<br>
+          <span>✓</span> Actualización masiva de precios por porcentaje<br>
+          <span>✓</span> Prioridad de respuesta<br>
+          <span>✓</span> Horas acumulables hasta 3 meses
+        </div>
+      </div>
+    </div>
+    <div class="info-note purple" style="margin-top:14px">
+      Se factura por mes adelantado y se puede cambiar de nivel con 30 días de aviso. Los valores se revisan
+      cada 6 meses por índice INDEC. Los costos de terceros que superen los planes gratuitos se trasladan a
+      costo, con aviso previo.
+    </div>
+  </section>
+
+  <!-- ===== OPCIONALES ===== -->
+  <section class="section page-break">
+    <p class="section-label">Etapas siguientes</p>
+    <h2 class="section-title">Módulos para agregar cuando hagan falta</h2>
+    <p class="lead">
+      Ordenados por impacto real sobre la operación. Valores de desarrollo, pago único y más IVA, salvo
+      donde se indica mensual. Se pueden sumar de a uno, en cualquier momento.
+    </p>
+
+    <div class="opt-table">
+      <div class="opt-head"><span>Módulo</span><span style="text-align:right">Inversión</span></div>
+
+      <div class="opt-group">Completar el sistema — lo que salió de esta V1</div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Relevamientos con fotos, medidas y observaciones</span>
+          <span class="opt-desc">Registro completo desde el lugar del trabajo: notas, medidas, recordatorios, materiales previstos y fotos comprimidas. Es el módulo que convierte el sistema en un expediente real de cada trabajo.</span>
+        </span>
+        <span class="opt-price">$420.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Proveedores e importación de listas por planilla</span>
+          <span class="opt-desc">Filtros por proveedor y carga masiva de listas de DEMASLED, Integral Nueve u otros desde Excel o CSV, con control de duplicados. Resuelve el problema real sin depender de una API que no existe.</span>
+        </span>
+        <span class="opt-price">$200.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Comparación de precio histórico vs. vigente</span>
+          <span class="opt-desc">Al duplicar un presupuesto, el sistema detecta las diferencias de precio y deja elegir entre conservar los valores anteriores o actualizarlos.</span>
+        </span>
+        <span class="opt-price">$90.000</span>
+      </div>
+
+      <div class="opt-group">Velocidad de uso</div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">App instalable con relevamiento offline</span>
+          <span class="opt-desc">Se instala como app en el celular y permite cargar información sin señal. Sincroniza al recuperar conexión. Requiere el módulo de relevamientos.</span>
+        </span>
+        <span class="opt-price">$240.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Plantillas de trabajos frecuentes</span>
+          <span class="opt-desc">Guarda un presupuesto típico como plantilla y lo reutiliza con dos toques. Baja los trabajos repetidos a menos de un minuto.</span>
+        </span>
+        <span class="opt-price">$110.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Actualización masiva de precios por porcentaje</span>
+          <span class="opt-desc">Ajusta todo el catálogo o un proveedor completo con un porcentaje, conservando el histórico. Incluido en el plan Pro.</span>
+        </span>
+        <span class="opt-price">$90.000</span>
+      </div>
+
+      <div class="opt-group">Comercial y seguimiento</div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Link público de presupuesto con aceptación registrada</span>
+          <span class="opt-desc">El cliente recibe un enlace en lugar de un PDF suelto, lo abre desde el celular y acepta. Queda registrada fecha y hora de apertura y aceptación. No reemplaza una firma con validez legal.</span>
+        </span>
+        <span class="opt-price">$190.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Recordatorios automáticos de seguimiento</span>
+          <span class="opt-desc">Aviso a los 3 y 7 días sobre presupuestos enviados sin respuesta. Recupera trabajos que hoy se pierden por silencio.</span>
+        </span>
+        <span class="opt-price">$120.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Panel de conversión y métricas</span>
+          <span class="opt-desc">Enviados vs. aprobados, ticket promedio, categorías más rentables, evolución mensual.</span>
+        </span>
+        <span class="opt-price">$160.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Gestión de anticipos y cobranzas</span>
+          <span class="opt-desc">Registro de anticipos, saldos y estado de cobro por trabajo aprobado.</span>
+        </span>
+        <span class="opt-price">$180.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Multiusuario con roles y permisos</span>
+          <span class="opt-desc">Para cuando entre un ayudante o un administrativo.</span>
+        </span>
+        <span class="opt-price">$220.000</span>
+      </div>
+
+      <div class="opt-group">Comunicación y presencia</div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Correo corporativo @electric-side.com.ar</span>
+          <span class="opt-desc">Configuración y puesta en marcha. Opción gratuita de reenvío vía Cloudflare, o casilla completa con Google Workspace (aprox. USD 7 por usuario/mes que cobra el proveedor, se traslada a costo).</span>
+        </span>
+        <span class="opt-price">$50.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">WhatsApp Business API — envío automatizado</span>
+          <span class="opt-desc">Envío del presupuesto con plantilla aprobada y confirmación de entrega. Meta cobra por conversación, aparte. Sujeto a verificación de cuenta comercial.</span>
+        </span>
+        <span class="opt-price">$290.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Sitio web público de Electric Side</span>
+          <span class="opt-desc">Landing con servicios, portfolio y contacto. El portfolio se alimenta de los Trabajos ya terminados en el sistema: se carga una vez y se publica desde ahí.</span>
+        </span>
+        <span class="opt-price">$520.000</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">SEO local y Google Business Profile</span>
+          <span class="opt-desc">Puesta a punto inicial más seguimiento mensual de posicionamiento en la zona de trabajo.</span>
+        </span>
+        <span class="opt-price">$180.000<br><span style="font-size:9px;color:#475569">+ $70.000/mes</span></span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Gestión de redes — 4 piezas mensuales</span>
+          <span class="opt-desc">Contenido para Instagram y TikTok producido a partir de las fotos de trabajos terminados. Antes y después, descripción del servicio, publicación.</span>
+        </span>
+        <span class="opt-price">$200.000<br><span style="font-size:9px;color:#475569">por mes</span></span>
+      </div>
+
+      <div class="opt-group">Requieren validación previa</div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Facturación electrónica ARCA</span>
+          <span class="opt-desc">Integración vía proveedor habilitado. Requiere definir tipo de comprobantes, condición fiscal, credenciales y responsabilidades legales antes de poder cotizarse.</span>
+        </span>
+        <span class="opt-price tbd">A cotizar</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Integración directa con proveedores</span>
+          <span class="opt-desc">Solo si DEMASLED o Integral Nueve habilitan un acceso oficial y estable. Hoy no existe. Mientras tanto, la importación por planilla cumple la misma función.</span>
+        </span>
+        <span class="opt-price tbd">No disponible</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CONDICIONES ===== -->
+  <section class="section page-break">
+    <p class="section-label">Marco comercial</p>
+    <h2 class="section-title">Condiciones</h2>
+    <div class="panel">
+      <div class="cond-item">
+        <div class="cond-title">Validez de la oferta</div>
+        <div class="cond-text">15 días corridos desde la fecha de emisión.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Moneda, impuestos y forma de pago</div>
+        <div class="cond-text">Valores expresados en pesos argentinos, más IVA. Pago por transferencia bancaria. Las cuotas y el plan mensual se facturan por mes adelantado. El tratamiento impositivo final se confirma según la modalidad de facturación que se acuerde entre las partes.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Actualización de valores</div>
+        <div class="cond-text">Los montos de las etapas quedan fijos durante las 5 semanas del cronograma acordado. La cuota del Modelo B y el plan mensual del Modelo A se revisan cada 6 meses por índice de precios al consumidor (INDEC).</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Permanencia — Modelo B</div>
+        <div class="cond-text">La suscripción tiene una permanencia mínima de 18 meses. La baja anticipada implica abonar el 50% de las cuotas restantes. Cumplido el mes 18, la cuota pasa automáticamente a mantenimiento y puede darse de baja con 30 días de aviso.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Alcance y cambios</div>
+        <div class="cond-text">El alcance se congela al firmar. Todo pedido fuera de la lista de incluidos se cotiza por separado y por escrito antes de ejecutarse. No hay cambios de alcance verbales.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Plazo</div>
+        <div class="cond-text">5 semanas desde el pago inicial y la entrega de los accesos e información. Las demoras en la respuesta del cliente corren el cronograma en la misma proporción.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Garantía</div>
+        <div class="cond-text">30 días desde la publicación para corrección de errores sin costo. No cubre funciones nuevas ni cambios de alcance.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Propiedad</div>
+        <div class="cond-text">El código, los datos y las cuentas de infraestructura son propiedad de Electric Side en ambos modelos, desde el primer día. Al finalizar la relación se entregan los accesos completos y una exportación total de los datos.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESPONSABILIDADES ===== -->
+  <section class="section">
+    <p class="section-label">Responsabilidades</p>
+    <h2 class="section-title">Qué aporta cada parte</h2>
+    <div class="grid cols-2">
+      <div class="scope-col">
+        <div class="scope-head">Electric Side aporta</div>
+        <div class="scope-item"><span class="ok">✓</span> Logo e identidad visual en archivo editable</div>
+        <div class="scope-item"><span class="ok">✓</span> Datos comerciales para el PDF: contacto, condiciones, validez y garantías</div>
+        <div class="scope-item"><span class="ok">✓</span> CUIT y Clave Fiscal para registrar el dominio</div>
+        <div class="scope-item"><span class="ok">✓</span> Lista inicial de materiales y precios de referencia</div>
+        <div class="scope-item"><span class="ok">✓</span> Presupuestos anteriores como modelo</div>
+        <div class="scope-item"><span class="ok">✓</span> Revisión de cada etapa dentro de los 3 días hábiles</div>
+      </div>
+      <div class="scope-col">
+        <div class="scope-head">NAWEMEDIA ejecuta</div>
+        <div class="scope-item"><span class="arr">→</span> Diseño técnico y desarrollo completo</div>
+        <div class="scope-item"><span class="arr">→</span> Alta y configuración de toda la infraestructura</div>
+        <div class="scope-item"><span class="arr">→</span> Migración de los datos existentes en el prototipo</div>
+        <div class="scope-item"><span class="arr">→</span> Pruebas, publicación y puesta en marcha</div>
+        <div class="scope-item"><span class="arr">→</span> Capacitación y manual corto de uso</div>
+        <div class="scope-item"><span class="arr">→</span> Soporte, respaldos y monitoreo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PASOS ===== -->
+  <section class="section">
+    <p class="section-label">Para avanzar</p>
+    <h2 class="section-title">Próximos pasos</h2>
+    <div class="panel">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Elegir modelo</strong>Compra por etapas o suscripción. El sistema entregado es el mismo.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Confirmar el alcance</strong>Revisar la lista de incluidos y marcar si algún módulo de las etapas siguientes entra desde el arranque.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><strong>Pago inicial y arranque</strong>Con el pago acreditado se congela el alcance y empieza la Etapa 01.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><strong>Registro del dominio</strong>Juan registra electric-side.com.ar en NIC Argentina con su CUIT. NAWEMEDIA acompaña el trámite y configura todo lo demás.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body"><strong>Publicación y uso real</strong>A las 5 semanas el sistema queda en producción, con los datos cargados y la garantía activa.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grad-line bottom"></div>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <div class="footer-mark"></div>
+      <div class="footer-text">
+        NAWEMEDIA · Santiago, Chile<br>
+        Presupuesto V1 Reducida — Electric Side Gestión
+      </div>
+    </div>
+    <div class="footer-rate">
+      Valores en pesos argentinos · no incluyen IVA<br>
+      Válido 15 días desde la emisión · Septiembre 2026
+    </div>
+  </footer>
+</div>
+</body>
+</html>

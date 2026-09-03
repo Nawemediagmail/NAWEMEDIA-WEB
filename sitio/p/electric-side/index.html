@@ -145,6 +145,7 @@ body{
 .stage.s2::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
 .stage.s3::before{background:linear-gradient(90deg,var(--amber),var(--gold))}
 .stage.s4::before{background:linear-gradient(90deg,#0F9B7A,var(--success))}
+.stage.s4::before{background:linear-gradient(90deg,#0F9B7A,var(--success))}
 .stage-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:6px}
 .stage-id{font-family:var(--font-heading); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--text-faint)}
 .stage-week{font-family:var(--font-heading); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap}
@@ -306,7 +307,7 @@ body{
     </div>
     <div class="header-right">
       <span class="badge-main">Arranque mínimo viable</span>
-      <span class="badge-sub">5 semanas · 3 etapas</span>
+      <span class="badge-sub">7 semanas · 4 etapas</span>
       <span class="badge-sub">Válido 15 días</span>
     </div>
   </header>
@@ -326,7 +327,7 @@ body{
       vale la pena</strong>. Se paga por lo que se usa, en el orden en que hace falta.
     </p>
     <div class="info-note blue">
-      <strong>Criterio:</strong> es preferible tener funcionando en 5 semanas lo que se usa todos los días,
+      <strong>Criterio:</strong> es preferible tener funcionando en 7 semanas lo que se usa todos los días,
       que esperar dos meses por un sistema completo del que la mitad va a quedar sin usar el primer año.
     </div>
   </section>
@@ -375,28 +376,31 @@ body{
         <div class="scope-item"><span class="ok">✓</span> <strong>Trabajos:</strong> cliente, dirección, categoría, descripción, estado, notas e historial</div>
         <div class="scope-item"><span class="ok">✓</span> Categorías completas: proyecto lumínico, electricidad, refrigeración, herrería, mantenimiento y otros</div>
         <div class="scope-item"><span class="ok">✓</span> <strong>Catálogo propio de materiales:</strong> buscador, alta, edición y actualización de precios</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Importador de listas de proveedores por planilla</strong> (DEMASLED, Integral Nueve u otro): carga masiva desde Excel/CSV con control de duplicados</div>
         <div class="scope-item"><span class="ok">✓</span> <strong>Presupuestos</strong> vinculados al Trabajo: materiales, cantidades, mano de obra en varias líneas, otros conceptos y cálculos automáticos</div>
         <div class="scope-item"><span class="ok">✓</span> Condiciones comerciales, validez y garantías configurables</div>
         <div class="scope-item"><span class="ok">✓</span> Duplicación de presupuestos con nueva numeración y fecha</div>
         <div class="scope-item"><span class="ok">✓</span> Snapshot de precios: un presupuesto enviado conserva los valores con los que se emitió</div>
         <div class="scope-item"><span class="ok">✓</span> <strong>PDF</strong> con identidad Electric Side y precio al final</div>
         <div class="scope-item"><span class="ok">✓</span> Envío por WhatsApp y email desde la app</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Recordatorios automáticos de seguimiento</strong> (día 3 y 7) sobre presupuestos enviados sin respuesta</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>App instalable (PWA) con uso offline</strong>: funciona sin señal en obra y sincroniza al recuperar conexión</div>
         <div class="scope-item"><span class="ok">✓</span> Login, base de datos remota y sincronización celular ↔ computadora</div>
         <div class="scope-item"><span class="ok">✓</span> Backups automáticos diarios y exportación de datos</div>
         <div class="scope-item"><span class="ok">✓</span> Mobile-first, con uso completo en escritorio</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Registro y configuración del dominio propio</strong> (electric-side.com.ar): NAWEMEDIA acompaña el trámite sin cargo adicional. El arancel de NIC Argentina lo abona Electric Side directamente, a su nombre.</div>
       </div>
       <div class="scope-col">
         <div class="scope-head">Para más adelante — ya cotizado</div>
-        <div class="scope-item"><span class="warn">→</span> <strong>Relevamientos con fotos, medidas y observaciones.</strong> Es el módulo más grande que se pospone. Mientras tanto se usan las notas del Trabajo.</div>
-        <div class="scope-item"><span class="warn">→</span> Filtros por proveedor e importación de listas de DEMASLED o Integral Nueve por planilla</div>
+        <div class="scope-item"><span class="warn">→</span> <strong>Relevamientos con fotos, medidas y observaciones.</strong> Mientras tanto se usan las notas del Trabajo.</div>
         <div class="scope-item"><span class="warn">→</span> Comparación de precio histórico contra vigente al duplicar</div>
-        <div class="scope-item"><span class="warn">→</span> App instalable con relevamiento sin señal</div>
         <div class="scope-item"><span class="warn">→</span> Link público de presupuesto con aceptación registrada</div>
-        <div class="scope-item"><span class="warn">→</span> Recordatorios de seguimiento y panel de conversión</div>
+        <div class="scope-item"><span class="warn">→</span> Panel de conversión, anticipos y multiusuario</div>
         <div class="scope-item"><span class="no">✕</span> Facturación ARCA, cobros online y firma digital</div>
-        <div class="scope-item"><span class="no">✕</span> Multiusuario, stock, compras y contabilidad</div>
-        <div class="scope-item"><span class="no">✕</span> Sitio web público y gestión de redes</div>
-        <div class="scope-item"><span class="warn">!</span> Integración automática con proveedores: <strong>no existe API pública verificada</strong>. El catálogo es propio y administrado por Electric Side.</div>
+        <div class="scope-item"><span class="no">✕</span> Stock, compras y contabilidad</div>
+        <div class="scope-item"><span class="no">✕</span> Sitio web público — cotizado aparte como paquete independiente</div>
+        <div class="scope-item"><span class="no">✕</span> Gestión de redes y publicidad — cotizado aparte como paquete independiente</div>
+        <div class="scope-item"><span class="warn">!</span> Integración automática con proveedores: <strong>no existe API pública verificada</strong>. Por eso el importador por planilla queda en el núcleo — es la forma real de resolverlo.</div>
       </div>
     </div>
     <div class="info-note purple" style="margin-top:14px">
@@ -409,12 +413,14 @@ body{
   <!-- ===== ETAPAS ===== -->
   <section class="section page-break">
     <p class="section-label">Plan de implementación</p>
-    <h2 class="section-title">3 etapas · 5 semanas</h2>
+    <h2 class="section-title">4 etapas · 7 semanas</h2>
     <p class="lead">
       Cada etapa tiene un entregable verificable y un criterio de aceptación. Si una etapa no cumple su
-      criterio, no se factura.
+      criterio, no se factura. El alcance creció respecto de la primera versión de este presupuesto
+      (importador de proveedores, app offline y recordatorios pasaron al núcleo), por eso el plan pasa
+      de 3 a 4 etapas.
     </p>
-    <div class="grid cols-3">
+    <div class="grid cols-2">
 
       <div class="stage s1">
         <div class="stage-top">
@@ -430,8 +436,8 @@ body{
           — Backups automáticos
         </div>
         <div class="stage-pay">
-          <span class="stage-pct">35% · Anticipo</span>
-          <span class="stage-amount">$340.000</span>
+          <span class="stage-pct">25% · Anticipo</span>
+          <span class="stage-amount">$385.000</span>
         </div>
         <div class="stage-accept">Aceptación: Juan entra con su usuario desde celular y PC.</div>
       </div>
@@ -450,8 +456,8 @@ body{
           — Carga y edición de precios
         </div>
         <div class="stage-pay">
-          <span class="stage-pct">30%</span>
-          <span class="stage-amount">$300.000</span>
+          <span class="stage-pct">25%</span>
+          <span class="stage-amount">$385.000</span>
         </div>
         <div class="stage-accept">Aceptación: Juan carga un trabajo real y lo ve desde los dos dispositivos.</div>
       </div>
@@ -461,20 +467,40 @@ body{
           <span class="stage-id">Etapa 03</span>
           <span class="stage-week">Semanas 4–5</span>
         </div>
-        <div class="stage-name">PRESUPUESTOS Y ENTREGA</div>
+        <div class="stage-name">PRESUPUESTOS E IMPORTADOR</div>
         <div class="stage-list">
           — Presupuesto vinculado al Trabajo<br>
           — Mano de obra, otros conceptos y cálculos<br>
           — Snapshot de precios y duplicación<br>
           — PDF con identidad Electric Side<br>
           — Envío por WhatsApp y email<br>
-          — Publicación, migración y capacitación
+          — Importador de listas de proveedores por planilla
         </div>
         <div class="stage-pay">
-          <span class="stage-pct">35% · Al publicar</span>
-          <span class="stage-amount">$340.000</span>
+          <span class="stage-pct">30%</span>
+          <span class="stage-amount">$462.000</span>
         </div>
-        <div class="stage-accept">Aceptación: Juan emite y envía un presupuesto real desde el celular.</div>
+        <div class="stage-accept">Aceptación: Juan emite y envía un presupuesto real, e importa una lista de precios de un proveedor.</div>
+      </div>
+
+      <div class="stage s4">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 04</span>
+          <span class="stage-week">Semanas 6–7</span>
+        </div>
+        <div class="stage-name">OFFLINE Y PUESTA EN MARCHA</div>
+        <div class="stage-list">
+          — App instalable (PWA) con uso offline<br>
+          — Recordatorios automáticos de seguimiento<br>
+          — Publicación en el dominio definitivo<br>
+          — Migración de los datos del prototipo<br>
+          — Capacitación y manual corto de uso
+        </div>
+        <div class="stage-pay">
+          <span class="stage-pct">20% · Al publicar</span>
+          <span class="stage-amount">$308.000</span>
+        </div>
+        <div class="stage-accept">Aceptación: sistema publicado, funcionando sin señal en el celular y con los datos migrados.</div>
       </div>
 
     </div>
@@ -517,18 +543,19 @@ body{
       <div class="model">
         <div class="model-kind">Modelo A</div>
         <div class="model-name">COMPRA POR ETAPAS</div>
-        <div class="model-big">$980.000</div>
-        <div class="model-per">+ IVA · pago único repartido en 3 etapas</div>
-        <div class="model-second">Más el Plan de Operación desde la publicación, desde $45.000 + IVA por mes.</div>
+        <div class="model-big">$1.540.000</div>
+        <div class="model-per">+ IVA · pago único repartido en 4 etapas</div>
+        <div class="model-second">Más el Plan de Operación desde la publicación, desde $55.000 + IVA por mes.</div>
         <div class="model-list">
-          <span>✓</span> Etapa 01 → $340.000<br>
-          <span>✓</span> Etapa 02 → $300.000<br>
-          <span>✓</span> Etapa 03 → $340.000<br>
+          <span>✓</span> Etapa 01 → $385.000<br>
+          <span>✓</span> Etapa 02 → $385.000<br>
+          <span>✓</span> Etapa 03 → $462.000<br>
+          <span>✓</span> Etapa 04 → $308.000<br>
           <span>✓</span> Cada pago al aprobar la etapa
         </div>
         <div class="model-foot">
-          Con pago total anticipado: <strong>$784.000</strong> (20% de descuento, código <code>GRANDE20</code>).<br>
-          En dos pagos 50/50: <strong>$882.000</strong> (10%, código <code>ADELANT10</code>).
+          Con pago total anticipado: <strong>$1.232.000</strong> (20% de descuento, código <code>GRANDE20</code>).<br>
+          En dos pagos 50/50: <strong>$1.386.000</strong> (10%, código <code>ADELANT10</code>).
         </div>
       </div>
 
@@ -536,18 +563,18 @@ body{
         <div class="model-tag">Recomendado</div>
         <div class="model-kind">Modelo B</div>
         <div class="model-name">SUSCRIPCIÓN</div>
-        <div class="model-big">$135.000</div>
+        <div class="model-big">$165.000</div>
         <div class="model-per">+ IVA por mes · permanencia mínima 18 meses</div>
         <div class="model-second">Puesta en marcha: <strong>$150.000 + IVA</strong>. Sin otro desembolso inicial.</div>
         <div class="model-list">
-          <span>✓</span> Desarrollo completo incluido<br>
+          <span>✓</span> Desarrollo completo incluido, con el alcance ampliado<br>
           <span>✓</span> Infraestructura, backups y monitoreo<br>
           <span>✓</span> Soporte y corrección de errores<br>
           <span>✓</span> 2 horas mensuales de evolución del sistema<br>
           <span>✓</span> El código y los datos son de Electric Side desde el día uno
         </div>
         <div class="model-foot">
-          Cumplido el mes 18, la cuota baja automáticamente a <strong>$60.000 + IVA por mes</strong>,
+          Cumplido el mes 18, la cuota baja automáticamente a <strong>$70.000 + IVA por mes</strong>,
           que es el mantenimiento puro.
         </div>
       </div>
@@ -556,7 +583,7 @@ body{
 
     <div class="effort">
       <strong>Cuál conviene.</strong> El Modelo A sale más barato en total y deja el sistema pago de entrada,
-      pero exige poner $980.000 en cinco semanas. El Modelo B evita ese esfuerzo: se arranca con $150.000 y
+      pero exige poner $1.540.000 en siete semanas. El Modelo B evita ese esfuerzo: se arranca con $150.000 y
       el resto se paga de a poco, mientras el sistema ya está generando presupuestos. Para una operación que
       todavía está creciendo, el Modelo B es el que no compromete caja.
     </div>
@@ -580,7 +607,7 @@ body{
     <div class="grid cols-2">
       <div class="tier">
         <div class="tier-name">ESENCIAL</div>
-        <div class="tier-price">$45.000</div>
+        <div class="tier-price">$55.000</div>
         <div class="tier-per">por mes + IVA</div>
         <div class="tier-list">
           <span>✓</span> Administración de Vercel, Supabase y Cloudflare<br>
@@ -592,7 +619,7 @@ body{
       </div>
       <div class="tier featured">
         <div class="tier-name">PRO</div>
-        <div class="tier-price">$90.000</div>
+        <div class="tier-price">$105.000</div>
         <div class="tier-per">por mes + IVA</div>
         <div class="tier-list">
           <span>✓</span> Todo lo del plan Esencial<br>
@@ -629,15 +656,7 @@ body{
           <span class="opt-name">Relevamientos con fotos, medidas y observaciones</span>
           <span class="opt-desc">Registro completo desde el lugar del trabajo: notas, medidas, recordatorios, materiales previstos y fotos comprimidas. Es el módulo que convierte el sistema en un expediente real de cada trabajo.</span>
         </span>
-        <span class="opt-price">$420.000</span>
-      </div>
-
-      <div class="opt-row">
-        <span>
-          <span class="opt-name">Proveedores e importación de listas por planilla</span>
-          <span class="opt-desc">Filtros por proveedor y carga masiva de listas de DEMASLED, Integral Nueve u otros desde Excel o CSV, con control de duplicados. Resuelve el problema real sin depender de una API que no existe.</span>
-        </span>
-        <span class="opt-price">$200.000</span>
+        <span class="opt-price">$90.000</span>
       </div>
 
       <div class="opt-row">
@@ -652,18 +671,10 @@ body{
 
       <div class="opt-row">
         <span>
-          <span class="opt-name">App instalable con relevamiento offline</span>
-          <span class="opt-desc">Se instala como app en el celular y permite cargar información sin señal. Sincroniza al recuperar conexión. Requiere el módulo de relevamientos.</span>
-        </span>
-        <span class="opt-price">$240.000</span>
-      </div>
-
-      <div class="opt-row">
-        <span>
           <span class="opt-name">Plantillas de trabajos frecuentes</span>
           <span class="opt-desc">Guarda un presupuesto típico como plantilla y lo reutiliza con dos toques. Baja los trabajos repetidos a menos de un minuto.</span>
         </span>
-        <span class="opt-price">$110.000</span>
+        <span class="opt-price">$70.000</span>
       </div>
 
       <div class="opt-row">
@@ -671,7 +682,7 @@ body{
           <span class="opt-name">Actualización masiva de precios por porcentaje</span>
           <span class="opt-desc">Ajusta todo el catálogo o un proveedor completo con un porcentaje, conservando el histórico. Incluido en el plan Pro.</span>
         </span>
-        <span class="opt-price">$90.000</span>
+        <span class="opt-price">$50.000</span>
       </div>
 
       <div class="opt-group">Comercial y seguimiento</div>
@@ -681,15 +692,7 @@ body{
           <span class="opt-name">Link público de presupuesto con aceptación registrada</span>
           <span class="opt-desc">El cliente recibe un enlace en lugar de un PDF suelto, lo abre desde el celular y acepta. Queda registrada fecha y hora de apertura y aceptación. No reemplaza una firma con validez legal.</span>
         </span>
-        <span class="opt-price">$190.000</span>
-      </div>
-
-      <div class="opt-row">
-        <span>
-          <span class="opt-name">Recordatorios automáticos de seguimiento</span>
-          <span class="opt-desc">Aviso a los 3 y 7 días sobre presupuestos enviados sin respuesta. Recupera trabajos que hoy se pierden por silencio.</span>
-        </span>
-        <span class="opt-price">$120.000</span>
+        <span class="opt-price">$50.000</span>
       </div>
 
       <div class="opt-row">
@@ -697,7 +700,7 @@ body{
           <span class="opt-name">Panel de conversión y métricas</span>
           <span class="opt-desc">Enviados vs. aprobados, ticket promedio, categorías más rentables, evolución mensual.</span>
         </span>
-        <span class="opt-price">$160.000</span>
+        <span class="opt-price">$100.000</span>
       </div>
 
       <div class="opt-row">
@@ -705,7 +708,7 @@ body{
           <span class="opt-name">Gestión de anticipos y cobranzas</span>
           <span class="opt-desc">Registro de anticipos, saldos y estado de cobro por trabajo aprobado.</span>
         </span>
-        <span class="opt-price">$180.000</span>
+        <span class="opt-price">$80.000</span>
       </div>
 
       <div class="opt-row">
@@ -713,7 +716,7 @@ body{
           <span class="opt-name">Multiusuario con roles y permisos</span>
           <span class="opt-desc">Para cuando entre un ayudante o un administrativo.</span>
         </span>
-        <span class="opt-price">$220.000</span>
+        <span class="opt-price">$70.000</span>
       </div>
 
       <div class="opt-group">Comunicación y presencia</div>
@@ -731,15 +734,15 @@ body{
           <span class="opt-name">WhatsApp Business API — envío automatizado</span>
           <span class="opt-desc">Envío del presupuesto con plantilla aprobada y confirmación de entrega. Meta cobra por conversación, aparte. Sujeto a verificación de cuenta comercial.</span>
         </span>
-        <span class="opt-price">$290.000</span>
+        <span class="opt-price">$130.000</span>
       </div>
 
       <div class="opt-row">
         <span>
           <span class="opt-name">Sitio web público de Electric Side</span>
-          <span class="opt-desc">Landing con servicios, portfolio y contacto. El portfolio se alimenta de los Trabajos ya terminados en el sistema: se carga una vez y se publica desde ahí.</span>
+          <span class="opt-desc">Landing con servicios, portfolio y contacto. El portfolio se alimenta de los Trabajos ya terminados en el sistema: se carga una vez y se publica desde ahí. La redes y publicidad para promocionarlo van en un paquete aparte — ver más abajo.</span>
         </span>
-        <span class="opt-price">$520.000</span>
+        <span class="opt-price">$320.000</span>
       </div>
 
       <div class="opt-row">
@@ -747,15 +750,7 @@ body{
           <span class="opt-name">SEO local y Google Business Profile</span>
           <span class="opt-desc">Puesta a punto inicial más seguimiento mensual de posicionamiento en la zona de trabajo.</span>
         </span>
-        <span class="opt-price">$180.000<br><span style="font-size:9px;color:#475569">+ $70.000/mes</span></span>
-      </div>
-
-      <div class="opt-row">
-        <span>
-          <span class="opt-name">Gestión de redes — 4 piezas mensuales</span>
-          <span class="opt-desc">Contenido para Instagram y TikTok producido a partir de las fotos de trabajos terminados. Antes y después, descripción del servicio, publicación.</span>
-        </span>
-        <span class="opt-price">$200.000<br><span style="font-size:9px;color:#475569">por mes</span></span>
+        <span class="opt-price">$80.000<br><span style="font-size:9px;color:#475569">+ $70.000/mes</span></span>
       </div>
 
       <div class="opt-group">Requieren validación previa</div>
@@ -771,11 +766,69 @@ body{
       <div class="opt-row">
         <span>
           <span class="opt-name">Integración directa con proveedores</span>
-          <span class="opt-desc">Solo si DEMASLED o Integral Nueve habilitan un acceso oficial y estable. Hoy no existe. Mientras tanto, la importación por planilla cumple la misma función.</span>
+          <span class="opt-desc">Solo si DEMASLED o Integral Nueve habilitan un acceso oficial y estable. Hoy no existe. El importador por planilla, incluido en el núcleo, cumple la misma función.</span>
         </span>
         <span class="opt-price tbd">No disponible</span>
       </div>
 
+    </div>
+
+    <div class="info-note purple" style="margin-top:14px">
+      <strong>Gestión de redes y publicidad:</strong> se sacó de esta tabla porque no es un módulo de desarrollo —
+      es un servicio recurrente de gestión (configuración de cuentas, verificación de Meta Business, campañas
+      de publicidad y producción/publicación de contenido). Va como propuesta aparte, ver la sección siguiente.
+    </div>
+  </section>
+
+  <!-- ===== GROWTH ===== -->
+  <section class="section page-break">
+    <p class="section-label">Propuesta aparte — no es desarrollo de software</p>
+    <h2 class="section-title">Growth: redes y publicidad para Electric Side</h2>
+    <p class="lead">
+      Esto es gestión de marketing, no una funcionalidad del sistema. Se cotiza y se contrata por separado,
+      solo si Juan lo pide. <strong>Los valores de esta sección son estimados y quedan sujetos a confirmación</strong> —
+      no forman parte del presupuesto de implementación.
+    </p>
+    <div class="opt-table">
+      <div class="opt-head"><span>Línea de servicio</span><span style="text-align:right">Estimado</span></div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Configuración inicial</span>
+          <span class="opt-desc">Alta y organización de Instagram y TikTok comerciales, Meta Business Suite, catálogo de servicios.</span>
+        </span>
+        <span class="opt-price tbd">A confirmar</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Verificación de cuenta Meta Business</span>
+          <span class="opt-desc">Trámite de verificación comercial ante Meta, requisito para correr campañas pagas y usar WhatsApp Business API.</span>
+        </span>
+        <span class="opt-price tbd">A confirmar</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Gestión de publicidad (Meta Ads)</span>
+          <span class="opt-desc">Configuración y optimización de campañas. El presupuesto de pauta lo define y paga Electric Side directamente a Meta, aparte del fee de gestión.</span>
+        </span>
+        <span class="opt-price tbd">A confirmar</span>
+      </div>
+
+      <div class="opt-row">
+        <span>
+          <span class="opt-name">Generación y publicación de contenido</span>
+          <span class="opt-desc">Piezas producidas a partir de las fotos de trabajos terminados que ya están cargadas en el sistema: antes/después, descripción del servicio, calendario de publicación.</span>
+        </span>
+        <span class="opt-price tbd">A confirmar</span>
+      </div>
+
+    </div>
+    <div class="info-note blue" style="margin-top:14px">
+      Se puede pagar módulo por módulo, a medida que se necesite, o como una mensualidad única que agrupe
+      todo el paquete. Antes de poner números necesito de vos: objetivo de este servicio, frecuencia de
+      contenido y si Meta Ads entra desde el arranque o más adelante.
     </div>
   </section>
 
@@ -794,7 +847,7 @@ body{
       </div>
       <div class="cond-item">
         <div class="cond-title">Actualización de valores</div>
-        <div class="cond-text">Los montos de las etapas quedan fijos durante las 5 semanas del cronograma acordado. La cuota del Modelo B y el plan mensual del Modelo A se revisan cada 6 meses por índice de precios al consumidor (INDEC).</div>
+        <div class="cond-text">Los montos de las etapas quedan fijos durante las 7 semanas del cronograma acordado. La cuota del Modelo B y el plan mensual del Modelo A se revisan cada 6 meses por índice de precios al consumidor (INDEC).</div>
       </div>
       <div class="cond-item">
         <div class="cond-title">Permanencia — Modelo B</div>
@@ -806,7 +859,7 @@ body{
       </div>
       <div class="cond-item">
         <div class="cond-title">Plazo</div>
-        <div class="cond-text">5 semanas desde el pago inicial y la entrega de los accesos e información. Las demoras en la respuesta del cliente corren el cronograma en la misma proporción.</div>
+        <div class="cond-text">7 semanas desde el pago inicial y la entrega de los accesos e información. Las demoras en la respuesta del cliente corren el cronograma en la misma proporción.</div>
       </div>
       <div class="cond-item">
         <div class="cond-title">Garantía</div>
@@ -868,7 +921,7 @@ body{
       </div>
       <div class="step">
         <div class="step-num">5</div>
-        <div class="step-body"><strong>Publicación y uso real</strong>A las 5 semanas el sistema queda en producción, con los datos cargados y la garantía activa.</div>
+        <div class="step-body"><strong>Publicación y uso real</strong>A las 7 semanas el sistema queda en producción, con los datos cargados y la garantía activa.</div>
       </div>
     </div>
   </section>

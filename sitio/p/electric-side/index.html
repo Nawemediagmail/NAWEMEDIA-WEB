@@ -283,6 +283,9 @@ body{
 .effort{background:rgba(0,102,255,.06); border:1px solid rgba(0,102,255,.22); border-radius:16px; padding:14px 18px; margin-top:14px; font-family:var(--font-body); font-size:12px; color:var(--text-muted); line-height:1.7}
 .effort strong{color:var(--text-secondary)}
 .model.muted{opacity:.6}
+.timeline5{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px}
+.stage.s5::before{background:linear-gradient(90deg,var(--gold),var(--success))}
+.price-was{font-size:15px; color:var(--text-faint); text-decoration:line-through; margin-right:6px}
 </style>
 </head>
 <body>
@@ -592,9 +595,8 @@ body{
           <span>✓</span> El código y los datos son de Electric Side desde el día uno
         </div>
         <div class="model-foot">
-          Permanencia mínima 18 meses. Cumplido el mes 18, aplica una cuota reducida de mantenimiento —
-          <strong>monto a revisar bajo el nuevo esquema de Factura C</strong> (pendiente de confirmación,
-          ver Condiciones).
+          18 meses de sistema + evolución, luego mantenimiento reducido. Meses 1–18: <strong>$190.000
+          final/mes</strong>. Desde el mes 19, baja automática a <strong>$85.000 final/mes</strong>.
         </div>
       </div>
 
@@ -652,6 +654,72 @@ body{
         <div class="cond-title">Facturación</div>
         <div class="cond-text">Todos los valores indicados como finales del Modelo B corresponden a facturación mediante Factura C.</div>
       </div>
+    </div>
+
+    <p class="section-label" style="margin-top:28px">Línea de tiempo del Modelo B</p>
+    <h2 class="section-title">De hoy al mantenimiento reducido</h2>
+    <div class="timeline5">
+
+      <div class="stage s1">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 01</span>
+          <span class="stage-week">Hoy</span>
+        </div>
+        <div class="stage-name">PUESTA EN MARCHA</div>
+        <div class="stage-list">Pago único para iniciar la implementación.</div>
+        <div class="stage-pay">
+          <span class="stage-pct">Factura C</span>
+          <span class="stage-amount">$181.500</span>
+        </div>
+      </div>
+
+      <div class="stage s2">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 02</span>
+          <span class="stage-week">~2 semanas</span>
+        </div>
+        <div class="stage-name">IMPLEMENTACIÓN</div>
+        <div class="stage-list">Configuración, migración, infraestructura, pruebas y puesta en producción. El trabajo empieza hoy — no se espera a que pasen las dos semanas para arrancar.</div>
+        <div class="stage-accept">Objetivo: sistema listo para trabajar.</div>
+      </div>
+
+      <div class="stage s3">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 03</span>
+          <span class="stage-week">Activación</span>
+        </div>
+        <div class="stage-name">ELECTRIC SIDE OPERATIVO</div>
+        <div class="stage-list">Cuando la aplicación queda publicada, funcionando y disponible para uso real, comienza la suscripción. <strong>La mensualidad comienza recién acá.</strong></div>
+        <div class="stage-accept">Si arranca con el mes empezado: primer período proporcional a los días restantes (referencia: medio mes ≈ $95.000, no es tarifa fija).</div>
+      </div>
+
+      <div class="stage s4">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 04</span>
+          <span class="stage-week">Meses 1–18</span>
+        </div>
+        <div class="stage-name">SISTEMA + EVOLUCIÓN</div>
+        <div class="stage-list">Infraestructura, base de datos, backups, monitoreo, soporte, corrección de errores y hasta 2 horas mensuales de mejoras.</div>
+        <div class="stage-pay">
+          <span class="stage-pct">Factura C</span>
+          <span class="stage-amount">$190.000</span>
+        </div>
+        <div class="stage-accept">El abono contempla tanto la operación permanente como la evolución inicial del sistema.</div>
+      </div>
+
+      <div class="stage s5">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 05</span>
+          <span class="stage-week">Desde el mes 19</span>
+        </div>
+        <div class="stage-name">MANTENIMIENTO</div>
+        <div class="stage-list">Cumplidos los primeros 18 meses, el sistema ya está consolidado y la mensualidad baja automáticamente al plan de mantenimiento. Continúa activo con infraestructura, backups, monitoreo, soporte y mantenimiento.</div>
+        <div class="stage-pay">
+          <span class="stage-pct">Baja automática</span>
+          <span class="stage-amount"><span class="price-was">$190.000</span>$85.000</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -938,7 +1006,7 @@ body{
       </div>
       <div class="cond-item">
         <div class="cond-title">Permanencia — Modelo B</div>
-        <div class="cond-text">La suscripción tiene una permanencia mínima de 18 meses. La baja anticipada implica abonar el 50% de las cuotas restantes. Cumplido el mes 18, la cuota pasa automáticamente a una cuota reducida de mantenimiento — <strong>el monto exacto de esa cuota reducida está pendiente de confirmación</strong> bajo el nuevo esquema de Factura C (no se modificó automáticamente, queda para revisión manual). Puede darse de baja con 30 días de aviso.</div>
+        <div class="cond-text">La suscripción tiene una permanencia mínima de 18 meses — el período en el que el abono sostiene el sistema completo y su evolución inicial. La baja anticipada implica abonar el 50% de las cuotas restantes. Cumplido el mes 18, la cuota pasa automáticamente a mantenimiento reducido: <strong>$85.000 final/mes</strong> (Factura C). Puede darse de baja con 30 días de aviso.</div>
       </div>
       <div class="cond-item">
         <div class="cond-title">Alcance y cambios</div>
@@ -981,6 +1049,19 @@ body{
         <div class="scope-item"><span class="arr">→</span> Pruebas, publicación y puesta en marcha</div>
         <div class="scope-item"><span class="arr">→</span> Capacitación y manual corto de uso</div>
         <div class="scope-item"><span class="arr">→</span> Soporte, respaldos y monitoreo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CUOTA QUE BAJA ===== -->
+  <section class="section">
+    <div class="info-note amber">
+      <strong style="display:block; font-family:var(--font-heading); font-size:13px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px">Una cuota que baja con el tiempo</strong>
+      Durante los primeros 18 meses, Electric Side Gestión tiene un abono de <strong>$190.000 final</strong>
+      por mes. Cumplido ese período, el sistema entra en su etapa de mantenimiento y la mensualidad baja
+      automáticamente a <strong>$85.000 final</strong> por mes.
+      <div style="margin-top:8px; font-size:11px; color:var(--text-faint)">
+        El servicio continúa incluyendo la infraestructura necesaria para mantener el sistema operativo.
       </div>
     </div>
   </section>

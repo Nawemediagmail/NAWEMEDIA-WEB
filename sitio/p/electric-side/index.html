@@ -282,6 +282,10 @@ body{
 .model-foot{margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,.07); font-size:11px; color:var(--text-faint); font-family:var(--font-body); line-height:1.6}
 .effort{background:rgba(0,102,255,.06); border:1px solid rgba(0,102,255,.22); border-radius:16px; padding:14px 18px; margin-top:14px; font-family:var(--font-body); font-size:12px; color:var(--text-muted); line-height:1.7}
 .effort strong{color:var(--text-secondary)}
+.model.muted{opacity:.6}
+.timeline5{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px}
+.stage.s5::before{background:linear-gradient(90deg,var(--gold),var(--success))}
+.price-was{font-size:15px; color:var(--text-faint); text-decoration:line-through; margin-right:6px}
 </style>
 </head>
 <body>
@@ -298,7 +302,7 @@ body{
           <div class="logo-underline"></div>
         </div>
       </div>
-      <div class="prop-label">Presupuesto de Implementación · V1 Reducida</div>
+      <div class="prop-label">Presupuesto de Implementación · Modelo B — Suscripción</div>
       <div class="client-name">ELECTRIC SIDE</div>
       <div class="client-sub">
         Electric Side Gestión — Núcleo de trabajos y presupuestos<br>
@@ -306,11 +310,39 @@ body{
       </div>
     </div>
     <div class="header-right">
-      <span class="badge-main">Arranque mínimo viable</span>
-      <span class="badge-sub">7 semanas · 4 etapas</span>
+      <span class="badge-main">Plan actual: Suscripción</span>
+      <span class="badge-sub">Facturación: Factura C</span>
       <span class="badge-sub">Válido 15 días</span>
     </div>
   </header>
+
+  <!-- ===== JERARQUÍA DE PAGO ===== -->
+  <section class="section">
+    <p class="section-label">Cómo funciona el pago</p>
+    <h2 class="section-title">De la puesta en marcha a la operación mensual</h2>
+    <div class="grid cols-4">
+      <div class="stat-card">
+        <div class="stat-label">Paso 1 · Hoy</div>
+        <div class="stat-num">$181.500</div>
+        <div class="stat-sub">Puesta en marcha, pago único · Factura C</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Paso 2 · ~2 semanas</div>
+        <div class="stat-num">Operativo</div>
+        <div class="stat-sub">Sistema funcionando y listo para uso real</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Paso 3 · Desde la activación</div>
+        <div class="stat-num">$190.000</div>
+        <div class="stat-sub">Suscripción mensual · Factura C</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Paso 4 · Opcional</div>
+        <div class="stat-num">Growth</div>
+        <div class="stat-sub">Redes y publicidad, desde $55.000/mes, activable cuando quieras</div>
+      </div>
+    </div>
+  </section>
 
   <!-- ===== OBJETO ===== -->
   <section class="section">
@@ -367,8 +399,8 @@ body{
 
   <!-- ===== ALCANCE ===== -->
   <section class="section page-break">
-    <p class="section-label">Alcance V1 Reducida</p>
-    <h2 class="section-title">Qué se construye ahora y qué queda para después</h2>
+    <p class="section-label">Todo esto incluye tu suscripción</p>
+    <h2 class="section-title">Qué cubren los $190.000/mes</h2>
     <div class="grid cols-2">
       <div class="scope-col">
         <div class="scope-head">Incluido en esta implementación</div>
@@ -388,7 +420,9 @@ body{
         <div class="scope-item"><span class="ok">✓</span> Login, base de datos remota y sincronización celular ↔ computadora</div>
         <div class="scope-item"><span class="ok">✓</span> Backups automáticos diarios y exportación de datos</div>
         <div class="scope-item"><span class="ok">✓</span> Mobile-first, con uso completo en escritorio</div>
-        <div class="scope-item"><span class="ok">✓</span> <strong>Registro y configuración del dominio propio</strong> (electric-side.com.ar): NAWEMEDIA acompaña el trámite sin cargo adicional. El arancel de NIC Argentina lo abona Electric Side directamente, a su nombre.</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Operación:</strong> monitoreo, mantenimiento y corrección de errores sin costo, soporte</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Evolución:</strong> hasta 2 horas mensuales destinadas a mejoras del sistema</div>
+        <div class="scope-item"><span class="ok">✓</span> <strong>Registro y configuración del dominio propio</strong> (electric-side.com.ar): NAWEMEDIA acompaña el trámite sin cargo adicional. El arancel de NIC Argentina lo abona Electric Side directamente, a su nombre — <strong>no incluido en los $190.000 mensuales</strong>.</div>
       </div>
       <div class="scope-col">
         <div class="scope-head">Para más adelante — ya cotizado</div>
@@ -420,6 +454,12 @@ body{
       (importador de proveedores, app offline y recordatorios pasaron al núcleo), por eso el plan pasa
       de 3 a 4 etapas.
     </p>
+    <div class="info-note blue">
+      <strong>Nota interna — pendiente de definir:</strong> este plan describe el desarrollo técnico completo
+      (7 semanas). La puesta en marcha del Modelo B se describe más abajo como un período de ~2 semanas.
+      Falta precisar cómo se distribuye el resto del desarrollo dentro del período de suscripción — no se
+      resolvió automáticamente, queda para definir con NAWEMEDIA antes de publicar la versión final.
+    </div>
     <div class="grid cols-2">
 
       <div class="stage s1">
@@ -532,20 +572,40 @@ body{
   <!-- ===== MODELOS ===== -->
   <section class="section page-break">
     <p class="section-label">Inversión</p>
-    <h2 class="section-title">Dos formas de contratarlo</h2>
+    <h2 class="section-title">Modelo contratado</h2>
     <p class="lead">
-      El sistema es exactamente el mismo en los dos modelos. Cambia cómo se paga. El primero es una compra
-      con pagos por etapa; el segundo convierte todo en una cuota mensual, sin desembolso fuerte al inicio.
+      El sistema es exactamente el mismo en los dos modelos. <strong>Electric Side ya eligió el Modelo B
+      (suscripción)</strong> — el Modelo A queda documentado abajo como alternativa de referencia, sin cambios.
     </p>
 
     <div class="model-grid">
 
-      <div class="model">
+      <div class="model pick">
+        <div class="model-tag">Plan actual</div>
+        <div class="model-kind">Modelo B</div>
+        <div class="model-name">SUSCRIPCIÓN</div>
+        <div class="model-big">$190.000</div>
+        <div class="model-per">final / mes · Factura C</div>
+        <div class="model-second">Puesta en marcha: <strong>$181.500 final</strong> · Factura C. Ver detalle abajo.</div>
+        <div class="model-list">
+          <span>✓</span> Desarrollo completo incluido, con el alcance ampliado<br>
+          <span>✓</span> Infraestructura, backups y monitoreo<br>
+          <span>✓</span> Soporte y corrección de errores<br>
+          <span>✓</span> 2 horas mensuales de evolución del sistema<br>
+          <span>✓</span> El código y los datos son de Electric Side desde el día uno
+        </div>
+        <div class="model-foot">
+          18 meses de sistema + evolución, luego mantenimiento reducido. Meses 1–18: <strong>$190.000
+          final/mes</strong>. Desde el mes 19, baja automática a <strong>$85.000 final/mes</strong>.
+        </div>
+      </div>
+
+      <div class="model muted">
         <div class="model-kind">Modelo A</div>
         <div class="model-name">COMPRA POR ETAPAS</div>
         <div class="model-big">$1.540.000</div>
         <div class="model-per">+ IVA · pago único repartido en 4 etapas</div>
-        <div class="model-second">Más el Plan de Operación desde la publicación, desde $55.000 + IVA por mes.</div>
+        <div class="model-second">Alternativa no contratada. Más el Plan de Operación desde la publicación, desde $55.000 + IVA por mes.</div>
         <div class="model-list">
           <span>✓</span> Etapa 01 → $385.000<br>
           <span>✓</span> Etapa 02 → $385.000<br>
@@ -559,39 +619,107 @@ body{
         </div>
       </div>
 
-      <div class="model pick">
-        <div class="model-tag">Recomendado</div>
-        <div class="model-kind">Modelo B</div>
-        <div class="model-name">SUSCRIPCIÓN</div>
-        <div class="model-big">$165.000</div>
-        <div class="model-per">+ IVA por mes · permanencia mínima 18 meses</div>
-        <div class="model-second">Puesta en marcha: <strong>$150.000 + IVA</strong>. Sin otro desembolso inicial.</div>
-        <div class="model-list">
-          <span>✓</span> Desarrollo completo incluido, con el alcance ampliado<br>
-          <span>✓</span> Infraestructura, backups y monitoreo<br>
-          <span>✓</span> Soporte y corrección de errores<br>
-          <span>✓</span> 2 horas mensuales de evolución del sistema<br>
-          <span>✓</span> El código y los datos son de Electric Side desde el día uno
-        </div>
-        <div class="model-foot">
-          Cumplido el mes 18, la cuota baja automáticamente a <strong>$70.000 + IVA por mes</strong>,
-          que es el mantenimiento puro.
-        </div>
-      </div>
-
     </div>
 
     <div class="effort">
-      <strong>Cuál conviene.</strong> El Modelo A sale más barato en total y deja el sistema pago de entrada,
-      pero exige poner $1.540.000 en siete semanas. El Modelo B evita ese esfuerzo: se arranca con $150.000 y
-      el resto se paga de a poco, mientras el sistema ya está generando presupuestos. Para una operación que
-      todavía está creciendo, el Modelo B es el que no compromete caja.
+      <strong>Por qué Modelo B.</strong> Evita el desembolso fuerte de $1.540.000 en siete semanas propio
+      del Modelo A. Se arranca con $181.500 y el resto se paga mes a mes, mientras el sistema ya está
+      generando presupuestos.
     </div>
 
     <div class="info-note amber" style="margin-top:14px">
-      <strong>Punto de equilibrio:</strong> la cuota del Modelo B se paga sola con <strong>un solo trabajo
+      <strong>Punto de equilibrio:</strong> la cuota mensual se paga sola con <strong>un solo trabajo
       adicional ganado por mes</strong> — de esos que hoy se pierden porque el presupuesto llegó tarde.
       No hace falta que el sistema haga milagros: alcanza con que evite una demora al mes.
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <div class="cond-item">
+        <div class="cond-title">Puesta en marcha</div>
+        <div class="cond-text">$181.500 final, pago único · Factura C. Cubre las primeras ~2 semanas de implementación, configuración, migración, pruebas y publicación. No es una mensualidad: es la etapa inicial hasta que el sistema esté operativo y disponible para uso real.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Inicio de la suscripción</div>
+        <div class="cond-text">La cuota de $190.000/mes (Factura C) no arranca el día del pago de la puesta en marcha. Arranca cuando Electric Side Gestión está publicado, operativo y accesible para uso real.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Primer período proporcional</div>
+        <div class="cond-text">Si la activación ocurre con el mes ya iniciado, el primer período se factura proporcional a los días restantes — no se cobra un mes completo. Referencia aproximada si arranca a mitad de mes: ≈ $95.000 (no es un precio fijo, es un ejemplo del 50% de la mensualidad).</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Vencimiento mensual</div>
+        <div class="cond-text">Del día 1 al día 5 de cada mes. La suscripción mantiene activa la infraestructura y los servicios del sistema. Si al finalizar el período de vencimiento el abono continúa pendiente, el acceso puede quedar <strong>temporalmente suspendido por falta de acreditación del abono</strong>, hasta regularizar el pago. Una vez regularizado, el servicio se reactiva.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Facturación</div>
+        <div class="cond-text">Todos los valores indicados como finales del Modelo B corresponden a facturación mediante Factura C.</div>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-top:28px">Línea de tiempo del Modelo B</p>
+    <h2 class="section-title">De hoy al mantenimiento reducido</h2>
+    <div class="timeline5">
+
+      <div class="stage s1">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 01</span>
+          <span class="stage-week">Hoy</span>
+        </div>
+        <div class="stage-name">PUESTA EN MARCHA</div>
+        <div class="stage-list">Pago único para iniciar la implementación.</div>
+        <div class="stage-pay">
+          <span class="stage-pct">Factura C</span>
+          <span class="stage-amount">$181.500</span>
+        </div>
+      </div>
+
+      <div class="stage s2">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 02</span>
+          <span class="stage-week">~2 semanas</span>
+        </div>
+        <div class="stage-name">IMPLEMENTACIÓN</div>
+        <div class="stage-list">Configuración, migración, infraestructura, pruebas y puesta en producción. El trabajo empieza hoy — no se espera a que pasen las dos semanas para arrancar.</div>
+        <div class="stage-accept">Objetivo: sistema listo para trabajar.</div>
+      </div>
+
+      <div class="stage s3">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 03</span>
+          <span class="stage-week">Activación</span>
+        </div>
+        <div class="stage-name">ELECTRIC SIDE OPERATIVO</div>
+        <div class="stage-list">Cuando la aplicación queda publicada, funcionando y disponible para uso real, comienza la suscripción. <strong>La mensualidad comienza recién acá.</strong></div>
+        <div class="stage-accept">Si arranca con el mes empezado: primer período proporcional a los días restantes (referencia: medio mes ≈ $95.000, no es tarifa fija).</div>
+      </div>
+
+      <div class="stage s4">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 04</span>
+          <span class="stage-week">Meses 1–18</span>
+        </div>
+        <div class="stage-name">SISTEMA + EVOLUCIÓN</div>
+        <div class="stage-list">Infraestructura, base de datos, backups, monitoreo, soporte, corrección de errores y hasta 2 horas mensuales de mejoras.</div>
+        <div class="stage-pay">
+          <span class="stage-pct">Factura C</span>
+          <span class="stage-amount">$190.000</span>
+        </div>
+        <div class="stage-accept">El abono contempla tanto la operación permanente como la evolución inicial del sistema.</div>
+      </div>
+
+      <div class="stage s5">
+        <div class="stage-top">
+          <span class="stage-id">Etapa 05</span>
+          <span class="stage-week">Desde el mes 19</span>
+        </div>
+        <div class="stage-name">MANTENIMIENTO</div>
+        <div class="stage-list">Cumplidos los primeros 18 meses, el sistema ya está consolidado y la mensualidad baja automáticamente al plan de mantenimiento. Continúa activo con infraestructura, backups, monitoreo, soporte y mantenimiento.</div>
+        <div class="stage-pay">
+          <span class="stage-pct">Baja automática</span>
+          <span class="stage-amount"><span class="price-was">$190.000</span>$85.000</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -642,8 +770,9 @@ body{
     <p class="section-label">Etapas siguientes</p>
     <h2 class="section-title">Módulos para agregar cuando hagan falta</h2>
     <p class="lead">
-      Ordenados por impacto real sobre la operación. Valores de desarrollo, pago único y más IVA, salvo
-      donde se indica mensual. Se pueden sumar de a uno, en cualquier momento.
+      Ordenados por impacto real sobre la operación. Pago único, salvo donde se indica mensual. Se pueden
+      sumar de a uno, en cualquier momento. Los valores todavía no están expresados como monto final —
+      quedan a cotizar bajo el nuevo esquema de Factura C.
     </p>
 
     <div class="opt-table">
@@ -656,7 +785,7 @@ body{
           <span class="opt-name">Relevamientos con fotos, medidas y observaciones</span>
           <span class="opt-desc">Registro completo desde el lugar del trabajo: notas, medidas, recordatorios, materiales previstos y fotos comprimidas. Es el módulo que convierte el sistema en un expediente real de cada trabajo.</span>
         </span>
-        <span class="opt-price">$90.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
@@ -664,7 +793,7 @@ body{
           <span class="opt-name">Comparación de precio histórico vs. vigente</span>
           <span class="opt-desc">Al duplicar un presupuesto, el sistema detecta las diferencias de precio y deja elegir entre conservar los valores anteriores o actualizarlos.</span>
         </span>
-        <span class="opt-price">$90.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-group">Velocidad de uso</div>
@@ -674,7 +803,7 @@ body{
           <span class="opt-name">Plantillas de trabajos frecuentes</span>
           <span class="opt-desc">Guarda un presupuesto típico como plantilla y lo reutiliza con dos toques. Baja los trabajos repetidos a menos de un minuto.</span>
         </span>
-        <span class="opt-price">$70.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
@@ -682,7 +811,7 @@ body{
           <span class="opt-name">Actualización masiva de precios por porcentaje</span>
           <span class="opt-desc">Ajusta todo el catálogo o un proveedor completo con un porcentaje, conservando el histórico. Incluido en el plan Pro.</span>
         </span>
-        <span class="opt-price">$50.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-group">Comercial y seguimiento</div>
@@ -692,7 +821,7 @@ body{
           <span class="opt-name">Link público de presupuesto con aceptación registrada</span>
           <span class="opt-desc">El cliente recibe un enlace en lugar de un PDF suelto, lo abre desde el celular y acepta. Queda registrada fecha y hora de apertura y aceptación. No reemplaza una firma con validez legal.</span>
         </span>
-        <span class="opt-price">$50.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
@@ -700,7 +829,7 @@ body{
           <span class="opt-name">Panel de conversión y métricas</span>
           <span class="opt-desc">Enviados vs. aprobados, ticket promedio, categorías más rentables, evolución mensual.</span>
         </span>
-        <span class="opt-price">$100.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
@@ -708,7 +837,7 @@ body{
           <span class="opt-name">Gestión de anticipos y cobranzas</span>
           <span class="opt-desc">Registro de anticipos, saldos y estado de cobro por trabajo aprobado.</span>
         </span>
-        <span class="opt-price">$80.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
@@ -716,7 +845,7 @@ body{
           <span class="opt-name">Multiusuario con roles y permisos</span>
           <span class="opt-desc">Para cuando entre un ayudante o un administrativo.</span>
         </span>
-        <span class="opt-price">$70.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-group">Comunicación y presencia</div>
@@ -726,7 +855,7 @@ body{
           <span class="opt-name">Correo corporativo @electric-side.com.ar</span>
           <span class="opt-desc">Configuración y puesta en marcha. Opción gratuita de reenvío vía Cloudflare, o casilla completa con Google Workspace (aprox. USD 7 por usuario/mes que cobra el proveedor, se traslada a costo).</span>
         </span>
-        <span class="opt-price">$50.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
@@ -734,15 +863,15 @@ body{
           <span class="opt-name">WhatsApp Business API — envío automatizado</span>
           <span class="opt-desc">Envío del presupuesto con plantilla aprobada y confirmación de entrega. Meta cobra por conversación, aparte. Sujeto a verificación de cuenta comercial.</span>
         </span>
-        <span class="opt-price">$130.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
         <span>
           <span class="opt-name">Sitio web público de Electric Side</span>
-          <span class="opt-desc">Landing con servicios, portfolio y contacto. El portfolio se alimenta de los Trabajos ya terminados en el sistema: se carga una vez y se publica desde ahí. La redes y publicidad para promocionarlo van en un paquete aparte — ver más abajo.</span>
+          <span class="opt-desc">Landing con servicios, portfolio y contacto. El portfolio se alimenta de los Trabajos ya terminados en el sistema: se carga una vez y se publica desde ahí. Las redes y publicidad para promocionarlo van en un paquete aparte — ver Electric Side Growth, más abajo.</span>
         </span>
-        <span class="opt-price">$320.000</span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-row">
@@ -750,7 +879,7 @@ body{
           <span class="opt-name">SEO local y Google Business Profile</span>
           <span class="opt-desc">Puesta a punto inicial más seguimiento mensual de posicionamiento en la zona de trabajo.</span>
         </span>
-        <span class="opt-price">$80.000<br><span style="font-size:9px;color:#475569">+ $70.000/mes</span></span>
+        <span class="opt-price tbd">A cotizar como valor final</span>
       </div>
 
       <div class="opt-group">Requieren validación previa</div>
@@ -782,53 +911,79 @@ body{
 
   <!-- ===== GROWTH ===== -->
   <section class="section page-break">
-    <p class="section-label">Propuesta aparte — no es desarrollo de software</p>
-    <h2 class="section-title">Growth: redes y publicidad para Electric Side</h2>
+    <p class="section-label">Servicio independiente — no forma parte del sistema</p>
+    <h2 class="section-title">ELECTRIC SIDE GROWTH</h2>
     <p class="lead">
-      Esto es gestión de marketing, no una funcionalidad del sistema. Se cotiza y se contrata por separado,
-      solo si Juan lo pide. <strong>Los valores de esta sección son estimados y quedan sujetos a confirmación</strong> —
-      no forman parte del presupuesto de implementación.
+      <strong>Presencia digital, contenido y redes sociales bajo demanda.</strong>
+      No está incluido en los $190.000 mensuales del sistema, y no es obligatorio. Se contrata mes a mes:
+      Juan puede activar un mes, no contratarlo el siguiente, y retomarlo cuando quiera. También puede
+      cambiar de plan según la necesidad de cada período.
     </p>
-    <div class="opt-table">
-      <div class="opt-head"><span>Línea de servicio</span><span style="text-align:right">Estimado</span></div>
 
-      <div class="opt-row">
-        <span>
-          <span class="opt-name">Configuración inicial</span>
-          <span class="opt-desc">Alta y organización de Instagram y TikTok comerciales, Meta Business Suite, catálogo de servicios.</span>
-        </span>
-        <span class="opt-price tbd">A confirmar</span>
+    <div class="grid cols-2">
+      <div class="tier">
+        <div class="tier-name">STARTER</div>
+        <div class="tier-price">$55.000</div>
+        <div class="tier-per">final / mes</div>
+        <div class="tier-list">
+          <span>✓</span> 2 publicaciones semanales<br>
+          <span>✓</span> Organización inicial del perfil<br>
+          <span>✓</span> Preparación y diseño del contenido<br>
+          <span>✓</span> Redacción de textos<br>
+          <span>✓</span> Publicación y gestión completa<br>
+          <br><span style="color:var(--text-faint)">Impacto esperado: presencia profesional y portfolio activo.</span>
+        </div>
       </div>
-
-      <div class="opt-row">
-        <span>
-          <span class="opt-name">Verificación de cuenta Meta Business</span>
-          <span class="opt-desc">Trámite de verificación comercial ante Meta, requisito para correr campañas pagas y usar WhatsApp Business API.</span>
-        </span>
-        <span class="opt-price tbd">A confirmar</span>
+      <div class="tier">
+        <div class="tier-name">ACTIVO</div>
+        <div class="tier-price">$85.000</div>
+        <div class="tier-per">final / mes</div>
+        <div class="tier-list">
+          <span>✓</span> 4 publicaciones semanales<br>
+          <span>✓</span> Todo lo incluido en Starter<br>
+          <span>✓</span> Mayor frecuencia de comunicación<br>
+          <span>✓</span> Mayor continuidad del perfil<br>
+          <br><span style="color:var(--text-faint)">Impacto esperado: mayor continuidad y exposición.</span>
+        </div>
       </div>
-
-      <div class="opt-row">
-        <span>
-          <span class="opt-name">Gestión de publicidad (Meta Ads)</span>
-          <span class="opt-desc">Configuración y optimización de campañas. El presupuesto de pauta lo define y paga Electric Side directamente a Meta, aparte del fee de gestión.</span>
-        </span>
-        <span class="opt-price tbd">A confirmar</span>
+      <div class="tier">
+        <div class="tier-name">GROWTH</div>
+        <div class="tier-price">$120.000</div>
+        <div class="tier-per">final / mes</div>
+        <div class="tier-list">
+          <span>✓</span> 6 publicaciones semanales<br>
+          <span>✓</span> Todo lo incluido en Activo<br>
+          <span>✓</span> Estrategia de contenido de mayor frecuencia<br>
+          <span>✓</span> Calendario mensual de publicaciones<br>
+          <br><span style="color:var(--text-faint)">Impacto esperado: presencia sólida y base para campañas.</span>
+        </div>
       </div>
-
-      <div class="opt-row">
-        <span>
-          <span class="opt-name">Generación y publicación de contenido</span>
-          <span class="opt-desc">Piezas producidas a partir de las fotos de trabajos terminados que ya están cargadas en el sistema: antes/después, descripción del servicio, calendario de publicación.</span>
-        </span>
-        <span class="opt-price tbd">A confirmar</span>
+      <div class="tier">
+        <div class="tier-name">PRO MAX</div>
+        <div class="tier-price">$160.000</div>
+        <div class="tier-per">final / mes</div>
+        <div class="tier-list">
+          <span>✓</span> Hasta 30 piezas mensuales<br>
+          <span>✓</span> Contenido de alta frecuencia<br>
+          <span>✓</span> Personalizado según trabajos, promociones y novedades<br>
+          <span>✓</span> Gestión completa de publicación<br>
+          <br><span style="color:var(--text-faint)">Impacto esperado: canal digital activo de comunicación comercial.</span>
+        </div>
       </div>
-
     </div>
-    <div class="info-note blue" style="margin-top:14px">
-      Se puede pagar módulo por módulo, a medida que se necesite, o como una mensualidad única que agrupe
-      todo el paquete. Antes de poner números necesito de vos: objetivo de este servicio, frecuencia de
-      contenido y si Meta Ads entra desde el arranque o más adelante.
+
+    <div class="info-note purple" style="margin-top:14px">
+      <strong>Vos hacés el trabajo. Nosotros nos ocupamos de mostrarlo.</strong> Juan no necesita diseñar,
+      editar, configurar, redactar, programar ni publicar — NAWEMEDIA gestiona todo el proceso según el
+      plan contratado. Los materiales que Electric Side ya genera en sus trabajos (fotos de antes/después)
+      se convierten en contenido para sus redes.
+    </div>
+
+    <div class="info-note amber" style="margin-top:14px">
+      <strong>Publicidad / Meta Ads:</strong> la inversión publicitaria <strong>no está incluida</strong>
+      en ninguno de los planes de arriba. La pauta se define según objetivos, tiene presupuesto
+      independiente, y la abona Electric Side directamente a Meta — aparte del fee de gestión/contenido.
+      Todavía no tiene una cifra definida.
     </div>
   </section>
 
@@ -843,15 +998,15 @@ body{
       </div>
       <div class="cond-item">
         <div class="cond-title">Moneda, impuestos y forma de pago</div>
-        <div class="cond-text">Valores expresados en pesos argentinos, más IVA. Pago por transferencia bancaria. Las cuotas y el plan mensual se facturan por mes adelantado. El tratamiento impositivo final se confirma según la modalidad de facturación que se acuerde entre las partes.</div>
+        <div class="cond-text"><strong>Modelo B (contratado):</strong> valores expresados como monto final, facturación mediante Factura C — sin IVA discriminado por separado. <strong>Modelo A y módulos opcionales del sistema:</strong> valores en pesos argentinos, más IVA, pendientes de expresarse como monto final. Pago por transferencia bancaria. Las cuotas y la suscripción se facturan por mes adelantado.</div>
       </div>
       <div class="cond-item">
         <div class="cond-title">Actualización de valores</div>
-        <div class="cond-text">Los montos de las etapas quedan fijos durante las 7 semanas del cronograma acordado. La cuota del Modelo B y el plan mensual del Modelo A se revisan cada 6 meses por índice de precios al consumidor (INDEC).</div>
+        <div class="cond-text">Los montos de las etapas del Modelo A quedan fijos durante las 7 semanas del cronograma acordado. La cuota del Modelo B se revisa cada 6 meses por índice de precios al consumidor (INDEC).</div>
       </div>
       <div class="cond-item">
         <div class="cond-title">Permanencia — Modelo B</div>
-        <div class="cond-text">La suscripción tiene una permanencia mínima de 18 meses. La baja anticipada implica abonar el 50% de las cuotas restantes. Cumplido el mes 18, la cuota pasa automáticamente a mantenimiento y puede darse de baja con 30 días de aviso.</div>
+        <div class="cond-text">La suscripción tiene una permanencia mínima de 18 meses — el período en el que el abono sostiene el sistema completo y su evolución inicial. La baja anticipada implica abonar el 50% de las cuotas restantes. Cumplido el mes 18, la cuota pasa automáticamente a mantenimiento reducido: <strong>$85.000 final/mes</strong> (Factura C). Puede darse de baja con 30 días de aviso.</div>
       </div>
       <div class="cond-item">
         <div class="cond-title">Alcance y cambios</div>
@@ -898,6 +1053,47 @@ body{
     </div>
   </section>
 
+  <!-- ===== CUOTA QUE BAJA ===== -->
+  <section class="section">
+    <div class="info-note amber">
+      <strong style="display:block; font-family:var(--font-heading); font-size:13px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px">Una cuota que baja con el tiempo</strong>
+      Durante los primeros 18 meses, Electric Side Gestión tiene un abono de <strong>$190.000 final</strong>
+      por mes. Cumplido ese período, el sistema entra en su etapa de mantenimiento y la mensualidad baja
+      automáticamente a <strong>$85.000 final</strong> por mes.
+      <div style="margin-top:8px; font-size:11px; color:var(--text-faint)">
+        El servicio continúa incluyendo la infraestructura necesaria para mantener el sistema operativo.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PARA INICIAR ===== -->
+  <section class="section page-break">
+    <p class="section-label">Para iniciar</p>
+    <h2 class="section-title">Resumen de arranque</h2>
+    <div class="panel">
+      <div class="cond-item">
+        <div class="cond-title">Puesta en marcha</div>
+        <div class="cond-text">$181.500 final</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Duración prevista de implementación</div>
+        <div class="cond-text">Aproximadamente 2 semanas.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Resultado esperado al finalizar</div>
+        <div class="cond-text">Sistema operativo y listo para uso real.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Luego</div>
+        <div class="cond-text">$190.000 final / mes desde la activación.</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-title">Primer mes</div>
+        <div class="cond-text">Proporcional si comienza con el mes ya iniciado.</div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== PASOS ===== -->
   <section class="section">
     <p class="section-label">Para avanzar</p>
@@ -905,15 +1101,15 @@ body{
     <div class="panel">
       <div class="step">
         <div class="step-num">1</div>
-        <div class="step-body"><strong>Elegir modelo</strong>Compra por etapas o suscripción. El sistema entregado es el mismo.</div>
+        <div class="step-body"><strong>Confirmar detalles</strong>Electric Side ya eligió el Modelo B (suscripción). Revisar el resumen de arranque arriba y confirmar fecha de inicio.</div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-body"><strong>Confirmar el alcance</strong>Revisar la lista de incluidos y marcar si algún módulo de las etapas siguientes entra desde el arranque.</div>
+        <div class="step-body"><strong>Confirmar el alcance</strong>Revisar la lista de incluidos y marcar si algún módulo opcional o Growth entra desde el arranque.</div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <div class="step-body"><strong>Pago inicial y arranque</strong>Con el pago acreditado se congela el alcance y empieza la Etapa 01.</div>
+        <div class="step-body"><strong>Puesta en marcha</strong>Con el pago de $181.500 acreditado, empieza la implementación.</div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
@@ -921,7 +1117,7 @@ body{
       </div>
       <div class="step">
         <div class="step-num">5</div>
-        <div class="step-body"><strong>Publicación y uso real</strong>A las 7 semanas el sistema queda en producción, con los datos cargados y la garantía activa.</div>
+        <div class="step-body"><strong>Publicación y activación</strong>El sistema queda operativo, arranca la suscripción mensual y la garantía queda activa.</div>
       </div>
     </div>
   </section>
@@ -933,11 +1129,11 @@ body{
       <div class="footer-mark"></div>
       <div class="footer-text">
         NAWEMEDIA · Santiago, Chile<br>
-        Presupuesto V1 Reducida — Electric Side Gestión
+        Presupuesto V1 Reducida — Electric Side Gestión · Modelo B contratado
       </div>
     </div>
     <div class="footer-rate">
-      Valores en pesos argentinos · no incluyen IVA<br>
+      Modelo B: valores finales, Factura C. Modelo A y módulos opcionales: + IVA, pendientes de valor final.<br>
       Válido 15 días desde la emisión · Septiembre 2026
     </div>
   </footer>

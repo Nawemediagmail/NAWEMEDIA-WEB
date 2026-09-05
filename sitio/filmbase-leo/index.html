@@ -161,7 +161,7 @@ img{max-width:100%;display:block}
 .mini.added{background:rgba(67,215,158,.16);border-color:rgba(67,215,158,.5);color:#8ef0c9}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;min-height:min(100svh,880px);padding:calc(var(--header-h) + 54px) 0 46px;
+.hero{position:relative;min-height:min(66svh,540px);padding:calc(var(--header-h) + 34px) 0 34px;
   display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .heroMedia{position:absolute;inset:-6% 0 0;z-index:-2}
 .heroMedia img{width:100%;height:106%;object-fit:cover;opacity:0;
@@ -172,39 +172,35 @@ img{max-width:100%;display:block}
   background:
     linear-gradient(90deg,rgba(4,8,14,.96),rgba(4,8,14,.74) 46%,rgba(4,8,14,.28) 76%,rgba(4,8,14,.55)),
     linear-gradient(to top,var(--bg) 2%,transparent 42%)}
-.heroInner{position:relative;z-index:2;max-width:790px}
+.heroInner{position:relative;z-index:2;max-width:660px}
 .eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:10px;letter-spacing:.25em;
   text-transform:uppercase;color:#b6c6da}
 .eyebrow:before{content:"";width:34px;height:1px;background:#79acff}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(67,215,158,.6);
   animation:pulse 2.4s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(67,215,158,0)}100%{box-shadow:0 0 0 0 rgba(67,215,158,0)}}
-h1{font-size:clamp(48px,7vw,92px);line-height:.94;letter-spacing:-.06em;margin:20px 0 18px;font-weight:850}
+h1{font-size:clamp(34px,4.6vw,56px);line-height:1;letter-spacing:-.05em;margin:14px 0 22px;font-weight:850}
 h1 .grad{background:linear-gradient(100deg,#68a8ff,#a8ccff 55%,#68a8ff);-webkit-background-clip:text;
   background-clip:text;color:transparent}
-.lead{font-size:clamp(17px,1.9vw,23px);line-height:1.5;color:#c8d6e6;max-width:660px}
 .ctas{display:flex;gap:11px;flex-wrap:wrap;margin-top:28px}
-.heroStats{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;position:relative;z-index:2}
-.heroStat{border:1px solid var(--line);background:rgba(9,17,28,.5);backdrop-filter:blur(8px);
-  border-radius:14px;padding:11px 15px;min-width:132px;transition:border-color .25s var(--ease),transform .25s var(--ease)}
-.heroStat:hover{border-color:var(--line2);transform:translateY(-2px)}
-.heroStat small{display:block;font-size:9px;letter-spacing:.19em;text-transform:uppercase;color:#8ba0b9}
-.heroStat b{font-size:15px;display:block;margin-top:5px}
-.scrollCue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:2;
-  font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#7f94ad;display:grid;justify-items:center;gap:7px}
-.scrollCue i{display:block;width:1px;height:30px;background:linear-gradient(to bottom,transparent,#6f86a3);animation:cue 2s var(--ease) infinite}
-@keyframes cue{0%{opacity:0;transform:scaleY(.3)}45%{opacity:1}100%{opacity:0;transform:scaleY(1)}}
+
+/* Accesos rápidos: reemplazan la exploración larga por scroll */
+.quickAccess{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:600px}
+.qaBtn{display:flex;align-items:center;gap:10px;padding:13px 15px;border-radius:13px;
+  border:1px solid var(--line);background:rgba(9,17,28,.6);backdrop-filter:blur(10px);
+  color:#fff;font-size:13px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  transition:background .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease)}
+.qaBtn svg{width:17px;height:17px;flex:none;color:var(--blue2)}
+.qaBtn:hover{background:rgba(45,115,255,.18);border-color:rgba(104,168,255,.55);transform:translateY(-2px)}
+.qaBtn:active{transform:translateY(0) scale(.98)}
+.qaBtn .cartBadge{margin-left:auto}
 
 /* ---------- Secciones ---------- */
-.section{padding:88px 0;position:relative}
+.section{padding:48px 0;position:relative}
 .section.alt{background:linear-gradient(180deg,rgba(7,13,23,0),rgba(9,17,28,.75),rgba(7,13,23,0))}
-.secHead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:30px;flex-wrap:wrap}
-.kicker{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#89a2bf;margin-bottom:10px;
-  display:flex;align-items:center;gap:9px}
-.kicker:before{content:"";width:20px;height:1px;background:#4b7dc4}
-h2{font-size:clamp(31px,4.2vw,54px);line-height:1.02;letter-spacing:-.045em;margin:0;font-weight:830}
+.secHead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:20px;flex-wrap:wrap}
+h2{font-size:clamp(24px,2.6vw,34px);line-height:1.05;letter-spacing:-.03em;margin:0;font-weight:800}
 h3{font-weight:800;letter-spacing:-.02em}
-.secCopy{max-width:520px;color:var(--muted);line-height:1.6;font-size:14px}
 
 /* Reveal on scroll */
 .reveal{opacity:0;transform:translateY(22px);
@@ -328,7 +324,6 @@ input.invalid,textarea.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba
 .emptyState{display:grid;justify-items:center;gap:9px;text-align:center;padding:26px 14px;
   border:1px dashed var(--line);border-radius:16px;color:var(--muted2);font-size:13px;line-height:1.55}
 .emptyState svg{width:30px;height:30px;opacity:.5}
-.note{font-size:11.5px;color:#8ea3bc;line-height:1.6}
 .twoCol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
 /* ---------- Cart drawer ---------- */
@@ -398,8 +393,7 @@ input.invalid,textarea.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba
 .view{display:none}
 .view.active{display:block;animation:viewIn .42s var(--ease-out)}
 @keyframes viewIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.viewHead{margin-bottom:18px}
-.viewHead h2{font-size:clamp(26px,3vw,34px)}
+.viewHead{margin-bottom:16px}
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 22px}
 .stat{border:1px solid var(--line);background:linear-gradient(180deg,#0c1826,#0a1421);border-radius:16px;padding:16px;
@@ -499,29 +493,24 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
   .leo{grid-template-columns:1fr;justify-items:center;text-align:center;gap:24px}
   .leo p{margin-inline:auto}
   .socials{justify-content:center}
-  .kicker,.secHead{justify-content:flex-start}
+  .secHead{justify-content:flex-start}
 }
 @media(max-width:700px){
   :root{--header-h:64px}
   .wrap{width:min(var(--max),calc(100% - 22px))}
-  .hero{min-height:min(92svh,740px);padding-top:calc(var(--header-h) + 32px)}
+  .hero{min-height:0;padding-top:calc(var(--header-h) + 24px);padding-bottom:26px}
   .heroMedia img{object-position:62% 46%}
   .heroMedia:after{background:
     linear-gradient(180deg,rgba(4,8,14,.5),rgba(4,8,14,.8) 52%,var(--bg) 97%)}
-  h1{font-size:clamp(37px,9.4vw,58px);margin:16px 0 14px}
-  .lead{font-size:16px;line-height:1.5}
-  .heroStats{margin-top:26px}
-  .ctas{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-  .ctas .btn:first-child{grid-column:1/-1}
+  h1{font-size:clamp(30px,7.8vw,44px);margin:12px 0 18px}
+  .quickAccess{grid-template-columns:repeat(2,1fr);max-width:none}
   .toTop{display:none}
-  .section,.salesDesk{padding:60px 0}
+  .section,.salesDesk{padding:36px 0}
   .products{grid-template-columns:1fr;gap:12px}
   .pmedia{aspect-ratio:16/10}
   .pbody p{min-height:0}
   .projects{grid-template-columns:1fr}
   .project{min-height:230px}
-  .heroStats{gap:8px}
-  .heroStat{flex:1;min-width:calc(50% - 4px);padding:10px 12px}
   .twoCol{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
   .mobileBar{display:flex}
@@ -611,32 +600,41 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
     <div class="heroInner">
       <div class="eyebrow"><span class="dot"></span> International display solutions</div>
       <h1>Turn display technology into a <span class="grad">sales system.</span></h1>
-      <p class="lead">A concept platform for FILMBASE LEO: public catalogue, project configurator, Quote Cart, lead capture and an internal Sales Desk for quotations and follow-up.</p>
-      <div class="ctas">
-        <a class="btn primary" href="#technologies"><span class="btnLabel">Explore Technologies</span> <span class="arrow">→</span></a>
-        <a class="btn secondary" href="#builder">Build a Project</a>
-        <a class="btn ghost" href="#salesdesk">Open Sales Desk</a>
-      </div>
-      <div class="heroStats">
-        <div class="heroStat"><small>Technologies</small><b>4 categories</b></div>
-        <div class="heroStat"><small>Flow</small><b>Catalogue → Quote</b></div>
-        <div class="heroStat"><small>Internal tool</small><b>Sales Desk</b></div>
-        <div class="heroStat"><small>Status</small><b class="green">Concept demo</b></div>
-      </div>
+      <nav class="quickAccess" aria-label="Quick access">
+        <a class="qaBtn" href="#technologies">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+          Technologies
+        </a>
+        <a class="qaBtn" href="#projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 15l-5-4-4 3.5-3-2.5-6 5"/></svg>
+          Applications
+        </a>
+        <a class="qaBtn" href="#builder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h6M4 12h10M4 18h6"/><circle cx="14" cy="6" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+          Build a Project
+        </a>
+        <button class="qaBtn" id="qaCartBtn" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L20.5 8H6"/><circle cx="10" cy="20" r="1.2"/><circle cx="18" cy="20" r="1.2"/></svg>
+          Project Cart <span class="cartBadge" id="cartCountQa">0</span>
+        </button>
+        <a class="qaBtn" href="#salesdesk">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          Sales Desk
+        </a>
+        <a class="qaBtn" href="#leo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20v-1.5A4.5 4.5 0 0 1 9.5 14h5a4.5 4.5 0 0 1 4.5 4.5V20"/></svg>
+          Contact
+        </a>
+      </nav>
     </div>
   </div>
-  <div class="scrollCue" aria-hidden="true"><i></i>Scroll</div>
 </section>
 
 <!-- ============ CATÁLOGO ============ -->
 <section class="section" id="technologies">
   <div class="wrap">
     <div class="secHead reveal">
-      <div>
-        <div class="kicker">Public website</div>
-        <h2>Catalogue → Project Cart → Quote Request.</h2>
-      </div>
-      <p class="secCopy">Product names are based on FILMBASE public categories. No official pricing or unverified specifications are loaded in this concept.</p>
+      <h2>Technologies</h2>
     </div>
     <div class="products" id="productGrid"></div>
   </div>
@@ -646,10 +644,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
 <section class="section alt" id="projects">
   <div class="wrap">
     <div class="secHead reveal">
-      <div>
-        <div class="kicker">Applications</div>
-        <h2>Show the technology in context.</h2>
-      </div>
+      <h2>Applications</h2>
       <a href="https://www.instagram.com/filmbase_leochen" target="_blank" rel="noopener" class="navbtn">Instagram <span class="arrow">↗</span></a>
     </div>
     <div class="projects" id="projectGrid"></div>
@@ -661,11 +656,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
   <div class="wrap">
     <div class="builder reveal">
       <div class="builderTop">
-        <div>
-          <div class="kicker">Project configurator</div>
-          <h2>Build the brief before asking for a quote.</h2>
-        </div>
-        <p>The customer chooses a technology, application and approximate dimensions. The request then arrives in the internal Sales Desk already structured.</p>
+        <h2>Build a Project</h2>
       </div>
 
       <div class="stepper" id="stepper" aria-hidden="true">
@@ -764,7 +755,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
             <label for="leadNotes">Notes</label>
             <textarea id="leadNotes" rows="4" placeholder="Project deadline, installation context, drawings, etc."></textarea>
           </div>
-          <p class="note" style="margin-bottom:0">Demo only. A production version could add image/plan upload, automated CRM entry, email/WhatsApp notifications and permissions.</p>
         </div>
       </div>
     </div>
@@ -777,7 +767,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
     <div class="leo reveal">
       <div class="portrait"><img id="leoImg" alt="Leo Chen"></div>
       <div>
-        <div class="kicker">Meet Leo</div>
         <h2>Leo Chen — International Display Consultant</h2>
         <p>I help clients connect with FILMBASE display technologies — from LED Film and Media Glass to Flying Display solutions — for architecture, retail, events and creative spaces.</p>
         <div class="socials">
@@ -794,11 +783,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
 <section class="salesDesk" id="salesdesk">
   <div class="wrap">
     <div class="secHead reveal">
-      <div>
-        <div class="kicker">Internal application</div>
-        <h2>FILMBASE LEO Sales Desk.</h2>
-      </div>
-      <p class="secCopy">A private tool concept for leads, quotations, clients and project follow-up. All commercial values shown here are demo data only.</p>
+      <h2>Sales Desk</h2>
     </div>
 
     <div class="deskShell reveal">
@@ -837,7 +822,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
         <main class="deskMain">
           <!-- Dashboard -->
           <div class="view active" id="dashboardView" role="tabpanel">
-            <div class="viewHead"><div class="kicker">Today</div><h2>Commercial overview</h2></div>
+            <div class="viewHead"><h2>Overview</h2></div>
             <div class="stats">
               <div class="stat"><small>New Leads</small><strong class="blue" data-count="18" id="statLeads">0</strong><span class="trend">+3 this week</span></div>
               <div class="stat"><small>Quotes Pending</small><strong class="amber" data-count="7">0</strong><span class="trend">2 expiring soon</span></div>
@@ -855,8 +840,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
 
           <!-- Leads -->
           <div class="view" id="leadsView" role="tabpanel">
-            <div class="viewHead"><div class="kicker">CRM lite</div><h2>Leads pipeline</h2></div>
-            <p class="secCopy" style="margin-bottom:16px">Each quote request from the public website can enter this pipeline automatically.</p>
+            <div class="viewHead"><h2>Leads</h2></div>
             <div class="tableWrap">
               <table>
                 <thead><tr><th>Lead</th><th>Company</th><th>Country</th><th>Interest</th><th>Area</th><th>Status</th><th>Action</th></tr></thead>
@@ -867,7 +851,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
 
           <!-- Quote Generator -->
           <div class="view" id="quotesView" role="tabpanel">
-            <div class="viewHead"><div class="kicker">Quotation builder</div><h2>Create a professional quote.</h2></div>
+            <div class="viewHead"><h2>Quote Generator</h2></div>
             <div class="quoteGrid">
               <div class="quoteBox">
                 <h3 style="margin-top:0">Quote details</h3>
@@ -887,7 +871,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12M8 11l4 4 4-4M4 19h16"/></svg> Load Project Cart
                   </button>
                 </div>
-                <p class="note" style="margin-bottom:0">Prices are deliberately blank / editable because no official FILMBASE dealer pricing has been supplied.</p>
               </div>
               <div>
                 <div class="quotePreview" id="quotePreview"></div>
@@ -911,8 +894,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
 
           <!-- Product Database -->
           <div class="view" id="catalogView" role="tabpanel">
-            <div class="viewHead"><div class="kicker">Internal product database</div><h2>Product records</h2></div>
-            <p class="secCopy" style="margin-bottom:16px">A production system could hold official technical sheets, factory costs, accessories, MOQ, images and datasheets. Demo fields below intentionally avoid invented specifications.</p>
+            <div class="viewHead"><h2>Product Database</h2></div>
             <div class="tableWrap">
               <table>
                 <thead><tr><th>Product</th><th>Category</th><th>Official specs</th><th>Dealer price</th><th>Datasheet</th><th>Status</th></tr></thead>
@@ -928,7 +910,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
 
           <!-- Clients -->
           <div class="view" id="clientsView" role="tabpanel">
-            <div class="viewHead"><div class="kicker">Client history</div><h2>Accounts &amp; projects</h2></div>
+            <div class="viewHead"><h2>Clients</h2></div>
             <div class="tableWrap">
               <table>
                 <thead><tr><th>Client</th><th>Country</th><th>Open projects</th><th>Last contact</th><th>Next step</th></tr></thead>
@@ -974,7 +956,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 46px;color:#8fa2b8;font-s
     <div class="summaryRow"><span>Estimated total area</span><b id="sumArea">0 m²</b></div>
     <div class="summaryRow"><span>Estimated value</span><b>Pending official pricing</b></div>
     <button class="btn primary" id="drawerRequest"><span class="btnLabel">Request Professional Quote</span> <span class="arrow">→</span></button>
-    <p class="note" style="margin:0">Final technical configuration and commercial terms require FILMBASE confirmation.</p>
   </div>
 </aside>
 
@@ -1194,7 +1175,7 @@ function renderCart(){
   const n = cart.length;
   const totalArea = Math.round(cart.reduce((s, x) => s + (x.area || 0), 0) * 100) / 100;
 
-  $$('#cartCount, #cartCountMobile').forEach(el => {
+  $$('#cartCount, #cartCountMobile, #cartCountQa').forEach(el => {
     if (el.textContent !== String(n)){
       el.textContent = n;
       el.classList.remove('bump');
@@ -1514,6 +1495,7 @@ function initEvents(){
 
   // Drawer
   $('#cartBtn').addEventListener('click', openDrawer);
+  $('#qaCartBtn').addEventListener('click', openDrawer);
   $('#mobileCartBtn').addEventListener('click', openDrawer);
   $('#drawerClose').addEventListener('click', closeDrawer);
   $('#backdrop').addEventListener('click', closeDrawer);

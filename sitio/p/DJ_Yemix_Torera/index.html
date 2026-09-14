@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DJ Yemix — Torera | Presupuesto de Servicios | NAWEMEDIA</title>
+<meta name="description" content="Elegí los servicios adicionales de la línea Torera para DJ Yemix, mirá el total en vivo en dólares y pesos argentinos, y pagá por transferencia.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/colors_and_type.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7KXMLDBHQF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7KXMLDBHQF');
+</script>
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  .bg-texture {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse at 12% 8%, rgba(192,0,0,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 88% 18%, rgba(212,175,55,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 92%, rgba(139,0,255,0.05) 0%, transparent 55%);
+  }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px 140px; position: relative; z-index: 1; }
+
+  /* Header */
+  .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-word-img { height: 22px; width: auto; display: block; }
+  .back-link {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none;
+    color: var(--color-text-muted); border: 1px solid var(--color-border-subtle);
+    border-radius: 999px; padding: 8px 16px; transition: all 0.2s;
+  }
+  .back-link:hover { color: var(--color-text-primary); border-color: rgba(245,158,11,0.4); }
+
+  .header { text-align: center; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--color-border-subtle); }
+  .kicker {
+    font-family: var(--font-heading); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--color-gold-bright); margin-bottom: 14px;
+  }
+  .title { font-family: var(--font-display); font-size: clamp(34px, 7vw, 50px); color: #fff; letter-spacing: 0.02em; line-height: 1.05; margin: 0; }
+  .subtitle { font-size: 14.5px; color: var(--color-text-secondary); max-width: 560px; margin: 16px auto 0; }
+
+  .section-label {
+    font-family: var(--font-heading); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--color-gold-bright); margin: 0 0 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--color-border-subtle); }
+
+  .card {
+    background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);
+    border-radius: 20px; margin-bottom: 32px;
+  }
+  .card-plain { padding: 22px 24px; }
+
+  /* Services */
+  .services-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 36px; }
+  @media (min-width: 640px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+
+  .service-card { display: block; cursor: pointer; user-select: none; }
+  .service-card input { display: none; }
+  .service-card-inner {
+    position: relative; overflow: hidden;
+    background: var(--color-bg-card-glass); border: 1px solid var(--color-border-subtle);
+    border-radius: 20px; padding: 20px; height: 100%; transition: var(--transition-base, all .2s);
+  }
+  .service-card-inner::before {
+    content: ''; position: absolute; top: 0; left: 22px; right: 22px; height: 3px; border-radius: 0 0 3px 3px;
+    background: linear-gradient(90deg, var(--color-red-inferno), var(--color-gold-electric));
+    opacity: 0.55; transition: opacity .2s;
+  }
+  .service-card input:checked ~ .service-card-inner {
+    border-color: var(--color-gold-bright);
+    background: rgba(245,158,11,0.06);
+    box-shadow: var(--shadow-glow-gold);
+    transform: translateY(-2px);
+  }
+  .service-card input:checked ~ .service-card-inner::before { opacity: 1; }
+
+  .service-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+  .service-icon {
+    font-size: 19px; line-height: 1; width: 40px; height: 40px; border-radius: 12px;
+    background: rgba(245,158,11,0.12); color: var(--color-gold-bright);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .service-check {
+    width: 24px; height: 24px; border-radius: 6px; background: var(--color-bg-elevated);
+    border: 1px solid var(--color-text-faint); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all .2s;
+  }
+  .service-card input:checked ~ .service-card-inner .service-check {
+    background: var(--color-gold-bright); border-color: var(--color-gold-bright);
+  }
+  .service-check::after { content: ''; }
+  .service-card input:checked ~ .service-card-inner .service-check::after { content: '✓'; color: #1A1200; font-size: 14px; font-weight: bold; }
+
+  .service-title {
+    font-family: var(--font-heading); font-weight: 700; font-size: 15.5px; text-transform: uppercase;
+    letter-spacing: 0.03em; color: #fff; margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .service-desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 14px; }
+  .service-price-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .service-price { font-family: var(--font-heading); font-size: 19px; font-weight: 600; color: var(--color-gold-bright); }
+  .service-price-ars { font-size: 11px; color: var(--color-text-faint); font-family: var(--font-ui); }
+
+  .badge {
+    font-family: var(--font-heading); font-size: 9px; padding: 2px 9px; border-radius: 999px;
+    letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid rgba(34,197,94,0.35);
+    background: rgba(34,197,94,0.1); color: var(--color-success);
+  }
+
+  /* Rate / converter */
+  .rate-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .rate-row label {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--color-text-secondary);
+  }
+  .rate-input-wrap {
+    display: flex; align-items: center; gap: 6px; background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-default); border-radius: 10px; padding: 8px 14px;
+  }
+  .rate-input-wrap span { font-size: 13px; color: var(--color-text-faint); }
+  .rate-input-wrap input {
+    width: 90px; background: transparent; border: none; color: #fff; font-family: var(--font-ui);
+    font-size: 15px; font-weight: 600; outline: none; text-align: right;
+  }
+  .rate-note { font-size: 11.5px; color: var(--color-text-faint); margin: 10px 0 0; }
+
+  .footer-text { font-size: 12px; color: var(--color-text-faint); text-align: center; margin-top: 8px; display: block; line-height: 1.6; }
+
+  /* Sticky total bar */
+  .sticky-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 500;
+    background: rgba(10,10,10,0.94); backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(245,158,11,0.25);
+    padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+    display: flex; justify-content: space-between; align-items: center; gap: 14px;
+  }
+  .sticky-info { min-width: 0; }
+  .sticky-count { font-size: 10.5px; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--font-ui); }
+  .sticky-usd { font-family: var(--font-display); font-size: 26px; color: #fff; line-height: 1.1; }
+  .sticky-ars { font-size: 11.5px; color: var(--color-text-muted); font-family: var(--font-ui); }
+  .btn-pagar {
+    flex-shrink: 0; background: var(--color-gold-bright); color: #1A1200; border: none;
+    padding: 14px 26px; border-radius: 10px; font-family: var(--font-heading); font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(245,158,11,0.18);
+  }
+  .btn-pagar:hover { background: var(--color-gold-hover); transform: scale(1.02); }
+  .btn-pagar:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+  .status-msg { font-size: 12.5px; text-align: center; margin: 0 0 8px; min-height: 16px; color: var(--color-error); font-family: var(--font-ui); }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(10,10,10,0.92); display: flex; justify-content: center; align-items: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(6px); padding: 20px;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-content {
+    background: var(--color-bg-card); border: 1px solid rgba(245,158,11,0.4); border-radius: 20px;
+    padding: 40px 30px; text-align: center; max-width: 430px; width: 100%;
+    transform: translateY(20px); transition: transform 0.3s ease; max-height: 88vh; overflow-y: auto;
+  }
+  .modal-overlay.active .modal-content { transform: translateY(0); }
+  .modal-icon { font-size: 42px; margin-bottom: 14px; display: block; }
+  .modal-title { font-family: var(--font-display); font-size: 30px; color: #fff; margin: 0 0 6px; letter-spacing: 0.02em; }
+  .modal-text { font-size: 13px; color: var(--color-text-muted); margin: 14px 0 24px; line-height: 1.6; }
+
+  .pay-summary { text-align: left; font-size: 12.5px; color: var(--color-text-secondary); margin: 16px 0; }
+  .pay-summary-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .pay-summary-total { display: flex; justify-content: space-between; padding-top: 10px; margin-top: 4px; font-family: var(--font-heading); font-size: 15px; color: var(--color-gold-bright); font-weight: 700; }
+
+  .bank-box {
+    background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);
+    border-radius: 14px; padding: 16px 20px; margin-bottom: 14px; text-align: left;
+  }
+  .bank-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 13.5px; }
+  .bank-row span { color: var(--color-text-faint); text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.06em; font-family: var(--font-ui); }
+  .bank-row strong { color: #fff; font-family: var(--font-heading); font-size: 15px; }
+
+  .modal-actions { display: flex; flex-direction: column; gap: 10px; }
+  .modal-btn-primary, .modal-btn-secondary {
+    display: block; width: 100%; text-align: center; padding: 14px 18px; border-radius: 10px;
+    font-family: var(--font-heading); font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; text-decoration: none; cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .modal-btn-primary { background: var(--color-gold-bright); color: #1A1200; }
+  .modal-btn-primary:hover { background: var(--color-gold-hover); }
+  .modal-btn-secondary { background: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border-default); margin-bottom: 14px; }
+  .modal-btn-secondary:hover { border-color: rgba(245,158,11,0.4); color: #fff; }
+  .modal-btn-secondary.copied { border-color: var(--color-success); color: var(--color-success); }
+
+  @media (max-width: 480px) {
+    .modal-content { padding: 32px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+
+<div class="wrap">
+
+  <div class="top-nav">
+    <a href="https://www.nawemedia.com/" class="logo">
+      <img src="/assets/logo-titulo.png" alt="NAWEMEDIA" class="logo-word-img">
+    </a>
+    <a href="https://www.nawemedia.com/" class="back-link">← Volver al Home</a>
+  </div>
+
+  <div class="header">
+    <div class="kicker">DJ Yemix · Línea Torera</div>
+    <h1 class="title">Servicios Adicionales</h1>
+    <p class="subtitle">Ya está el Reel Torera en 4K cinematográfico. Con ese material como base, elegí qué piezas sumar para llevar la misma estética a tus redes, tu show en vivo y tu Press Kit. Seleccioná los servicios, mirá el total en vivo y pagá cuando quieras.</p>
+  </div>
+
+  <p class="section-label">Servicios Disponibles</p>
+
+  <div class="services-grid" id="services-grid">
+
+    <label class="service-card" for="svc-reel">
+      <input type="checkbox" id="svc-reel" class="service-checkbox" data-key="reel" data-price="35">
+      <div class="service-card-inner">
+        <div class="service-top">
+          <span class="service-icon">🎬</span>
+          <span class="badge">Ya realizado</span>
+        </div>
+        <div class="service-title">Reel Torera</div>
+        <p class="service-desc">Video reel cinematográfico 4K, edición temática Torera. La pieza ancla que define la estética de toda la línea.</p>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price">u$s 35</div>
+            <div class="service-price-ars" data-usd="35">≈ $0 ARS</div>
+          </div>
+          <span class="service-check"></span>
+        </div>
+      </div>
+    </label>
+
+    <label class="service-card" for="svc-cover">
+      <input type="checkbox" id="svc-cover" class="service-checkbox" data-key="cover" data-price="10">
+      <div class="service-card-inner">
+        <div class="service-top"><span class="service-icon">🖼️</span></div>
+        <div class="service-title">Cover Art Set</div>
+        <p class="service-desc">Set de portadas para tus lanzamientos, con la estética Torera aplicada a tu imagen de artista.</p>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price">u$s 10</div>
+            <div class="service-price-ars" data-usd="10">≈ $0 ARS</div>
+          </div>
+          <span class="service-check"></span>
+        </div>
+      </div>
+    </label>
+
+    <label class="service-card" for="svc-stories">
+      <input type="checkbox" id="svc-stories" class="service-checkbox" data-key="stories" data-price="15">
+      <div class="service-card-inner">
+        <div class="service-top"><span class="service-icon">📱</span></div>
+        <div class="service-title">5 Variantes Story Estáticas</div>
+        <p class="service-desc">5 piezas verticales listas para Instagram y TikTok, mismo universo visual Torera, para sostener la campaña varios días.</p>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price">u$s 15</div>
+            <div class="service-price-ars" data-usd="15">≈ $0 ARS</div>
+          </div>
+          <span class="service-check"></span>
+        </div>
+      </div>
+    </label>
+
+    <label class="service-card" for="svc-led">
+      <input type="checkbox" id="svc-led" class="service-checkbox" data-key="led" data-price="20">
+      <div class="service-card-inner">
+        <div class="service-top"><span class="service-icon">💡</span></div>
+        <div class="service-title">Backdrop LED</div>
+        <p class="service-desc">Fondo en video para pantalla LED de escenario, con la estética Torera aplicada a tu show en vivo.</p>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price">u$s 20</div>
+            <div class="service-price-ars" data-usd="20">≈ $0 ARS</div>
+          </div>
+          <span class="service-check"></span>
+        </div>
+      </div>
+    </label>
+
+    <label class="service-card" for="svc-banners">
+      <input type="checkbox" id="svc-banners" class="service-checkbox" data-key="banners" data-price="15">
+      <div class="service-card-inner">
+        <div class="service-top"><span class="service-icon">🧩</span></div>
+        <div class="service-title">Banner Mosaico Instagram + Banner YouTube</div>
+        <p class="service-desc">Mosaico de grilla para tu Instagram y banner de cabecera para tu YouTube, ambos con la identidad Torera.</p>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price">u$s 15</div>
+            <div class="service-price-ars" data-usd="15">≈ $0 ARS</div>
+          </div>
+          <span class="service-check"></span>
+        </div>
+      </div>
+    </label>
+
+    <label class="service-card" for="svc-videoset">
+      <input type="checkbox" id="svc-videoset" class="service-checkbox" data-key="videoset" data-price="25">
+      <div class="service-card-inner">
+        <div class="service-top"><span class="service-icon">🎥</span></div>
+        <div class="service-title">Video Set YouTube</div>
+        <p class="service-desc">Edición de tu set en video para YouTube, con la línea visual Torera en intro, transiciones y placas.</p>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price">u$s 25</div>
+            <div class="service-price-ars" data-usd="25">≈ $0 ARS</div>
+          </div>
+          <span class="service-check"></span>
+        </div>
+      </div>
+    </label>
+
+    <label class="service-card" for="svc-presskit">
+      <input type="checkbox" id="svc-presskit" class="service-checkbox" data-key="presskit" data-price="30">
+      <div class="service-card-inner">
+        <div class="service-top"><span class="service-icon">🌐</span></div>
+        <div class="service-title">Actualizar Press Kit Web</div>
+        <p class="service-desc">Imágenes actualizadas a la temática Torera, con actualización constante durante el próximo mes. Incluye: actualización de fecha de evento, link a la futura publicación del set, link al futuro video set, envío del Press Kit a +50 agencias y marcas verificadas, y optimización SEO para aparecer en búsquedas.</p>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price">u$s 30</div>
+            <div class="service-price-ars" data-usd="30">≈ $0 ARS</div>
+          </div>
+          <span class="service-check"></span>
+        </div>
+      </div>
+    </label>
+
+  </div>
+
+  <p class="section-label">Conversor de Moneda</p>
+  <div class="card card-plain">
+    <div class="rate-row">
+      <label for="rate-input">Tipo de cambio (ARS por U$S)</label>
+      <div class="rate-input-wrap">
+        <span>$</span>
+        <input type="number" id="rate-input" value="1514" min="1" step="1" inputmode="numeric">
+        <span>ARS</span>
+      </div>
+    </div>
+    <p class="rate-note">Tipo de cambio de referencia. Ajustalo si cambió al momento de pagar — el total en pesos se recalcula solo.</p>
+  </div>
+
+  <p class="status-msg" id="status-msg"></p>
+
+  <span class="footer-text">NAWEMEDIA · Precios en dólares (u$s) · conversión a pesos argentinos referencial, sujeta al tipo de cambio del día del pago.</span>
+</div>
+
+<div class="sticky-bar">
+  <div class="sticky-info">
+    <div class="sticky-count" id="sticky-count">0 servicios seleccionados</div>
+    <div class="sticky-usd" id="sticky-usd">u$s 0</div>
+    <div class="sticky-ars" id="sticky-ars">≈ $0 ARS</div>
+  </div>
+  <button type="button" class="btn-pagar" id="btn-pagar">Pagar</button>
+</div>
+
+<div class="modal-overlay" id="pay-modal">
+  <div class="modal-content">
+    <span class="modal-icon">🏦</span>
+    <h3 class="modal-title">Datos para Transferencia</h3>
+    <div class="pay-summary" id="pay-summary"></div>
+    <div class="bank-box">
+      <div class="bank-row"><span>Banco</span><strong>Santander</strong></div>
+      <div class="bank-row"><span>Alias</span><strong id="bank-alias">nahuelmiculka.santan</strong></div>
+    </div>
+    <button type="button" class="modal-btn-secondary" id="copy-alias">Copiar Alias</button>
+    <p class="modal-text">Transferí el monto en pesos argentinos a este alias y enviá el comprobante a NAWEMEDIA para confirmar la producción de los servicios elegidos.</p>
+    <div class="modal-actions">
+      <button type="button" class="modal-btn-primary" id="modal-close">Listo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('.service-checkbox');
+    const rateInput = document.getElementById('rate-input');
+    const stickyCount = document.getElementById('sticky-count');
+    const stickyUsd = document.getElementById('sticky-usd');
+    const stickyArs = document.getElementById('sticky-ars');
+    const statusMsg = document.getElementById('status-msg');
+    const btnPagar = document.getElementById('btn-pagar');
+    const modal = document.getElementById('pay-modal');
+    const modalClose = document.getElementById('modal-close');
+    const paySummary = document.getElementById('pay-summary');
+    const copyAliasBtn = document.getElementById('copy-alias');
+    const bankAlias = document.getElementById('bank-alias').textContent.trim();
+
+    const fmtUsd = (n) => 'u$s ' + n;
+    const fmtArs = (n) => '≈ $' + new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 }).format(n) + ' ARS';
+
+    const getRate = () => {
+      const v = parseFloat(rateInput.value);
+      return (isFinite(v) && v > 0) ? v : 1514;
+    };
+
+    const updateArsPerCard = () => {
+      const rate = getRate();
+      document.querySelectorAll('.service-price-ars').forEach((el) => {
+        const usd = parseFloat(el.getAttribute('data-usd')) || 0;
+        el.textContent = fmtArs(usd * rate);
+      });
+    };
+
+    const calculateTotal = () => {
+      let totalUsd = 0;
+      let count = 0;
+      checkboxes.forEach((cb) => {
+        if (cb.checked) {
+          totalUsd += parseInt(cb.getAttribute('data-price'), 10);
+          count += 1;
+        }
+      });
+      const rate = getRate();
+      stickyCount.textContent = count + (count === 1 ? ' servicio seleccionado' : ' servicios seleccionados');
+      stickyUsd.textContent = fmtUsd(totalUsd);
+      stickyArs.textContent = fmtArs(totalUsd * rate);
+      return { totalUsd, count, rate };
+    };
+
+    checkboxes.forEach((cb) => cb.addEventListener('change', () => {
+      calculateTotal();
+      statusMsg.textContent = '';
+    }));
+
+    rateInput.addEventListener('input', () => {
+      updateArsPerCard();
+      calculateTotal();
+    });
+
+    btnPagar.addEventListener('click', () => {
+      const { totalUsd, rate } = calculateTotal();
+      if (totalUsd === 0) {
+        statusMsg.textContent = 'Seleccioná al menos un servicio para continuar.';
+        return;
+      }
+      statusMsg.textContent = '';
+
+      const selected = Array.from(checkboxes).filter((cb) => cb.checked);
+      paySummary.innerHTML = selected.map((cb) => {
+        const title = cb.closest('.service-card').querySelector('.service-title').textContent.trim();
+        const price = cb.getAttribute('data-price');
+        return `<div class="pay-summary-row"><span>${title}</span><span>u$s ${price}</span></div>`;
+      }).join('') + `<div class="pay-summary-total"><span>Total</span><span>${fmtUsd(totalUsd)} · ${fmtArs(totalUsd * rate)}</span></div>`;
+
+      modal.classList.add('active');
+    });
+
+    modalClose.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+    copyAliasBtn.addEventListener('click', () => {
+      const done = () => {
+        copyAliasBtn.textContent = '¡Alias copiado!';
+        copyAliasBtn.classList.add('copied');
+        setTimeout(() => { copyAliasBtn.textContent = 'Copiar Alias'; copyAliasBtn.classList.remove('copied'); }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(bankAlias).then(done).catch(() => {});
+      }
+    });
+
+    updateArsPerCard();
+    calculateTotal();
+  });
+</script>
+</body>
+</html>

@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /admin-facturas/
 Disallow: /api/
 
 Sitemap: https://www.nawemedia.com/sitemap.xml

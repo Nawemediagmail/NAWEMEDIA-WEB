@@ -1,12 +1,6 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "nawemedia.com" }],
-      "destination": "https://www.nawemedia.com/:path*",
-      "permanent": true
-    },
-    {
       "source": "/virginiasoledispa",
       "destination": "/virginiasoledispa/",
       "permanent": true

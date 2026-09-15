@@ -3,7 +3,7 @@
     {
       "source": "/virginiasoledispa",
       "destination": "/virginiasoledispa/",
-      "permanent": false
+      "permanent": true
     }
   ],
   "rewrites": [

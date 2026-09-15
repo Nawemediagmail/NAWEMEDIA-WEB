@@ -1,9 +1,65 @@
 {
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "nawemedia.com" }],
+      "destination": "https://www.nawemedia.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/virginiasoledispa",
       "destination": "/virginiasoledispa/",
-      "permanent": false
+      "permanent": true
+    },
+    {
+      "source": "/electric-side",
+      "destination": "/electric-side/",
+      "permanent": true
+    },
+    {
+      "source": "/presupuesto",
+      "destination": "/presupuesto/",
+      "permanent": true
+    },
+    {
+      "source": "/case-study/miculka",
+      "destination": "/case-study/miculka/",
+      "permanent": true
+    },
+    {
+      "source": "/press-kit-web",
+      "destination": "/press-kit-web/",
+      "permanent": true
+    },
+    {
+      "source": "/p/electric-side",
+      "destination": "/p/electric-side/",
+      "permanent": true
+    },
+    {
+      "source": "/p/DJ_Yemix_Torera",
+      "destination": "/p/DJ_Yemix_Torera/",
+      "permanent": true
+    },
+    {
+      "source": "/lombardi",
+      "destination": "/lombardi/",
+      "permanent": true
+    },
+    {
+      "source": "/filmbase-leo",
+      "destination": "/filmbase-leo/",
+      "permanent": true
+    },
+    {
+      "source": "/fiestasoops_29ago",
+      "destination": "/fiestasoops_29ago/",
+      "permanent": true
+    },
+    {
+      "source": "/admin-facturas",
+      "destination": "/admin-facturas/",
+      "permanent": true
     }
   ],
   "rewrites": [

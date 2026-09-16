@@ -58,6 +58,14 @@
   ],
   "rewrites": [
     {
+      "source": "/electric-side/:path*",
+      "destination": "/api/protect-electric-side/:path*"
+    },
+    {
+      "source": "/electric-side/",
+      "destination": "/api/protect-electric-side/"
+    },
+    {
       "source": "/press-kit-web_formulario-DJ",
       "destination": "https://nawemedia-onboarding.vercel.app/press-kit-web_formulario-DJ"
     },

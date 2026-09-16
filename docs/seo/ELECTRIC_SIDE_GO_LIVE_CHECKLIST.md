@@ -1,19 +1,23 @@
 # /electric-side/ Go-Live Checklist
 
-**Status**: Pre-producción segura ✅  
-**Última actualización**: 2026-09-16  
-**Estado actual**: El route está protegido por fail-closed. Esperando configuración de credenciales reales.
+**Status**: Pre-producción segura ✅ — arquitectura funcional mergeada (PR #36)
+**Última actualización**: 2026-09-16
+**Estado actual**: El route está protegido por fail-closed Y ya puede servir la app tras auth exitoso. Falta únicamente configurar credenciales reales para el go-live de Juan.
 
 ---
 
+## Corrección de estado (2026-09-16)
+
+Esta sección reemplaza una versión anterior de este documento que decía "PR #32 (arquitecto fix) merged a main" usando un rename de carpeta (`_app-electric-side`) como mecanismo de protección. Ese enfoque era **incorrecto**: se verificó en producción (dos veces, el mismo día) que Vercel sirve cualquier archivo estático físico antes de evaluar `rewrites`/`redirects`, sin excepción — el rename no protegía nada, solo movía la exposición de una ruta a otra. Ver PRs #34 y #35 (hotfixes que cerraron la exposición activa) y #36 (arquitectura definitiva, mergeada).
+
 ## Situación Actual (Pre-Producción)
 
-✅ `/electric-side/` retorna **503 Service Unavailable** sin env vars (fail-closed)  
-✅ Edge Function valida explícitamente env vars antes de cualquier otra lógica  
-✅ Rutas públicas (`/presupuesto/`, `/case-study/`, `/`) funcionan normalmente  
-✅ Endpoints `/api/*` sin afectar  
-✅ Folder rename fuerza Vercel a evaluar rewrites antes de archivos estáticos  
-✅ PR #32 (arquitecto fix) merged a main y live en producción  
+✅ `/electric-side/` retorna **503 Service Unavailable** sin env vars (fail-closed) — verificado en producción
+✅ Edge Function valida explícitamente env vars antes de cualquier otra lógica
+✅ Rutas públicas (`/presupuesto/`, `/case-study/`, `/`) funcionan normalmente
+✅ Endpoints `/api/*` sin afectar
+✅ No existe ningún archivo estático físico en `/electric-side/`, `/_app-electric-side/` ni variantes — verificado con curl, 404 en todas
+✅ **PR #36 mergeado a main**: el HTML de la app vive embebido en base64 dentro de `sitio/api/protect-electric-side.js` (nunca como archivo estático), con verificación local byte-exacta (503/401/401/200) y revisión de mantenibilidad (tamaño, límites de Vercel, tiempo de respuesta) ya hechas. Falta validar el 200-con-credenciales-reales contra producción una vez que se configuren.
 
 **Credenciales reales**: NO configuradas todavía (Juan empieza mes próximo)
 
@@ -153,10 +157,14 @@ Next steps (P1):
 
 ## Files de Referencia
 
-- `sitio/api/protect-electric-side.js` - Edge Function con fail-closed logic
+- `sitio/api/protect-electric-side.js` - Edge Function con fail-closed logic + HTML embebido en base64 (PR #36)
+- `tools/electric-side/source.html` - Fuente editable del HTML de la app (fuera del árbol que Vercel deploya)
+- `tools/electric-side/build.mjs` - Regenera el bloque base64 desde source.html; correr después de cualquier cambio al contenido de la app. Nunca editar el base64 a mano.
 - `sitio/vercel.json` - Rewrites para /electric-side/*
 - `ELECTRIC_SIDE_P0_SECURITY.md` - Documentación técnica completa
 - Este documento - Workflow go-live y checklist
+
+**Requisito de orden**: PR #36 ya está mergeado a main — la función tiene contenido que servir tras un login exitoso. El paso 2 (Configurar en Vercel) queda habilitado, pero las credenciales reales se configuran recién cuando se decida el go-live real de Juan, no antes.
 
 ---
 
@@ -167,7 +175,8 @@ Next steps (P1):
 - ✅ Fail-closed sin env vars (503)
 - ✅ Rutas públicas intactas
 
-**P1 (Medium-term, no comenzar**):
+**P1 (siguiente bloque después de mergear PR #36 — prioridad, no opcional)**:
+- **Export/import backup JSON**: sin esto, Juan puede perder todo el trabajo con solo borrar datos del navegador o cambiar de dispositivo, aunque la seguridad esté perfecta. Es el riesgo real más urgente después de cerrar el P0.
 - Migrar backend a Supabase con persistent auth (JWT)
 - Row-level security (RLS) policies
 - Database backups

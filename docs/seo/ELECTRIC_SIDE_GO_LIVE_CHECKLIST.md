@@ -1,21 +1,27 @@
 # /electric-side/ Go-Live Checklist
 
-**Status**: Pre-producción segura ✅  
-**Última actualización**: 2026-09-16  
-**Estado actual**: El route está protegido por fail-closed. Esperando configuración de credenciales reales.
+**Status**: Pre-producción segura ✅ — arquitectura funcional pendiente de merge (PR #36)
+**Última actualización**: 2026-09-16
+**Estado actual**: El route está protegido por fail-closed. Falta mergear la entrega protegida real antes de poder configurar credenciales.
 
 ---
 
+## Corrección de estado (2026-09-16)
+
+Esta sección reemplaza una versión anterior de este documento que decía "PR #32 (arquitecto fix) merged a main" usando un rename de carpeta (`_app-electric-side`) como mecanismo de protección. Ese enfoque era **incorrecto**: se verificó en producción (dos veces, el mismo día) que Vercel sirve cualquier archivo estático físico antes de evaluar `rewrites`/`redirects`, sin excepción — el rename no protegía nada, solo movía la exposición de una ruta a otra. Ver PRs #34 y #35 (hotfixes que cerraron la exposición activa) y #36 (arquitectura definitiva).
+
 ## Situación Actual (Pre-Producción)
 
-✅ `/electric-side/` retorna **503 Service Unavailable** sin env vars (fail-closed)  
-✅ Edge Function valida explícitamente env vars antes de cualquier otra lógica  
-✅ Rutas públicas (`/presupuesto/`, `/case-study/`, `/`) funcionan normalmente  
-✅ Endpoints `/api/*` sin afectar  
-✅ Folder rename fuerza Vercel a evaluar rewrites antes de archivos estáticos  
-✅ PR #32 (arquitecto fix) merged a main y live en producción  
+✅ `/electric-side/` retorna **503 Service Unavailable** sin env vars (fail-closed) — verificado en producción
+✅ Edge Function valida explícitamente env vars antes de cualquier otra lógica
+✅ Rutas públicas (`/presupuesto/`, `/case-study/`, `/`) funcionan normalmente
+✅ Endpoints `/api/*` sin afectar
+✅ No existe ningún archivo estático físico en `/electric-side/`, `/_app-electric-side/` ni variantes — verificado con curl, 404 en todas
+⏳ **App todavía no se puede servir con credenciales**: el HTML se eliminó del árbol estático (para cerrar la exposición) y hoy vive embebido en base64 dentro de `sitio/api/protect-electric-side.js`, en el PR #36 (pendiente de merge). Sin ese merge, un login exitoso no tiene contenido que devolver.
 
-**Credenciales reales**: NO configuradas todavía (Juan empieza mes próximo)
+**Credenciales reales**: NO configuradas todavía (Juan empieza mes próximo, y de todos modos no tiene sentido configurarlas hasta que el PR #36 esté en main)
+
+**Antes de avanzar con este checklist**: confirmar que PR #36 (o su reemplazo) está mergeado a main y que un test con credenciales temporales devuelve 200 con el contenido completo.
 
 ---
 

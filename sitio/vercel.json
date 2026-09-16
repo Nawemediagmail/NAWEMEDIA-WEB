@@ -66,6 +66,14 @@
       "destination": "/api/protect-electric-side/:path*"
     },
     {
+      "source": "/_app-electric-side/",
+      "destination": "/api/protect-electric-side/"
+    },
+    {
+      "source": "/_app-electric-side/:path*",
+      "destination": "/api/protect-electric-side/:path*"
+    },
+    {
       "source": "/press-kit-web_formulario-DJ",
       "destination": "https://nawemedia-onboarding.vercel.app/press-kit-web_formulario-DJ"
     },

@@ -1,6 +1,6 @@
-// Función serverless privada: lista el historial de facturas generadas, leyendo
+// Función serverless: lista el historial de facturas generadas, leyendo
 // las entradas guardadas en Cloudflare KV por /api/create-invoice.
-// Requiere: ADMIN_PASSWORD, CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, CF_KV_API_TOKEN
+// Requiere: CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, CF_KV_API_TOKEN
 
 const attempts = new Map();
 const MAX_ATTEMPTS = 8;
@@ -30,15 +30,6 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const { password } = body || {};
-
-    if (!process.env.ADMIN_PASSWORD || password !== process.env.ADMIN_PASSWORD) {
-      await new Promise((r) => setTimeout(r, 700));
-      res.status(401).json({ error: 'Contraseña incorrecta' });
-      return;
-    }
-
     const { CF_ACCOUNT_ID, CF_KV_NAMESPACE_ID, CF_KV_API_TOKEN } = process.env;
     if (!CF_ACCOUNT_ID || !CF_KV_NAMESPACE_ID || !CF_KV_API_TOKEN) {
       res.status(200).json({ ok: true, invoices: [], warning: 'El historial todavía no está configurado.' });

@@ -1,5 +1,5 @@
-// Función serverless privada: crea y envía una factura real de PayPal (Invoicing API v2).
-// Requiere variables de entorno en Vercel: ADMIN_PASSWORD, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_ENV ("sandbox" o "live")
+// Función serverless: crea y envía una factura real de PayPal (Invoicing API v2).
+// Requiere variables de entorno en Vercel: PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_ENV ("sandbox" o "live")
 
 // Rate limit best-effort en memoria (se resetea si la función se "enfría" en Vercel,
 // pero igual frena intentos automatizados seguidos dentro de una misma instancia tibia).
@@ -74,14 +74,7 @@ module.exports = async (req, res) => {
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const { password, clientName, clientEmail, currency, dueDate, note, items } = body || {};
-
-    if (!process.env.ADMIN_PASSWORD || password !== process.env.ADMIN_PASSWORD) {
-      // Retraso artificial para dificultar fuerza bruta
-      await new Promise((r) => setTimeout(r, 700));
-      res.status(401).json({ error: 'Contraseña incorrecta' });
-      return;
-    }
+    const { clientName, clientEmail, currency, dueDate, note, items } = body || {};
 
     if (!clientEmail || !Array.isArray(items) || items.length === 0) {
       res.status(400).json({ error: 'Faltan datos: email del cliente y al menos un ítem' });

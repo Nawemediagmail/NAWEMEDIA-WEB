@@ -1,14 +1,14 @@
 # /electric-side/ Go-Live Checklist
 
-**Status**: Pre-producción segura ✅ — arquitectura funcional pendiente de merge (PR #36)
+**Status**: Pre-producción segura ✅ — arquitectura funcional mergeada (PR #36)
 **Última actualización**: 2026-09-16
-**Estado actual**: El route está protegido por fail-closed. Falta mergear la entrega protegida real antes de poder configurar credenciales.
+**Estado actual**: El route está protegido por fail-closed Y ya puede servir la app tras auth exitoso. Falta únicamente configurar credenciales reales para el go-live de Juan.
 
 ---
 
 ## Corrección de estado (2026-09-16)
 
-Esta sección reemplaza una versión anterior de este documento que decía "PR #32 (arquitecto fix) merged a main" usando un rename de carpeta (`_app-electric-side`) como mecanismo de protección. Ese enfoque era **incorrecto**: se verificó en producción (dos veces, el mismo día) que Vercel sirve cualquier archivo estático físico antes de evaluar `rewrites`/`redirects`, sin excepción — el rename no protegía nada, solo movía la exposición de una ruta a otra. Ver PRs #34 y #35 (hotfixes que cerraron la exposición activa) y #36 (arquitectura definitiva).
+Esta sección reemplaza una versión anterior de este documento que decía "PR #32 (arquitecto fix) merged a main" usando un rename de carpeta (`_app-electric-side`) como mecanismo de protección. Ese enfoque era **incorrecto**: se verificó en producción (dos veces, el mismo día) que Vercel sirve cualquier archivo estático físico antes de evaluar `rewrites`/`redirects`, sin excepción — el rename no protegía nada, solo movía la exposición de una ruta a otra. Ver PRs #34 y #35 (hotfixes que cerraron la exposición activa) y #36 (arquitectura definitiva, mergeada).
 
 ## Situación Actual (Pre-Producción)
 
@@ -17,11 +17,9 @@ Esta sección reemplaza una versión anterior de este documento que decía "PR #
 ✅ Rutas públicas (`/presupuesto/`, `/case-study/`, `/`) funcionan normalmente
 ✅ Endpoints `/api/*` sin afectar
 ✅ No existe ningún archivo estático físico en `/electric-side/`, `/_app-electric-side/` ni variantes — verificado con curl, 404 en todas
-⏳ **App todavía no se puede servir con credenciales**: el HTML se eliminó del árbol estático (para cerrar la exposición) y hoy vive embebido en base64 dentro de `sitio/api/protect-electric-side.js`, en el PR #36 (pendiente de merge). Sin ese merge, un login exitoso no tiene contenido que devolver.
+✅ **PR #36 mergeado a main**: el HTML de la app vive embebido en base64 dentro de `sitio/api/protect-electric-side.js` (nunca como archivo estático), con verificación local byte-exacta (503/401/401/200) y revisión de mantenibilidad (tamaño, límites de Vercel, tiempo de respuesta) ya hechas. Falta validar el 200-con-credenciales-reales contra producción una vez que se configuren.
 
-**Credenciales reales**: NO configuradas todavía (Juan empieza mes próximo, y de todos modos no tiene sentido configurarlas hasta que el PR #36 esté en main)
-
-**Antes de avanzar con este checklist**: confirmar que PR #36 (o su reemplazo) está mergeado a main y que un test con credenciales temporales devuelve 200 con el contenido completo.
+**Credenciales reales**: NO configuradas todavía (Juan empieza mes próximo)
 
 ---
 
@@ -166,7 +164,7 @@ Next steps (P1):
 - `ELECTRIC_SIDE_P0_SECURITY.md` - Documentación técnica completa
 - Este documento - Workflow go-live y checklist
 
-**Requisito de orden**: PR #36 debe estar mergeado a main antes de tocar el paso 2 (Configurar en Vercel) de este checklist. Sin ese merge, la función no tiene contenido que servir tras un login exitoso — `/electric-side/` queda protegido pero no usable. Las credenciales reales se configuran recién cuando se decida el go-live real de Juan, no antes.
+**Requisito de orden**: PR #36 ya está mergeado a main — la función tiene contenido que servir tras un login exitoso. El paso 2 (Configurar en Vercel) queda habilitado, pero las credenciales reales se configuran recién cuando se decida el go-live real de Juan, no antes.
 
 ---
 

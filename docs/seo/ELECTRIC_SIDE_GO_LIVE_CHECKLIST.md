@@ -100,6 +100,14 @@ curl -I https://www.nawemedia.com/presupuesto/
 - Navegador puede guardar credenciales (opción "Guardar contraseña")
 - En dispositivos compartidos: limpiar datos del navegador para forzar re-auth
 
+**Backup manual (nuevo, ver PR de backup JSON)**:
+1. Abajo del menú, sección discreta: botones "Exportar backup" e "Importar backup" (no mezclados con el flujo de presupuestos)
+2. "Exportar backup" descarga un archivo `electric-side-backup-AAAA-MM-DD-HHMM.json` con todos los datos (clientes, trabajos, presupuestos, materiales, proveedores, medios de pago, configuración)
+3. Recomendación: exportar backup **antes de cerrar el navegador** o **antes de cambiar de dispositivo** — los datos viven solo en este navegador, sin backend
+4. "Importar backup" pide el archivo `.json`, muestra una confirmación clara ("Esto reemplazará los datos actuales...") y antes de sobrescribir descarga automáticamente una copia de seguridad del estado actual (`electric-side-backup-pre-restore-...json`)
+5. Si el archivo es inválido o de otra app, la importación se cancela sola y no toca los datos existentes
+6. Debajo de los botones se muestra la fecha del último backup hecho en este navegador
+
 ---
 
 ## Cambios de Configuración (Documentar en Vercel)
@@ -175,8 +183,8 @@ Next steps (P1):
 - ✅ Fail-closed sin env vars (503)
 - ✅ Rutas públicas intactas
 
-**P1 (siguiente bloque después de mergear PR #36 — prioridad, no opcional)**:
-- **Export/import backup JSON**: sin esto, Juan puede perder todo el trabajo con solo borrar datos del navegador o cambiar de dispositivo, aunque la seguridad esté perfecta. Es el riesgo real más urgente después de cerrar el P0.
+**P1**:
+- ✅ **Export/import backup JSON** — implementado. Ver sección "Backup manual" arriba.
 - Migrar backend a Supabase con persistent auth (JWT)
 - Row-level security (RLS) policies
 - Database backups

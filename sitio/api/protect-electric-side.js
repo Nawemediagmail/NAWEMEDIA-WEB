@@ -6,9 +6,21 @@ export default async function handler(request) {
   const url = new URL(request.url);
   const pathname = url.pathname.replace('/api/protect-electric-side', '');
 
-  // Get credentials from environment variables
+  // FAIL-CLOSED: Validate env vars exist before any other logic
   const expectedUser = process.env.ELECTRIC_SIDE_USER;
   const expectedPassword = process.env.ELECTRIC_SIDE_PASSWORD;
+
+  if (!expectedUser || !expectedPassword) {
+    console.error('SECURITY: ELECTRIC_SIDE_USER or ELECTRIC_SIDE_PASSWORD not configured');
+    return new Response('Service Unavailable', {
+      status: 503,
+      headers: {
+        'cache-control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'content-type': 'text/plain',
+        'retry-after': '3600',
+      },
+    });
+  }
 
   // Check for Authorization header
   const authHeader = request.headers.get('authorization');

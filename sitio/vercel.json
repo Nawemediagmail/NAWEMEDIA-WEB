@@ -54,44 +54,16 @@
       "source": "/admin-facturas",
       "destination": "/admin-facturas/",
       "permanent": true
-    },
-    {
-      "source": "/_app-electric-side",
-      "destination": "/electric-side/",
-      "permanent": true
-    }
-  ],
-  "headers": [
-    {
-      "source": "/_app-electric-side/(.*)",
-      "headers": [
-        {
-          "key": "x-robots-tag",
-          "value": "noindex, nofollow"
-        },
-        {
-          "key": "cache-control",
-          "value": "no-store, no-cache"
-        }
-      ]
     }
   ],
   "rewrites": [
-    {
-      "source": "/electric-side/",
-      "destination": "/api/protect-electric-side/"
-    },
     {
       "source": "/electric-side/:path*",
       "destination": "/api/protect-electric-side/:path*"
     },
     {
-      "source": "/_app-electric-side/",
+      "source": "/electric-side/",
       "destination": "/api/protect-electric-side/"
-    },
-    {
-      "source": "/_app-electric-side/:path*",
-      "destination": "/api/protect-electric-side/:path*"
     },
     {
       "source": "/press-kit-web_formulario-DJ",

@@ -167,10 +167,7 @@
 
   <div class="nw-card">
     <h1>Generar factura PayPal</h1>
-    <p class="sub">Herramienta interna — no compartir el link ni la contraseña. · <a href="/admin-facturas/historial.html" style="color:var(--color-gold-bright);">Ver historial →</a></p>
-
-    <label>Contraseña</label>
-    <input type="password" id="password" autocomplete="current-password">
+    <p class="sub">Herramienta interna — no compartir el link. · <a href="/admin-facturas/historial.html" style="color:var(--color-gold-bright);">Ver historial →</a></p>
 
     <div class="row2">
       <div>
@@ -329,7 +326,6 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   msg.className = '';
   msg.textContent = '';
 
-  const password = document.getElementById('password').value;
   const clientName = document.getElementById('clientName').value.trim();
   const clientEmail = document.getElementById('clientEmail').value.trim();
   const currency = document.getElementById('currency').value.trim() || 'USD';
@@ -342,7 +338,6 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
     unitPrice: Number(row.querySelector('.it-price').value || 0),
   })).filter(it => it.name && it.unitPrice > 0);
 
-  if (!password) { msg.className = 'error'; msg.textContent = 'Ingresá la contraseña.'; return; }
   if (!clientEmail) { msg.className = 'error'; msg.textContent = 'Ingresá el email del cliente.'; return; }
   if (items.length === 0) { msg.className = 'error'; msg.textContent = 'Agregá al menos un ítem con precio.'; return; }
 
@@ -354,7 +349,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
     const resp = await fetch('/api/create-invoice', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password, clientName, clientEmail, currency, dueDate, note, items }),
+      body: JSON.stringify({ clientName, clientEmail, currency, dueDate, note, items }),
     });
     const data = await resp.json();
     if (!resp.ok) throw new Error(data.error || 'Error desconocido');

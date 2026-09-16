@@ -103,10 +103,6 @@
     <p class="sub"><a href="/admin-facturas/index.html">← Volver a generar factura</a></p>
 
     <div class="row">
-      <div>
-        <label>Contraseña</label>
-        <input type="password" id="password" autocomplete="current-password">
-      </div>
       <button class="btn" id="loadBtn">Cargar historial</button>
     </div>
 
@@ -120,10 +116,7 @@ document.getElementById('loadBtn').addEventListener('click', async () => {
   const msg = document.getElementById('msg');
   const wrap = document.getElementById('tableWrap');
   const btn = document.getElementById('loadBtn');
-  const password = document.getElementById('password').value;
   msg.className = ''; msg.textContent = ''; wrap.innerHTML = '';
-
-  if (!password) { msg.className = 'error'; msg.textContent = 'Ingresá la contraseña.'; return; }
 
   btn.disabled = true;
   btn.textContent = 'Cargando...';
@@ -132,7 +125,7 @@ document.getElementById('loadBtn').addEventListener('click', async () => {
     const resp = await fetch('/api/invoice-log', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
+      body: '{}',
     });
     const data = await resp.json();
     if (!resp.ok) throw new Error(data.error || 'Error desconocido');

@@ -54,6 +54,26 @@
       "source": "/admin-facturas",
       "destination": "/admin-facturas/",
       "permanent": true
+    },
+    {
+      "source": "/_app-electric-side",
+      "destination": "/electric-side/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/_app-electric-side/(.*)",
+      "headers": [
+        {
+          "key": "x-robots-tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "cache-control",
+          "value": "no-store, no-cache"
+        }
+      ]
     }
   ],
   "rewrites": [

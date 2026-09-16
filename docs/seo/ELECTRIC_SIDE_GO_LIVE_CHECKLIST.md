@@ -159,10 +159,14 @@ Next steps (P1):
 
 ## Files de Referencia
 
-- `sitio/api/protect-electric-side.js` - Edge Function con fail-closed logic
+- `sitio/api/protect-electric-side.js` - Edge Function con fail-closed logic + HTML embebido en base64 (PR #36)
+- `tools/electric-side/source.html` - Fuente editable del HTML de la app (fuera del árbol que Vercel deploya)
+- `tools/electric-side/build.mjs` - Regenera el bloque base64 desde source.html; correr después de cualquier cambio al contenido de la app. Nunca editar el base64 a mano.
 - `sitio/vercel.json` - Rewrites para /electric-side/*
 - `ELECTRIC_SIDE_P0_SECURITY.md` - Documentación técnica completa
 - Este documento - Workflow go-live y checklist
+
+**Requisito de orden**: PR #36 debe estar mergeado a main antes de tocar el paso 2 (Configurar en Vercel) de este checklist. Sin ese merge, la función no tiene contenido que servir tras un login exitoso — `/electric-side/` queda protegido pero no usable. Las credenciales reales se configuran recién cuando se decida el go-live real de Juan, no antes.
 
 ---
 
@@ -173,7 +177,8 @@ Next steps (P1):
 - ✅ Fail-closed sin env vars (503)
 - ✅ Rutas públicas intactas
 
-**P1 (Medium-term, no comenzar):
+**P1 (siguiente bloque después de mergear PR #36 — prioridad, no opcional)**:
+- **Export/import backup JSON**: sin esto, Juan puede perder todo el trabajo con solo borrar datos del navegador o cambiar de dispositivo, aunque la seguridad esté perfecta. Es el riesgo real más urgente después de cerrar el P0.
 - Migrar backend a Supabase con persistent auth (JWT)
 - Row-level security (RLS) policies
 - Database backups

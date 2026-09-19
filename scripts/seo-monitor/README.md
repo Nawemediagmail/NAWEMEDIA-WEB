@@ -52,8 +52,12 @@ vez de fallar).
 
 ## Sobre `gscSiteUrl`
 
-`monitored-urls.json` asume una propiedad de dominio verificada en
-Search Console (`sc-domain:nawemedia.com`, cubre www/non-www y http/https
-en un solo lugar). Si la propiedad verificada es de tipo prefijo de URL
-en cambio, cambiar ese valor a `https://www.nawemedia.com/` — no requiere
-tocar código, solo el JSON.
+`monitored-urls.json` usa `https://www.nawemedia.com/` porque la propiedad
+verificada en Search Console es de tipo **prefijo de URL**, no de dominio
+(`sc-domain:nawemedia.com` daba 403 en `sites.list` y en la URL Inspection
+API — diagnosticado con el preflight de `preflight-gsc-sites.mjs`, ver
+issue #40). Si en algún momento se agrega/migra a una propiedad de
+dominio, corregir este único valor — no requiere tocar código, solo el
+JSON. El paso "Preflight Search Console (sites.list)" del workflow
+siempre muestra qué `siteUrl` ve la identidad autenticada, para
+verificarlo sin adivinar.

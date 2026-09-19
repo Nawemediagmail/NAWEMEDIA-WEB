@@ -32,27 +32,30 @@ test('listSites devuelve [] si la respuesta no trae siteEntry', async () => {
 });
 
 test('renderSitesSummary marca con ✅ el siteUrl que coincide con gscSiteUrl', () => {
+  // Refleja la configuración real corregida: monitored-urls.json usa
+  // gscSiteUrl "https://www.nawemedia.com/" (propiedad de prefijo de URL),
+  // no "sc-domain:nawemedia.com" (esa fue la causa del 403 en producción).
   const summary = renderSitesSummary(
     [
-      { siteUrl: 'sc-domain:nawemedia.com', permissionLevel: 'siteFullUser' },
-      { siteUrl: 'https://www.nawemedia.com/', permissionLevel: 'siteOwner' },
+      { siteUrl: 'https://www.nawemedia.com/', permissionLevel: 'siteFullUser' },
+      { siteUrl: 'sc-domain:nawemedia.com', permissionLevel: 'siteOwner' },
     ],
-    { gscSiteUrl: 'sc-domain:nawemedia.com' },
+    { gscSiteUrl: 'https://www.nawemedia.com/' },
   );
-  assert.match(summary, /sc-domain:nawemedia\.com.*✅/);
-  assert.doesNotMatch(summary.split('\n').find((l) => l.includes('www.nawemedia.com')), /✅/);
+  assert.match(summary, /www\.nawemedia\.com\/`.*✅/);
+  assert.doesNotMatch(summary.split('\n').find((l) => l.includes('sc-domain:nawemedia.com')), /✅/);
 });
 
 test('renderSitesSummary avisa si el gscSiteUrl configurado no aparece en la lista', () => {
   const summary = renderSitesSummary(
     [{ siteUrl: 'https://www.nawemedia.com/', permissionLevel: 'siteOwner' }],
-    { gscSiteUrl: 'sc-domain:nawemedia.com' },
+    { gscSiteUrl: 'https://nawemedia.com/' },
   );
   assert.match(summary, /no aparece en la tabla/);
 });
 
 test('renderSitesSummary avisa si la lista viene vacía', () => {
-  const summary = renderSitesSummary([], { gscSiteUrl: 'sc-domain:nawemedia.com' });
+  const summary = renderSitesSummary([], { gscSiteUrl: 'https://www.nawemedia.com/' });
   assert.match(summary, /lista vacía/);
 });
 

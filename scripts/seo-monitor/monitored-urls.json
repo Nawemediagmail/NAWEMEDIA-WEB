@@ -8,6 +8,7 @@
       "path": "/",
       "expectedFinalStatus": 200,
       "expectedCanonical": "https://www.nawemedia.com/",
+      "canonicalFixedAt": "2026-07-16T01:29:46Z",
       "expectedRobotsMeta": null
     },
     {
@@ -16,6 +17,7 @@
       "path": "/presupuesto/",
       "expectedFinalStatus": 200,
       "expectedCanonical": "https://www.nawemedia.com/presupuesto/",
+      "canonicalFixedAt": "2026-09-15T22:24:23Z",
       "expectedRobotsMeta": "noindex, nofollow",
       "notes": "Cotizador embebido como iframe en /. Se decidió noindex + canonical autorreferencial (ver docs/seo/NAWEMEDIA_SEO_CANONICAL_AUDIT_2026.md, grupo D)."
     },
@@ -25,6 +27,7 @@
       "path": "/demos/savori-pedidos-hub.html",
       "expectedFinalStatus": 200,
       "expectedCanonical": "https://www.nawemedia.com/demos/savori-pedidos-hub.html",
+      "canonicalFixedAt": "2026-09-15T22:24:23Z",
       "expectedRobotsMeta": null
     },
     {
@@ -33,6 +36,7 @@
       "path": "/case-study/miculka/",
       "expectedFinalStatus": 200,
       "expectedCanonical": "https://www.nawemedia.com/case-study/miculka/",
+      "canonicalFixedAt": "2026-09-15T22:24:23Z",
       "expectedRobotsMeta": null
     },
     {

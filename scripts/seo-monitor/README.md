@@ -30,12 +30,19 @@ falta — es el mecanismo de "no te olvides de esta".
 
 ## Severidad
 
-- **fail** (rompe el job / bloquea el PR): HTTP, redirect, canonical,
-  robots o sitemap incorrectos; una URL indexable sin declarar; GSC
-  todavía marcando `coverageState` como "duplicada, sin canonical".
-- **warn** (solo informativo, no rompe nada): Search Console todavía sin
-  `lastCrawlTime`/`googleCanonical` para una URL — es esperable los
-  primeros días después de un fix, antes de que Google recrawlee.
+- **fail** (rompe el job / bloquea el PR): HTTP, redirect, canonical o
+  robots incorrectos **en el HTML/HTTP en vivo**; robots.txt o sitemap.xml
+  incorrectos; una URL indexable sin declarar.
+- **warn** (solo informativo, no rompe nada): cualquier hallazgo de
+  Search Console — `coverageState` "duplicada", `googleCanonical`/`userCanonical`
+  distinto al esperado, o una URL que Google todavía no reconoce. GSC
+  recrawlea con retraso propio (días a semanas), desacoplado del momento
+  del deploy: los checks de GSC nunca fallan el monitor, solo el chequeo
+  del HTML/HTTP en vivo detecta una regresión real nuestra. Cada URL con
+  `expectedCanonical` declara además `canonicalFixedAt` (fecha del commit
+  que corrigió su canonical); el mensaje del warn distingue automáticamente
+  un dato de GSC anterior a esa fecha (recrawl pendiente, sin más) de uno
+  posterior que sigue sin coincidir (vale la pena revisar a mano si persiste).
 
 ## Correr localmente
 

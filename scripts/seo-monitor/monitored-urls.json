@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://www.nawemedia.com",
-  "gscSiteUrl": "sc-domain:nawemedia.com",
+  "gscSiteUrl": "https://www.nawemedia.com/",
   "urls": [
     {
       "id": "home",

@@ -13,6 +13,8 @@ import { checkRobotsAndSitemap } from './lib/robotsSitemap.mjs';
 import { inspectUrl, evaluateGscResult } from './lib/gsc.mjs';
 import { findForgottenUrls } from './lib/coverage.mjs';
 import { syncIssue } from './lib/issue.mjs';
+import { findEscalations } from './lib/recrawlEscalation.mjs';
+import { syncRecrawlEscalationIssue } from './lib/recrawlEscalationIssue.mjs';
 import { renderStepSummary } from './lib/summary.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -37,6 +39,7 @@ async function main() {
   findings.push(...await checkRobotsAndSitemap(config, config.siteUrl));
 
   const accessToken = process.env.GSC_ACCESS_TOKEN;
+  const gscResultsById = new Map();
   if (!accessToken) {
     findings.push({
       id: 'gsc', check: 'gsc', severity: 'warn',
@@ -48,6 +51,7 @@ async function main() {
       const inspectionUrl = new URL(entry.path, config.siteUrl).toString();
       try {
         const result = await inspectUrl({ accessToken, siteUrl: config.gscSiteUrl, inspectionUrl });
+        gscResultsById.set(entry.id, result);
         findings.push(...evaluateGscResult(entry, result));
       } catch (err) {
         findings.push({
@@ -83,6 +87,19 @@ async function main() {
       runUrl: url,
     });
     console.log('Issue sync:', result);
+
+    if (accessToken) {
+      const escalations = findEscalations(config.urls, gscResultsById, { siteUrl: config.siteUrl });
+      const escalationResult = await syncRecrawlEscalationIssue({
+        repo: process.env.GITHUB_REPOSITORY,
+        token: process.env.GITHUB_TOKEN,
+        escalations,
+        runUrl: url,
+      });
+      console.log('Recrawl escalation issue sync:', escalationResult);
+    } else {
+      console.log('GSC_ACCESS_TOKEN no configurado: se omitió la sincronización del issue de recrawl pendiente.');
+    }
   } else {
     console.log('GITHUB_TOKEN / GITHUB_REPOSITORY no configurados: se omitió la sincronización del issue.');
   }

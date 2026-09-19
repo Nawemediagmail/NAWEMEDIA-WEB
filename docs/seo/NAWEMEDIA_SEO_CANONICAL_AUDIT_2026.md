@@ -255,6 +255,8 @@ Una vez aplicadas las correcciones:
 5. Esperar el próximo ciclo de recrawl (días a 1-2 semanas) y confirmar en el informe de Cobertura que el clúster "Duplicada, sin canonical" se reduce o desaparece.
 6. Confirmar que `sitemap.xml` sigue siendo válido (XML bien formado) y que todas sus URLs siguen devolviendo 200 tras los cambios de `trailingSlash`.
 
+**Automatizado (2026-09-19):** los puntos 1, 2 (parcial), 4 y 6 de este plan corren solos desde `scripts/seo-monitor/` — cron semanal (lunes 12:00 UTC) vía `.github/workflows/seo-monitor.yml`, que valida HTTP/redirects/canonical/robots/sitemap en producción y consulta la URL Inspection API de Search Console (coverageState, indexingState, canonical declarado vs. elegido por Google, lastCrawlTime) para las 5 URLs de esta auditoría más la home. Abre/actualiza/cierra un único issue de GitHub ante una regresión real; un recrawl todavía pendiente de Google queda como advertencia, no como fallo. Un segundo workflow (`seo-monitor-checks.yml`) corre en cada PR y falla si se agrega una página indexable nueva sin declararla en `scripts/seo-monitor/monitored-urls.json` — ver `scripts/seo-monitor/README.md`.
+
 ## 18. URLs para inspeccionar manualmente en Google Search Console
 
 Priorizadas por probabilidad de ser las URLs exactas detrás de los 2 avisos:

@@ -1,0 +1,77 @@
+{
+  "siteUrl": "https://www.nawemedia.com",
+  "gscSiteUrl": "sc-domain:nawemedia.com",
+  "urls": [
+    {
+      "id": "home",
+      "label": "Home",
+      "path": "/",
+      "expectedFinalStatus": 200,
+      "expectedCanonical": "https://www.nawemedia.com/",
+      "expectedRobotsMeta": null
+    },
+    {
+      "id": "presupuesto",
+      "label": "Presupuesto",
+      "path": "/presupuesto/",
+      "expectedFinalStatus": 200,
+      "expectedCanonical": "https://www.nawemedia.com/presupuesto/",
+      "expectedRobotsMeta": "noindex, nofollow",
+      "notes": "Cotizador embebido como iframe en /. Se decidió noindex + canonical autorreferencial (ver docs/seo/NAWEMEDIA_SEO_CANONICAL_AUDIT_2026.md, grupo D)."
+    },
+    {
+      "id": "demos-savori",
+      "label": "Demo Savori (savori-pedidos-hub)",
+      "path": "/demos/savori-pedidos-hub.html",
+      "expectedFinalStatus": 200,
+      "expectedCanonical": "https://www.nawemedia.com/demos/savori-pedidos-hub.html",
+      "expectedRobotsMeta": null
+    },
+    {
+      "id": "case-study-miculka",
+      "label": "Case Study Miculka",
+      "path": "/case-study/miculka/",
+      "expectedFinalStatus": 200,
+      "expectedCanonical": "https://www.nawemedia.com/case-study/miculka/",
+      "expectedRobotsMeta": null
+    },
+    {
+      "id": "electric-side",
+      "label": "Electric Side (app interna)",
+      "path": "/electric-side/",
+      "expectedFinalStatus": [401, 503],
+      "expectedCanonical": null,
+      "canonicalCheck": false,
+      "expectedRobotsMeta": null,
+      "expectedRobotsHeaderOn200": "noindex, nofollow",
+      "notes": "Debe requerir Basic Auth (401) o estar fail-closed sin credenciales configuradas (503). Un 200 sin credenciales es una regresión de seguridad crítica: ver ELECTRIC_SIDE_P0_SECURITY.md. El HTML no existe como archivo físico en sitio/ (vive embebido en sitio/api/protect-electric-side.js), por eso no aparece en el escaneo de cobertura."
+    },
+    {
+      "id": "virginiasoledispa",
+      "label": "Virginia Soledispa EPK",
+      "path": "/virginiasoledispa",
+      "expectedRedirect": { "to": "/virginiasoledispa/", "status": 308 },
+      "expectedFinalStatus": 200,
+      "expectedCanonical": null,
+      "canonicalCheck": false,
+      "expectedRobotsMeta": null,
+      "crossDomain": true,
+      "notes": "El contenido final es un rewrite de Vercel hacia nawemedia-epks.vercel.app. El canonical de esa página vive en otro repo, fuera del alcance de este monitor (ver auditoría, grupo E)."
+    }
+  ],
+  "robotsTxt": {
+    "path": "/robots.txt",
+    "expectedFinalStatus": 200,
+    "mustDisallow": ["/api/"],
+    "mustNotDisallow": ["/admin-facturas/"],
+    "mustContainSitemap": "https://www.nawemedia.com/sitemap.xml"
+  },
+  "sitemap": {
+    "path": "/sitemap.xml",
+    "expectedFinalStatus": 200,
+    "mustContainUrls": [
+      "https://www.nawemedia.com/",
+      "https://www.nawemedia.com/demos/savori-pedidos-hub.html"
+    ]
+  }
+}

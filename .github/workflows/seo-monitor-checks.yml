@@ -22,7 +22,7 @@ jobs:
           node-version: '22'
 
       - name: Tests unitarios (fixtures, sin red)
-        run: node --test scripts/seo-monitor/test/
+        run: node --test scripts/seo-monitor/test/**/*.test.mjs
 
       - name: Cobertura de monitored-urls.json
         run: node scripts/seo-monitor/coverage-check.mjs

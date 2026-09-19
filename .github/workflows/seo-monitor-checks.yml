@@ -1,0 +1,28 @@
+name: SEO monitor — checks (PR)
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/seo-monitor/**'
+      - 'sitio/**/*.html'
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Tests unitarios (fixtures, sin red)
+        run: node --test scripts/seo-monitor/test/
+
+      - name: Cobertura de monitored-urls.json
+        run: node scripts/seo-monitor/coverage-check.mjs

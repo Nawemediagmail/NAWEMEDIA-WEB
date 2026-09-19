@@ -1,0 +1,38 @@
+name: SEO monitor
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+  issues: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Autenticar contra Google Cloud (OIDC / Workload Identity Federation)
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/94806381212/locations/global/workloadIdentityPools/github-actions/providers/nawemedia-web
+          service_account: nawemedia-seo-monitor@nawemedia-seo-monitor.iam.gserviceaccount.com
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/webmasters.readonly
+
+      - name: Correr monitor SEO
+        env:
+          GSC_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/seo-monitor/run.mjs

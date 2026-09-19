@@ -20,9 +20,13 @@ async function ghFetch(path, { token, method = 'GET', body, fetchImpl = fetch })
   return res.status === 204 ? null : res.json();
 }
 
+async function findManagedIssueByMarker({ repo, token, label, marker, fetchImpl }) {
+  const issues = await ghFetch(`/repos/${repo}/issues?state=open&labels=${encodeURIComponent(label)}&per_page=20`, { token, fetchImpl });
+  return issues.find((i) => typeof i.body === 'string' && i.body.includes(marker)) ?? null;
+}
+
 export async function findManagedIssue({ repo, token, fetchImpl }) {
-  const issues = await ghFetch(`/repos/${repo}/issues?state=open&labels=${encodeURIComponent(LABEL)}&per_page=20`, { token, fetchImpl });
-  return issues.find((i) => typeof i.body === 'string' && i.body.includes(MARKER)) ?? null;
+  return findManagedIssueByMarker({ repo, token, label: LABEL, marker: MARKER, fetchImpl });
 }
 
 export function renderIssueBody(failFindings, runUrl) {
@@ -38,26 +42,25 @@ export function renderIssueBody(failFindings, runUrl) {
   ].join('\n');
 }
 
-// Un único issue "vivo" representa el estado actual: se crea al primer
-// fail, se actualiza mientras siga habiendo fails, y se cierra solo
-// (con comentario) en la primera corrida limpia. Nunca se abren issues
-// duplicados para la misma regresión.
-export async function syncIssue({ repo, token, failFindings, runUrl, fetchImpl }) {
-  const existing = await findManagedIssue({ repo, token, fetchImpl });
+// Ciclo de vida genérico de un único issue "vivo" identificado por
+// marker+label: se crea la primera vez que shouldExist es true, se
+// actualiza mientras lo siga siendo, y se cierra solo (con comentario) en
+// la primera corrida en que deja de serlo. Nunca se abren issues
+// duplicados para el mismo marker. Reutilizado por syncIssue (regresiones
+// en fail) y por syncRecrawlEscalationIssue (recrawl pendiente > umbral).
+export async function syncManagedIssue({ repo, token, label, marker, title, shouldExist, body, closeComment, fetchImpl }) {
+  const existing = await findManagedIssueByMarker({ repo, token, label, marker, fetchImpl });
 
-  if (failFindings.length === 0) {
+  if (!shouldExist) {
     if (!existing) return { action: 'none' };
     await ghFetch(`/repos/${repo}/issues/${existing.number}`, {
       token, fetchImpl, method: 'PATCH', body: { state: 'closed', state_reason: 'completed' },
     });
     await ghFetch(`/repos/${repo}/issues/${existing.number}/comments`, {
-      token, fetchImpl, method: 'POST',
-      body: { body: `Resuelto: la corrida ${runUrl} no encontró hallazgos en fail. Cerrando automáticamente.` },
+      token, fetchImpl, method: 'POST', body: { body: closeComment },
     });
     return { action: 'closed', number: existing.number };
   }
-
-  const body = renderIssueBody(failFindings, runUrl);
 
   if (existing) {
     await ghFetch(`/repos/${repo}/issues/${existing.number}`, { token, fetchImpl, method: 'PATCH', body: { body } });
@@ -65,7 +68,19 @@ export async function syncIssue({ repo, token, failFindings, runUrl, fetchImpl }
   }
 
   const created = await ghFetch(`/repos/${repo}/issues`, {
-    token, fetchImpl, method: 'POST', body: { title: TITLE, body, labels: [LABEL] },
+    token, fetchImpl, method: 'POST', body: { title, body, labels: [label] },
   });
   return { action: 'created', number: created.number };
+}
+
+export async function syncIssue({ repo, token, failFindings, runUrl, fetchImpl }) {
+  return syncManagedIssue({
+    repo, token, fetchImpl,
+    label: LABEL,
+    marker: MARKER,
+    title: TITLE,
+    shouldExist: failFindings.length > 0,
+    body: renderIssueBody(failFindings, runUrl),
+    closeComment: `Resuelto: la corrida ${runUrl} no encontró hallazgos en fail. Cerrando automáticamente.`,
+  });
 }

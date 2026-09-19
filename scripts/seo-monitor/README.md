@@ -44,6 +44,23 @@ falta — es el mecanismo de "no te olvides de esta".
   un dato de GSC anterior a esa fecha (recrawl pendiente, sin más) de uno
   posterior que sigue sin coincidir (vale la pena revisar a mano si persiste).
 
+## Recrawl pendiente por más de 30 días (escalamiento)
+
+Un warn de GSC nunca falla el monitor, pero tampoco debería quedar
+pendiente para siempre sin que nadie lo note. Si una URL con
+`expectedCanonical` + `canonicalFixedAt` sigue sin confirmar el canonical
+en Search Console (sin `lastCrawlTime`, `coverageState` "duplicada" o
+`googleCanonical` distinto) más de `recrawlEscalationDays` días **después**
+de `canonicalFixedAt` (30 por defecto; configurable por URL agregando
+`recrawlEscalationDays` a esa entrada en `monitored-urls.json`), se
+crea/actualiza un segundo issue separado, con su propio marker y label
+`seo-monitor`: **`seo-monitor: recrawl pendiente por más de 30 días`**.
+Se cierra solo cuando ninguna URL supera ya el umbral. Es un único issue
+vivo, igual que el de regresiones — nunca se duplica. Lógica en
+`lib/recrawlEscalation.mjs` (pura, sin red, tiempo inyectable) y
+`lib/recrawlEscalationIssue.mjs` (ciclo de vida del issue, reutiliza
+`syncManagedIssue` de `lib/issue.mjs`).
+
 ## Correr localmente
 
 ```bash

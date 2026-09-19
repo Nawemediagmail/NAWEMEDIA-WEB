@@ -4,7 +4,15 @@ import { inspectUrl, evaluateGscResult } from '../lib/gsc.mjs';
 
 const entry = { id: 'presupuesto', label: 'Presupuesto', expectedCanonical: 'https://www.example.com/presupuesto/' };
 
-test('coverageState "Duplicada, sin canonical" es fail', () => {
+// Los checks de GSC nunca fallan el monitor: Google recrawlea con retraso
+// propio, desacoplado del momento del deploy. La regresión real nuestra
+// la detecta el chequeo del HTML/HTTP en vivo (ver checkUrl.test.mjs),
+// no Search Console. Ver también los tests de canonicalFixedAt más abajo,
+// que reproducen el caso real que motivó este cambio (Savori, 2026-09-19):
+// GSC marcaba "duplicada" con un crawl anterior a la corrección del
+// canonical, y el monitor lo reportó como fail siendo una falsa alarma.
+
+test('coverageState "Duplicada, sin canonical" es warn, no fail', () => {
   const findings = evaluateGscResult(entry, {
     coverageState: 'Duplicada, el usuario no ha indicado ninguna versión canónica',
     indexingState: 'INDEXING_ALLOWED',
@@ -12,11 +20,12 @@ test('coverageState "Duplicada, sin canonical" es fail', () => {
     userCanonical: 'https://www.example.com/presupuesto/',
     lastCrawlTime: '2026-09-10T00:00:00Z',
   });
-  const fails = findings.filter((f) => f.severity === 'fail');
-  assert.ok(fails.some((f) => f.check === 'gsc-coverage'));
+  assert.equal(findings.filter((f) => f.severity === 'fail').length, 0);
+  const warns = findings.filter((f) => f.severity === 'warn');
+  assert.ok(warns.some((f) => f.check === 'gsc-coverage'));
 });
 
-test('googleCanonical distinto al esperado es fail', () => {
+test('googleCanonical distinto al esperado es warn, no fail', () => {
   const findings = evaluateGscResult(entry, {
     coverageState: 'Submitted and indexed',
     indexingState: 'INDEXING_ALLOWED',
@@ -24,8 +33,39 @@ test('googleCanonical distinto al esperado es fail', () => {
     userCanonical: 'https://www.example.com/presupuesto/',
     lastCrawlTime: '2026-09-10T00:00:00Z',
   });
-  const fails = findings.filter((f) => f.severity === 'fail');
-  assert.ok(fails.some((f) => f.check === 'gsc-canonical'));
+  assert.equal(findings.filter((f) => f.severity === 'fail').length, 0);
+  const warns = findings.filter((f) => f.severity === 'warn');
+  assert.ok(warns.some((f) => f.check === 'gsc-canonical'));
+});
+
+test('canonicalFixedAt: crawl anterior a la corrección -> mensaje aclara que es dato viejo', () => {
+  const fixedEntry = { ...entry, canonicalFixedAt: '2026-09-15T22:24:23Z' };
+  const findings = evaluateGscResult(fixedEntry, {
+    coverageState: 'Duplicada, el usuario no ha indicado ninguna versión canónica',
+    indexingState: 'INDEXING_ALLOWED',
+    googleCanonical: 'https://example.com/presupuesto/',
+    userCanonical: 'https://www.example.com/presupuesto/',
+    lastCrawlTime: '2026-09-10T00:00:00Z', // anterior a canonicalFixedAt
+  });
+  assert.equal(findings.filter((f) => f.severity === 'fail').length, 0);
+  const coverage = findings.find((f) => f.check === 'gsc-coverage');
+  assert.match(coverage.message, /anterior a la corrección del canonical/);
+  assert.match(coverage.message, /no es una regresión/);
+});
+
+test('canonicalFixedAt: crawl posterior a la corrección y sigue sin coincidir -> mensaje sugiere revisar si persiste', () => {
+  const fixedEntry = { ...entry, canonicalFixedAt: '2026-09-15T22:24:23Z' };
+  const findings = evaluateGscResult(fixedEntry, {
+    coverageState: 'Duplicada, el usuario no ha indicado ninguna versión canónica',
+    indexingState: 'INDEXING_ALLOWED',
+    googleCanonical: 'https://example.com/presupuesto/',
+    userCanonical: 'https://www.example.com/presupuesto/',
+    lastCrawlTime: '2026-09-20T00:00:00Z', // posterior a canonicalFixedAt
+  });
+  assert.equal(findings.filter((f) => f.severity === 'fail').length, 0);
+  const coverage = findings.find((f) => f.check === 'gsc-coverage');
+  assert.match(coverage.message, /ya recrawleó/);
+  assert.match(coverage.message, /si persiste/);
 });
 
 test('sin lastCrawlTime / sin googleCanonical todavía: warn, no fail (recrawl pendiente)', () => {

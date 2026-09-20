@@ -61,8 +61,13 @@ async function checkSite(site, accessToken) {
           gscResultsById.set(entry.id, result);
           findings.push(...evaluateGscResult(entry, result));
         } catch (err) {
+          // GSC nunca falla el monitor (ver README, sección Severidad): un
+          // error consultando la URL Inspection API —incluido un 403 de
+          // acceso todavía no configurado para este sitio, ver preflight—
+          // es warn, no fail. Solo el chequeo del HTML/HTTP en vivo detecta
+          // una regresión real nuestra.
           findings.push({
-            id: entry.id, check: 'gsc', severity: 'fail',
+            id: entry.id, check: 'gsc', severity: 'warn',
             message: `${entry.label}: error consultando Search Console: ${err.message}`,
           });
         }

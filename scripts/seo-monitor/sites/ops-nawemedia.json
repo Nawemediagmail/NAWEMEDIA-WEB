@@ -1,0 +1,43 @@
+{
+  "id": "ops-nawemedia",
+  "label": "Ops NAWEMEDIA (app interna)",
+  "profile": "private-app",
+  "baseUrl": "https://ops.nawemedia.com",
+  "urls": [
+    {
+      "id": "root",
+      "label": "Root (requiere autenticación)",
+      "path": "/",
+      "expectedRedirect": { "to": "/login", "status": 307 },
+      "expectedFinalStatus": 200,
+      "canonicalCheck": false,
+      "expectedRobotsMeta": "noindex, nofollow",
+      "expectedHeaders": {
+        "strict-transport-security": true,
+        "x-content-type-options": "nosniff",
+        "x-frame-options": ["DENY", "SAMEORIGIN"]
+      },
+      "notes": "Verificado en vivo (2026-09-20): sin sesión, / responde 307 a /login (NextAuth). Un 200 directo acá sin credenciales sería la misma clase de regresión crítica que Electric Side (ver ELECTRIC_SIDE_P0_SECURITY.md)."
+    },
+    {
+      "id": "login",
+      "label": "Login",
+      "path": "/login",
+      "expectedFinalStatus": 200,
+      "canonicalCheck": false,
+      "expectedRobotsMeta": "noindex, nofollow",
+      "expectedHeaders": {
+        "strict-transport-security": true,
+        "x-content-type-options": "nosniff",
+        "x-frame-options": ["DENY", "SAMEORIGIN"]
+      },
+      "notes": "Página pública (sin datos internos) del flujo de auth. Meta robots noindex,nofollow verificado en vivo."
+    }
+  ],
+  "robotsTxt": {
+    "path": "/robots.txt",
+    "expectedFinalStatus": 200,
+    "mustDisallow": ["/"],
+    "notes": "robots.txt real (2026-09-20): 'User-Agent: *\\nDisallow: /' — bloquea todo el sitio, sin sitemap (no aplica a una app privada)."
+  }
+}

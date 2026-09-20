@@ -29,7 +29,7 @@ export async function checkRobotsAndSitemap(config, siteUrl, { fetchImpl = fetch
     }
   }
 
-  {
+  if (config.sitemap) {
     const cfg = config.sitemap;
     const url = new URL(cfg.path, siteUrl).toString();
     const res = await fetchImpl(url);

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { listSites, renderSitesSummary } from '../lib/gscSites.mjs';
+import { listSites, renderSitesSummary, renderMultiSiteSummary } from '../lib/gscSites.mjs';
 
 test('listSites manda el bearer token y parsea siteEntry', async () => {
   let seenAuth = null;
@@ -61,5 +61,48 @@ test('renderSitesSummary avisa si la lista viene vacía', () => {
 
 test('renderSitesSummary muestra el error tal cual si sites.list falló', () => {
   const summary = renderSitesSummary([], { error: 'Search Console API (sites.list) 403: forbidden' });
+  assert.match(summary, /403/);
+});
+
+// renderMultiSiteSummary: una sola tabla de sites.list, comparada contra
+// el gscSiteUrl de cada sitio public-seo configurado. Los sitios
+// private-app (sin gscSiteUrl) quedan fuera de la comparación.
+
+test('renderMultiSiteSummary: marca contra qué sitio(s) configurado(s) coincide cada fila', () => {
+  const googleSites = [
+    { siteUrl: 'https://www.nawemedia.com/', permissionLevel: 'siteFullUser' },
+    { siteUrl: 'https://www.miculkalogisticasrl.com/', permissionLevel: 'siteOwner' },
+  ];
+  const configuredSites = [
+    { id: 'nawemedia-com', gscSiteUrl: 'https://www.nawemedia.com/' },
+    { id: 'miculka-logistica', gscSiteUrl: 'https://www.miculkalogisticasrl.com/' },
+    { id: 'ops-nawemedia', profile: 'private-app' },
+  ];
+  const summary = renderMultiSiteSummary(googleSites, configuredSites);
+  assert.match(summary, /nawemedia\.com\/`.*nawemedia-com/);
+  assert.match(summary, /miculkalogisticasrl\.com\/`.*miculka-logistica/);
+  assert.doesNotMatch(summary, /ops-nawemedia/);
+});
+
+test('renderMultiSiteSummary: avisa por separado si el gscSiteUrl de un sitio no aparece en la lista', () => {
+  const googleSites = [{ siteUrl: 'https://www.nawemedia.com/', permissionLevel: 'siteFullUser' }];
+  const configuredSites = [
+    { id: 'nawemedia-com', gscSiteUrl: 'https://www.nawemedia.com/' },
+    { id: 'miculka-logistica', gscSiteUrl: 'https://www.miculkalogisticasrl.com/' },
+  ];
+  const summary = renderMultiSiteSummary(googleSites, configuredSites);
+  assert.match(summary, /miculka-logistica/);
+  assert.match(summary, /no aparece en la tabla/);
+});
+
+test('renderMultiSiteSummary: sin sitios public-seo configurados, no exige nada (lista vacía de comparación)', () => {
+  const googleSites = [{ siteUrl: 'https://www.nawemedia.com/', permissionLevel: 'siteFullUser' }];
+  const configuredSites = [{ id: 'ops-nawemedia', profile: 'private-app' }];
+  const summary = renderMultiSiteSummary(googleSites, configuredSites);
+  assert.doesNotMatch(summary, /no aparece en la tabla/);
+});
+
+test('renderMultiSiteSummary: muestra el error tal cual si sites.list falló', () => {
+  const summary = renderMultiSiteSummary([], [{ id: 'a', gscSiteUrl: 'https://a.example.com/' }], { error: '403: forbidden' });
   assert.match(summary, /403/);
 });

@@ -29,9 +29,9 @@ export async function findManagedIssue({ repo, token, fetchImpl }) {
   return findManagedIssueByMarker({ repo, token, label: LABEL, marker: MARKER, fetchImpl });
 }
 
-export function renderIssueBody(failFindings, runUrl) {
+export function renderIssueBody(failFindings, runUrl, marker = MARKER) {
   return [
-    MARKER,
+    marker,
     '# Regresión SEO detectada',
     '',
     `Corrida: ${runUrl}`,
@@ -73,14 +73,18 @@ export async function syncManagedIssue({ repo, token, label, marker, title, shou
   return { action: 'created', number: created.number };
 }
 
-export async function syncIssue({ repo, token, failFindings, runUrl, fetchImpl }) {
+// marker/title son parametrizables para que cada sitio del motor
+// multi-sitio tenga su propio issue de regresión, separado y deduplicado
+// (ver lib/siteIssueMarkers.mjs). Sin overrides, el comportamiento es
+// exactamente el original (issue #40 de nawemedia.com).
+export async function syncIssue({ repo, token, failFindings, runUrl, fetchImpl, marker = MARKER, title = TITLE }) {
   return syncManagedIssue({
     repo, token, fetchImpl,
     label: LABEL,
-    marker: MARKER,
-    title: TITLE,
+    marker,
+    title,
     shouldExist: failFindings.length > 0,
-    body: renderIssueBody(failFindings, runUrl),
+    body: renderIssueBody(failFindings, runUrl, marker),
     closeComment: `Resuelto: la corrida ${runUrl} no encontró hallazgos en fail. Cerrando automáticamente.`,
   });
 }

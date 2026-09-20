@@ -4,7 +4,7 @@ const MARKER = '<!-- seo-monitor:recrawl-escalation-issue -->';
 const LABEL = 'seo-monitor';
 const TITLE = 'seo-monitor: recrawl pendiente por más de 30 días';
 
-export function renderEscalationBody(escalations, runUrl) {
+export function renderEscalationBody(escalations, runUrl, marker = MARKER) {
   const sections = escalations.map((e) => [
     `## ${e.label} (${e.path})`,
     '',
@@ -18,7 +18,7 @@ export function renderEscalationBody(escalations, runUrl) {
   ].join('\n'));
 
   return [
-    MARKER,
+    marker,
     '# Recrawl pendiente por más de 30 días',
     '',
     `Corrida: ${runUrl}`,
@@ -34,14 +34,16 @@ export function renderEscalationBody(escalations, runUrl) {
 // recrawl. Nunca se dispara desde un fail: el warn de GSC sigue siendo
 // warn siempre, esto es una alarma adicional de "revisar a mano" cuando
 // el recrawl pendiente se estanca.
-export async function syncRecrawlEscalationIssue({ repo, token, escalations, runUrl, fetchImpl }) {
+// marker/title son parametrizables por sitio (ver lib/siteIssueMarkers.mjs)
+// — sin overrides, comportamiento exactamente igual al original.
+export async function syncRecrawlEscalationIssue({ repo, token, escalations, runUrl, fetchImpl, marker = MARKER, title = TITLE }) {
   return syncManagedIssue({
     repo, token, fetchImpl,
     label: LABEL,
-    marker: MARKER,
-    title: TITLE,
+    marker,
+    title,
     shouldExist: escalations.length > 0,
-    body: escalations.length > 0 ? renderEscalationBody(escalations, runUrl) : '',
+    body: escalations.length > 0 ? renderEscalationBody(escalations, runUrl, marker) : '',
     closeComment: `Resuelto: la corrida ${runUrl} no encontró URLs con recrawl pendiente por más del umbral configurado. Cerrando automáticamente.`,
   });
 }

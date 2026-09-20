@@ -61,6 +61,12 @@ vivo, igual que el de regresiones — nunca se duplica. Lógica en
 `lib/recrawlEscalationIssue.mjs` (ciclo de vida del issue, reutiliza
 `syncManagedIssue` de `lib/issue.mjs`).
 
+El Step Summary de cada corrida incluye además una tabla **"Recrawl
+aging"**, una fila por cada URL con `canonicalFixedAt` declarado (esté o
+no ya resuelta): días transcurridos, umbral, días restantes para escalar
+y estado (🟢 resuelto / 🟡 pendiente / 🔴 escalado). Solo se muestra
+cuando corrió con `GSC_ACCESS_TOKEN` configurado.
+
 ## Correr localmente
 
 ```bash

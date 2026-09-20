@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { findEscalations } from '../lib/recrawlEscalation.mjs';
+import { findEscalations, evaluateRecrawlAging, computeRecrawlAgingTable } from '../lib/recrawlEscalation.mjs';
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const FIXED_AT = '2026-09-15T22:24:23Z';
@@ -106,4 +106,61 @@ test('recrawlEscalationDays configurable por URL: pisa el default de 30', () => 
   const escalated = findEscalations([shortThreshold], results, { now: nowAtDays(10), siteUrl: 'https://www.example.com' });
   assert.equal(escalated.length, 1);
   assert.equal(escalated[0].thresholdDays, 10);
+});
+
+// evaluateRecrawlAging / computeRecrawlAgingTable: mismos datos que
+// findEscalations, pero para el "Recrawl aging" del Step Summary — una
+// fila por URL aplicable, esté o no todavía pendiente.
+
+test('evaluateRecrawlAging: pendiente y todavía dentro del umbral: informa días restantes', () => {
+  const aging = evaluateRecrawlAging(entry(), pendingResult, { now: nowAtDays(20) });
+  assert.equal(aging.pending, true);
+  assert.equal(aging.escalated, false);
+  assert.equal(aging.daysSinceFixed, 20);
+  assert.equal(aging.thresholdDays, 30);
+  assert.equal(aging.daysRemaining, 10);
+});
+
+test('evaluateRecrawlAging: pendiente y ya superó el umbral: escalado, 0 días restantes', () => {
+  const aging = evaluateRecrawlAging(entry(), pendingResult, { now: nowAtDays(40) });
+  assert.equal(aging.pending, true);
+  assert.equal(aging.escalated, true);
+  assert.equal(aging.daysSinceFixed, 40);
+  assert.equal(aging.daysRemaining, 0);
+});
+
+test('evaluateRecrawlAging: ya resuelto (googleCanonical coincide): sin días restantes', () => {
+  const aging = evaluateRecrawlAging(entry(), okResult, { now: nowAtDays(40) });
+  assert.equal(aging.pending, false);
+  assert.equal(aging.escalated, false);
+  assert.equal(aging.daysRemaining, null);
+});
+
+test('evaluateRecrawlAging: URL sin canonicalFixedAt no aplica, devuelve null', () => {
+  const noFixedEntry = entry({ canonicalFixedAt: undefined, expectedCanonical: null });
+  assert.equal(evaluateRecrawlAging(noFixedEntry, null, { now: nowAtDays(40) }), null);
+});
+
+test('evaluateRecrawlAging: respeta recrawlEscalationDays por URL', () => {
+  const shortThreshold = entry({ recrawlEscalationDays: 5 });
+  const aging = evaluateRecrawlAging(shortThreshold, pendingResult, { now: nowAtDays(5) });
+  assert.equal(aging.thresholdDays, 5);
+  assert.equal(aging.escalated, true);
+  assert.equal(aging.daysRemaining, 0);
+});
+
+test('computeRecrawlAgingTable: una fila por URL aplicable, deja afuera las que no tienen canonicalFixedAt', () => {
+  const results = new Map([
+    ['demos-savori', pendingResult],
+    ['presupuesto', okResult],
+  ]);
+  const urls = [
+    entry({ id: 'demos-savori' }),
+    entry({ id: 'presupuesto' }),
+    entry({ id: 'electric-side', canonicalFixedAt: undefined, expectedCanonical: null, canonicalCheck: false }),
+  ];
+  const rows = computeRecrawlAgingTable(urls, results, { now: nowAtDays(20) });
+  assert.deepEqual(rows.map((r) => r.id), ['demos-savori', 'presupuesto']);
+  assert.equal(rows[0].pending, true);
+  assert.equal(rows[1].pending, false);
 });

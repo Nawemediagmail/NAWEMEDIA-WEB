@@ -13,7 +13,7 @@ import { checkRobotsAndSitemap } from './lib/robotsSitemap.mjs';
 import { inspectUrl, evaluateGscResult } from './lib/gsc.mjs';
 import { findForgottenUrls } from './lib/coverage.mjs';
 import { syncIssue } from './lib/issue.mjs';
-import { findEscalations } from './lib/recrawlEscalation.mjs';
+import { findEscalations, computeRecrawlAgingTable } from './lib/recrawlEscalation.mjs';
 import { syncRecrawlEscalationIssue } from './lib/recrawlEscalationIssue.mjs';
 import { renderStepSummary } from './lib/summary.mjs';
 
@@ -71,7 +71,8 @@ async function main() {
   }
 
   const url = runUrl();
-  const summary = renderStepSummary({ findings, runUrl: url });
+  const recrawlAging = accessToken ? computeRecrawlAgingTable(config.urls, gscResultsById) : [];
+  const summary = renderStepSummary({ findings, runUrl: url, recrawlAging });
   console.log(summary);
   if (process.env.GITHUB_STEP_SUMMARY) {
     appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');

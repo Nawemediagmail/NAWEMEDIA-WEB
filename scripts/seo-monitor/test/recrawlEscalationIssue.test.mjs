@@ -87,6 +87,28 @@ test('no se confunde con el issue de regresiones (marker distinto): lo ignora y 
   assert.ok(create);
 });
 
+test('marker/title parametrizados (motor multi-sitio): produce un issue separado del marker por defecto', async () => {
+  const siteMarker = '<!-- seo-monitor:recrawl-escalation-issue:miculka-logistica -->';
+  const { fetchImpl, calls } = makeFetch({ existingIssues: [{ number: 55, body: `${MARKER}\n(issue del otro sitio, marker por defecto)` }] });
+  const result = await syncRecrawlEscalationIssue({
+    repo: REPO, token: 't', escalations: [escalation], runUrl: 'https://x', fetchImpl,
+    marker: siteMarker, title: 'seo-monitor: recrawl pendiente — Miculka Logística',
+  });
+  assert.equal(result.action, 'created');
+  assert.notEqual(result.number, 55);
+  const create = calls.find((c) => c.method === 'POST' && c.url.endsWith('/issues'));
+  assert.equal(create.body.title, 'seo-monitor: recrawl pendiente — Miculka Logística');
+  assert.match(create.body.body, /miculka-logistica/);
+});
+
+test('sin marker/title explícitos: usa los valores por defecto (comportamiento legacy de nawemedia.com)', async () => {
+  const { fetchImpl, calls } = makeFetch({ existingIssues: [] });
+  await syncRecrawlEscalationIssue({ repo: REPO, token: 't', escalations: [escalation], runUrl: 'https://x', fetchImpl });
+  const create = calls.find((c) => c.method === 'POST' && c.url.endsWith('/issues'));
+  assert.equal(create.body.title, 'seo-monitor: recrawl pendiente por más de 30 días');
+  assert.match(create.body.body, /<!-- seo-monitor:recrawl-escalation-issue -->/);
+});
+
 test('el body incluye URL, canonicals, coverageState, lastCrawlTime, canonicalFixedAt y días transcurridos', () => {
   const body = renderEscalationBody([escalation], 'https://x/run/1');
   assert.match(body, /https:\/\/www\.nawemedia\.com\/demos\/savori-pedidos-hub\.html/);

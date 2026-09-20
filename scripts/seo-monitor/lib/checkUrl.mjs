@@ -68,6 +68,32 @@ export async function checkUrlEntry(entry, siteUrl, { fetchImpl = fetch } = {}) 
     }
   }
 
+  // Headers de seguridad esperados (perfil private-app, pero disponible para
+  // cualquier entrada): se verifican sobre la respuesta final sin importar
+  // el status, porque headers como HSTS deben estar presentes incluso en un
+  // redirect de autenticación. Valor `true` = solo exigir que el header
+  // esté presente; string = valor exacto; array = uno de varios valores
+  // aceptables.
+  if (entry.expectedHeaders) {
+    for (const [name, expected] of Object.entries(entry.expectedHeaders)) {
+      const actual = result.finalHeaders.get(name);
+      const ok = expected === true ? actual !== null
+        : Array.isArray(expected) ? expected.includes(actual)
+        : actual === expected;
+      if (ok) {
+        findings.push({
+          id: entry.id, check: 'security-header', severity: 'ok',
+          message: `${entry.label}: header "${name}" correcto`,
+        });
+      } else {
+        findings.push({
+          id: entry.id, check: 'security-header', severity: 'fail',
+          message: `${entry.label}: header "${name}"="${actual ?? '(ausente)'}", esperado ${JSON.stringify(expected)}`,
+        });
+      }
+    }
+  }
+
   if (result.finalStatus === 200) {
     if (entry.canonicalCheck !== false && entry.expectedCanonical) {
       const canonical = extractCanonical(result.finalBody);

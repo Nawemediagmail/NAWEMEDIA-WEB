@@ -59,3 +59,25 @@ test('sitemap.xml con status distinto de 200: fail', async () => {
   const fails = findings.filter((f) => f.severity === 'fail' && f.check === 'sitemap');
   assert.equal(fails.length, 1);
 });
+
+// Perfil private-app (ej. ops.nawemedia.com): sin sitemap declarado — el
+// check de sitemap se omite por completo, solo se valida robots.txt.
+
+test('sitio sin config.sitemap (perfil private-app): no chequea sitemap, solo robots.txt', async () => {
+  const privateAppConfig = {
+    robotsTxt: { path: '/robots.txt', expectedFinalStatus: 200, mustDisallow: ['/'] },
+  };
+  let sitemapRequested = false;
+  const fetchImpl = async (url) => {
+    if (String(url).endsWith('/sitemap.xml')) sitemapRequested = true;
+    return handlers[String(url)]();
+  };
+  const handlers = {
+    [`${SITE}/robots.txt`]: () => new Response('User-Agent: *\nDisallow: /', { status: 200 }),
+  };
+  const findings = await checkRobotsAndSitemap(privateAppConfig, SITE, { fetchImpl });
+  assert.equal(sitemapRequested, false);
+  assert.equal(findings.filter((f) => f.severity === 'fail').length, 0);
+  assert.ok(!findings.some((f) => f.check === 'sitemap'));
+  assert.ok(findings.some((f) => f.check === 'robots-txt' && f.severity === 'ok'));
+});

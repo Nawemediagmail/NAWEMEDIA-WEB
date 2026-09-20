@@ -59,3 +59,53 @@ export function renderSitesSummary(sites, { error, gscSiteUrl } = {}) {
 
   return lines.join('\n');
 }
+
+// Versión multi-sitio: una sola llamada a sites.list (una identidad ve la
+// misma lista sin importar cuántos sitios configurados se estén
+// comparando), pero muestra contra cuál(es) sitio(s) declarado(s) coincide
+// cada fila, y avisa por separado si el gscSiteUrl de algún sitio
+// public-seo no aparece en la lista. Los sitios private-app no tienen
+// gscSiteUrl — quedan afuera de la comparación, nunca se los trata como
+// sitio SEO público acá tampoco.
+export function renderMultiSiteSummary(sites, configuredSites, { error } = {}) {
+  const lines = ['## SEO monitor — preflight Search Console (sites.list)', ''];
+
+  if (error) {
+    lines.push(`🔴 No se pudo listar los sitios accesibles: ${error}`, '');
+    return lines.join('\n');
+  }
+
+  const publicSeoSites = configuredSites.filter((s) => s.gscSiteUrl);
+
+  if (sites.length === 0) {
+    lines.push(
+      '🔴 La identidad autenticada no tiene acceso a ninguna propiedad de Search Console ' +
+      '(sites.list devolvió una lista vacía). El service account no está agregado como ' +
+      'usuario en ninguna propiedad, o está agregado en una cuenta de Search Console distinta.',
+      '',
+    );
+    return lines.join('\n');
+  }
+
+  lines.push(
+    '| siteUrl | permissionLevel | coincide con |',
+    '|---|---|---|',
+  );
+  for (const s of sites) {
+    const matches = publicSeoSites.filter((cfg) => cfg.gscSiteUrl === s.siteUrl).map((cfg) => cfg.id);
+    lines.push(`| \`${s.siteUrl}\` | \`${s.permissionLevel}\` | ${matches.length ? matches.join(', ') : ''} |`);
+  }
+  lines.push('');
+
+  for (const cfg of publicSeoSites) {
+    if (!sites.some((s) => s.siteUrl === cfg.gscSiteUrl)) {
+      lines.push(
+        `🔴 \`${cfg.gscSiteUrl}\` (\`gscSiteUrl\` del sitio \`${cfg.id}\`) no aparece en la tabla de arriba ` +
+        '— causa más probable de un 403 de la URL Inspection API para ese sitio.',
+        '',
+      );
+    }
+  }
+
+  return lines.join('\n');
+}

@@ -1,6 +1,10 @@
 {
-  "siteUrl": "https://www.nawemedia.com",
+  "id": "nawemedia-com",
+  "label": "NAWEMEDIA (www.nawemedia.com)",
+  "profile": "public-seo",
+  "baseUrl": "https://www.nawemedia.com",
   "gscSiteUrl": "https://www.nawemedia.com/",
+  "localCoverageDir": "sitio",
   "urls": [
     {
       "id": "home",

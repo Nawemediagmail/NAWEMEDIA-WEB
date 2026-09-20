@@ -1,0 +1,31 @@
+{
+  "id": "miculka-logistica",
+  "label": "Miculka Logística (miculkalogisticasrl.com)",
+  "profile": "public-seo",
+  "baseUrl": "https://www.miculkalogisticasrl.com",
+  "gscSiteUrl": "https://www.miculkalogisticasrl.com/",
+  "urls": [
+    {
+      "id": "home",
+      "label": "Home",
+      "path": "/",
+      "expectedFinalStatus": 200,
+      "expectedCanonical": "https://www.miculkalogisticasrl.com/",
+      "expectedRobotsMeta": null,
+      "notes": "Único registro real verificado en vivo al agregar este sitio (2026-09-20): HTTP 200 en bare domain y www, <link rel=canonical> apunta a www, sin meta robots. No se declaró canonicalFixedAt: no hay commit de referencia real para una corrección de canonical en este sitio (a diferencia de nawemedia.com), agregarlo sería inventar un dato."
+    }
+  ],
+  "robotsTxt": {
+    "path": "/robots.txt",
+    "expectedFinalStatus": 200,
+    "mustDisallow": [],
+    "mustContainSitemap": "https://www.miculkalogisticasrl.com/sitemap.xml"
+  },
+  "sitemap": {
+    "path": "/sitemap.xml",
+    "expectedFinalStatus": 200,
+    "mustContainUrls": [
+      "https://www.miculkalogisticasrl.com/"
+    ]
+  }
+}

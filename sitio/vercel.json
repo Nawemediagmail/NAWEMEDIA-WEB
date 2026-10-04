@@ -26,6 +26,11 @@
       "permanent": true
     },
     {
+      "source": "/naweldj",
+      "destination": "/naweldj/",
+      "permanent": true
+    },
+    {
       "source": "/p/electric-side",
       "destination": "/p/electric-side/",
       "permanent": true
@@ -80,6 +85,14 @@
     {
       "source": "/virginiasoledispa/:path*",
       "destination": "https://nawemedia-epks.vercel.app/djs/DJ%20VIRGINIA%20SOLEDISPA%20EPK_V02/:path*"
+    },
+    {
+      "source": "/naweldj/",
+      "destination": "https://nawemedia-epks.vercel.app/djs/naweldj/index.html"
+    },
+    {
+      "source": "/naweldj/:path*",
+      "destination": "https://nawemedia-epks.vercel.app/djs/naweldj/:path*"
     }
   ]
 }

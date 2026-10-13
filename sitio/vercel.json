@@ -59,6 +59,11 @@
       "source": "/admin-facturas",
       "destination": "/admin-facturas/",
       "permanent": true
+    },
+    {
+      "source": "/modelo369",
+      "destination": "/modelo369/",
+      "permanent": true
     }
   ],
   "rewrites": [

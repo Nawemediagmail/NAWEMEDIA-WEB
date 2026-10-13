@@ -35,6 +35,15 @@
       "expectedRobotsMeta": null
     },
     {
+      "id": "modelo369",
+      "label": "Modelo 3-6-9",
+      "path": "/modelo369/",
+      "expectedFinalStatus": 200,
+      "expectedCanonical": "https://www.nawemedia.com/modelo369/",
+      "canonicalFixedAt": "2026-10-13T03:06:01Z",
+      "expectedRobotsMeta": null
+    },
+    {
       "id": "case-study-miculka",
       "label": "Case Study Miculka",
       "path": "/case-study/miculka/",

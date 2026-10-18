@@ -417,6 +417,17 @@
     const fmtUsd = (n) => 'u$s ' + n;
     const fmtArs = (n) => '≈ $' + new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 }).format(n) + ' ARS';
 
+    const track = (eventName, params) => {
+      if (typeof gtag === 'function') gtag('event', eventName, params);
+    };
+
+    const cbToItem = (cb) => ({
+      item_id: cb.getAttribute('data-key'),
+      item_name: cb.closest('.service-card').querySelector('.service-title').textContent.trim(),
+      price: parseInt(cb.getAttribute('data-price'), 10),
+      quantity: 1,
+    });
+
     const getRate = () => {
       const v = parseFloat(rateInput.value);
       return (isFinite(v) && v > 0) ? v : 1514;
@@ -449,6 +460,13 @@
     checkboxes.forEach((cb) => cb.addEventListener('change', () => {
       calculateTotal();
       statusMsg.textContent = '';
+      const item = cbToItem(cb);
+      track(cb.checked ? 'add_to_cart' : 'remove_from_cart', {
+        currency: 'USD',
+        value: item.price,
+        items: [item],
+        page_client: 'DJ Yemix — Torera',
+      });
     }));
 
     rateInput.addEventListener('input', () => {
@@ -472,6 +490,15 @@
       }).join('') + `<div class="pay-summary-total"><span>Total</span><span>${fmtUsd(totalUsd)} · ${fmtArs(totalUsd * rate)}</span></div>`;
 
       modal.classList.add('active');
+
+      track('begin_checkout', {
+        currency: 'USD',
+        value: totalUsd,
+        items: selected.map(cbToItem),
+        exchange_rate_ars: rate,
+        value_ars: totalUsd * rate,
+        page_client: 'DJ Yemix — Torera',
+      });
     });
 
     modalClose.addEventListener('click', () => modal.classList.remove('active'));
@@ -486,6 +513,14 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(bankAlias).then(done).catch(() => {});
       }
+      const { totalUsd, rate } = calculateTotal();
+      track('add_payment_info', {
+        currency: 'USD',
+        value: totalUsd,
+        items: Array.from(checkboxes).filter((cb) => cb.checked).map(cbToItem),
+        exchange_rate_ars: rate,
+        page_client: 'DJ Yemix — Torera',
+      });
     });
 
     updateArsPerCard();

@@ -41,6 +41,11 @@
       "permanent": true
     },
     {
+      "source": "/p/YEMIX_BRUJA",
+      "destination": "/p/YEMIX_BRUJA/",
+      "permanent": true
+    },
+    {
       "source": "/lombardi",
       "destination": "/lombardi/",
       "permanent": true

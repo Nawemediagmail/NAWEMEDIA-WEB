@@ -74,6 +74,11 @@
       "source": "/p/by_mango",
       "destination": "/p/by_mango/",
       "permanent": true
+    },
+    {
+      "source": "/privacidad",
+      "destination": "/privacidad/",
+      "permanent": true
     }
   ],
   "rewrites": [

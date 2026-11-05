@@ -69,9 +69,18 @@
       "source": "/modelo369",
       "destination": "/modelo369/",
       "permanent": true
+    },
+    {
+      "source": "/p/by_mango",
+      "destination": "/p/by_mango/",
+      "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/bymango-intake",
+      "destination": "https://ops.nawemedia.com/api/intake/bymango"
+    },
     {
       "source": "/electric-side/:path*",
       "destination": "/api/protect-electric-side/:path*"

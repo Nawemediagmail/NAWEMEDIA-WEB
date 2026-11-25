@@ -79,6 +79,16 @@
       "source": "/privacidad",
       "destination": "/privacidad/",
       "permanent": true
+    },
+    {
+      "source": "/electronic-press-kit",
+      "destination": "/electronic-press-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/Electronik_Press_kit",
+      "destination": "/electronic-press-kit/",
+      "permanent": true
     }
   ],
   "rewrites": [

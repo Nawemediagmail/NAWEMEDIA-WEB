@@ -44,6 +44,15 @@
       "expectedRobotsMeta": null
     },
     {
+      "id": "electronic-press-kit",
+      "label": "Electronic Press Kit (descripción + galería + checkout)",
+      "path": "/electronic-press-kit/",
+      "expectedFinalStatus": 200,
+      "expectedCanonical": "https://www.nawemedia.com/electronic-press-kit/",
+      "canonicalFixedAt": "2026-11-25T14:53:03Z",
+      "expectedRobotsMeta": null
+    },
+    {
       "id": "case-study-miculka",
       "label": "Case Study Miculka",
       "path": "/case-study/miculka/",
